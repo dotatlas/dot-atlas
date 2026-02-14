@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 93%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 93%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 93%;
+    --primary: 0 72% 51%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 85%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 55%;
+    --accent: 0 72% 51%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 72% 51%;
+    --chart-1: 0 72% 51%;
+    --chart-2: 0 0% 40%;
+    --chart-3: 0 50% 35%;
+    --chart-4: 0 0% 60%;
+    --chart-5: 0 60% 45%;
+    --radius: 0.75rem;
+    --glow: 0 72% 51%;
+    --sidebar-background: 0 0% 8%;
+    --sidebar-foreground: 0 0% 93%;
+    --sidebar-primary: 0 72% 51%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 0 0% 93%;
+    --sidebar-border: 0 0% 16%;
+    --sidebar-ring: 0 72% 51%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom scrollbar for horizontal galleries */
+.gallery-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+.gallery-scroll::-webkit-scrollbar-track {
+  background: hsl(0 0% 8%);
+  border-radius: 3px;
+}
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: hsl(0 72% 51% / 0.4);
+  border-radius: 3px;
+}
+.gallery-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 72% 51% / 0.6);
+}
+
+/* Glassmorphism utility */
+.glass {
+  background: hsl(0 0% 8% / 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsl(0 0% 100% / 0.06);
+}
+
+.glass-hover:hover {
+  background: hsl(0 0% 10% / 0.7);
+  border-color: hsl(0 72% 51% / 0.3);
+  box-shadow: 0 0 20px hsl(0 72% 51% / 0.1), 0 0 40px hsl(0 72% 51% / 0.05);
+}
+
+/* Red glow effect */
+.red-glow {
+  box-shadow: 0 0 15px hsl(0 72% 51% / 0.15), 0 0 30px hsl(0 72% 51% / 0.08), 0 4px 20px hsl(0 0% 0% / 0.3);
+}
+
+.red-glow-strong {
+  box-shadow: 0 0 20px hsl(0 72% 51% / 0.25), 0 0 50px hsl(0 72% 51% / 0.12), 0 8px 32px hsl(0 0% 0% / 0.4);
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Staggered float */
+.animate-float-delay-1 { animation-delay: 0s; }
+.animate-float-delay-2 { animation-delay: 1s; }
+.animate-float-delay-3 { animation-delay: 2s; }
+.animate-float-delay-4 { animation-delay: 3s; }
+
+/* Modal animations */
+@keyframes modal-backdrop-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes modal-content-in {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-backdrop-enter {
+  animation: modal-backdrop-in 0.3s ease-out forwards;
+}
+.modal-content-enter {
+  animation: modal-content-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.w-\[70\%\] {
+  width: 60%;
+}
