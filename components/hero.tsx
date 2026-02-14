@@ -54,7 +54,7 @@ export function Hero() {
 
         <div className="mt-8 flex items-center justify-center gap-5">
           <a
-            href="https://github.com"
+            href="https://github.com/dotatlas"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
