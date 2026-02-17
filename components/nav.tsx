@@ -34,7 +34,7 @@ export function Nav() {
           href="#about"
           className="font-mono text-lg font-bold tracking-tight text-foreground transition-colors hover:text-primary"
         >
-          {"<JE />"}
+          {".atlas"}
         </a>
 
         {/* Desktop links */}

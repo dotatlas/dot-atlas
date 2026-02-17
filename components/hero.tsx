@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ChevronDown, Github, Linkedin, Mail } from "lucide-react"
+import { ChevronDown, Github, Linkedin, Mail, FileText } from "lucide-react"
 
 export function Hero() {
   const [visible, setVisible] = useState(false)
@@ -77,6 +77,16 @@ export function Hero() {
             className="text-muted-foreground transition-colors duration-300 hover:text-primary"
           >
             <Mail size={20} />
+          </a>
+          {/* resume */}
+          <a
+            href="/Joshua_Evenden-Wallick_resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Resume"
+            className="text-muted-foreground transition-colors duration-300 hover:text-primary"
+          >
+            <FileText size={20} />
           </a>
         </div>
       </div>

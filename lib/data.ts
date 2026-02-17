@@ -2,6 +2,18 @@ import type { GalleryItem } from "@/components/gallery-card"
 
 export const experienceItems: GalleryItem[] = [
   {
+    id: "exp-0",
+    title: "Software Engineering Intern",
+    subtitle: "Home Depot",
+    period: "Summer 2026",
+    tags: ["TBD"],
+    description:
+      "Upcoming.",
+    details: [
+      "",
+    ],
+  },
+  {
     id: "exp-1",
     title: "Software Engineering Intern",
     subtitle: "Lockheed Martin",
@@ -41,6 +53,23 @@ export const experienceItems: GalleryItem[] = [
       "Engineered a secure .NET licensing module to transition the proprietary 3D CAD software to a monthly subscription model, deploying it on internal servers to manage 20+ client licenses.",
       "Optimized the C#/.NET 3D graphical engine for the company's proprietary CAD software, developing a diagnostic tool to reduce rendering latency by 40% for large-scale models.",
     ],
+    link: "http://finfrocktech.com/xceleraytor/",
+    linkDesc: "Visit what I contributed to!"
+  },
+  {
+    id: "exp-4",
+    title: "Tool Rental Technician",
+    subtitle: "Home Depot",
+    period: "Feb 2024 - Present",
+    tags: ["Troubleshooting", "Problem Solving", "Communication"],
+    description:
+      "Provided hands-on support in tool rental operations, focusing on repair and diagnostics to ensure customer satisfaction and equipment reliability.",
+    details: [
+      "Diagnosed and repaired a variety of rental tools and equipment, ensuring they met safety and operational standards, which enhanced customer trust and satisfaction.",
+      "Collaborated with customers to understand their tool needs, providing expert advice and recommendations, which improved customer experience and retention.",
+      "Maintained accurate records of tool repairs and rentals, contributing to inventory management and operational efficiency, which streamlined the rental process.",
+      "Trained new staff on tool operation and safety protocols, fostering a culture of safety and knowledge sharing within the team.",
+    ],
   },
 ]
 
@@ -49,7 +78,7 @@ export const projectItems: GalleryItem[] = [
     id: "proj-1",
     title: "Volunteer Hub",
     subtitle: "Full-stack event management platform",
-    period: "Jul 2023 - Jun 2024",
+    period: "Self-led Project",
     tags: ["TypeScript", "Next.js", "React", "Firebase"],
     description:
       "A full-stack event platform for 150+ concurrent users with automated registration and role-based access control.",
@@ -64,7 +93,7 @@ export const projectItems: GalleryItem[] = [
     id: "proj-2",
     title: "PEP 25 - Robotics Club",
     subtitle: "Autonomous robot diagnostics & navigation",
-    period: "Aug 2024 - Apr 2025",
+    period: "Software Team",
     tags: ["Linux", "Python", "Embedded", "IoT"],
     description:
       "Real-time diagnostics platform and autonomous navigation system for the Robotics Club of Central Florida.",
@@ -78,7 +107,7 @@ export const projectItems: GalleryItem[] = [
     id: "proj-3",
     title: "FIRST Robotics President",
     subtitle: "AI-powered robotics & team leadership",
-    period: "3-Year Tenure",
+    period: "3-Year President & Software Mentor",
     tags: ["Java", "TensorFlow Lite", "AI/ML", "Agile"],
     description:
       "Led a 20-member software team delivering AI-driven competition robots, from TensorFlow Lite object detection to a modular Java developer platform.",

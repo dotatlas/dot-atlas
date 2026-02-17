@@ -34,8 +34,8 @@ export function Education() {
           }`}
         >
           <div className="flex flex-col gap-6 md:flex-row md:items-start md:gap-8">
-            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-              <Landmark size={28} />
+            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-primary/10">
+              <img src="ucf.png" alt="UCF" className="h-8 w-8" />
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-2">
