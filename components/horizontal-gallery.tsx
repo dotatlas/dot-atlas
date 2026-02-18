@@ -59,7 +59,10 @@ export function HorizontalGallery({ title, id, items }: HorizontalGalleryProps) 
         <div
           ref={scrollRef}
           className="gallery-scroll -mx-4 flex gap-6 overflow-x-auto px-4 pt-4 pb-6"
-          style={{ scrollSnapType: "x mandatory" }}
+          style={{
+            scrollSnapType: "x mandatory",
+            scrollPaddingInline: "1rem",
+          }}
         >
           {items.map((item, i) => (
             <div key={item.id} style={{ scrollSnapAlign: "start" }}>

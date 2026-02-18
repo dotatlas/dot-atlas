@@ -58,7 +58,7 @@ export function GalleryCard({
       {/* Card in gallery */}
       <button
         onClick={onExpand}
-        className="group relative flex-shrink-0 w-[320px] md:w-[360px] cursor-pointer rounded-2xl glass glass-hover red-glow p-6 text-left transition-all duration-500 animate-float"
+        className="group relative flex-shrink-0 w-[320px] md:w-[360px] 2xl:w-[385px] cursor-pointer rounded-2xl glass glass-hover red-glow p-6 text-left transition-all duration-500 animate-float"
         style={{ animationDelay: `${(index % 4) * 1}s` }}
         aria-label={`View details for ${item.title}`}
       >
@@ -76,7 +76,7 @@ export function GalleryCard({
           {item.logo && (
             <img src={`/images/${item.subtitle.trim().replace(/\s+/g, '')}.png`} alt={`${item.subtitle} logo`} className="h-6 rounded-xs" />
           )}
-          <p className="mt-1 text-sm text-muted-foreground">{item.subtitle}</p>
+          <p className="text-sm text-muted-foreground">{item.subtitle}</p>
         </div>
 
         <div className="mt-4 flex flex-wrap gap-2">

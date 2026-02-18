@@ -20,7 +20,7 @@ export function Education() {
 
   return (
     <section id="education" ref={sectionRef} className="py-20 md:py-28">
-      <div className="mx-auto w-[70%]">
+      <div className="mx-auto md:w-[65%] w-[85%]">
         <span className="font-mono text-xs uppercase tracking-widest text-primary">
           04 /{" "}
         </span>
