@@ -19,14 +19,19 @@ export function Education() {
   }, [])
 
   return (
-    <section id="education" ref={sectionRef} className="py-16 md:py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-          Education
-        </h2>
+    <section id="education" ref={sectionRef} className="py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Section header */}
+        <div className="mb-12 flex items-center gap-4">
+          <span className="font-mono text-sm text-primary">04 /</span>
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+            Education
+          </h2>
+          <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+        </div>
 
         <div
-          className={`mt-8 rounded-2xl border border-border bg-card p-8 transition-all duration-700 ${
+          className={`glass red-glow rounded-2xl p-8 transition-all duration-700 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >

@@ -27,17 +27,23 @@ export function Contact() {
   }, [])
 
   return (
-    <section id="contact" ref={sectionRef} className="py-16 md:py-24">
-      <div className="mx-auto max-w-5xl px-6">
+    <section id="contact" ref={sectionRef} className="py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Section header */}
+        <div className="mb-12 flex items-center gap-4">
+          <span className="font-mono text-sm text-primary">05 /</span>
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+            Get in Touch
+          </h2>
+          <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+        </div>
+
         <div
           className={`mx-auto max-w-xl text-center transition-all duration-700 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
-          <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-            Get in Touch
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+          <p className="text-sm leading-relaxed text-muted-foreground">
             {"I'm always open to discussing new opportunities, interesting projects, or just chatting about tech. Feel free to reach out!"}
           </p>
 
@@ -48,7 +54,7 @@ export function Contact() {
                 href={href}
                 target={href.startsWith("http") ? "_blank" : href.endsWith(".pdf") ? "_blank" : undefined}
                 rel={href.startsWith("http") || href.endsWith(".pdf") ? "noopener noreferrer" : undefined}
-                className="inline-flex items-center gap-2 rounded-2xl border border-border bg-card px-5 py-3 text-sm text-muted-foreground transition-all duration-300 hover:border-primary/25 hover:text-foreground hover:-translate-y-0.5"
+                className="glass glass-hover inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm text-muted-foreground transition-all duration-300 hover:text-primary"
               >
                 <Icon size={16} />
                 {label}

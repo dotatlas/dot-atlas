@@ -25,14 +25,14 @@ export function Nav() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/90 backdrop-blur-sm border-b border-border/50 py-3"
+          ? "glass red-glow py-3"
           : "bg-transparent py-5"
       }`}
     >
-      <div className="mx-auto flex max-w-5xl items-center justify-between px-6">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
         <a
           href="#about"
-          className="text-lg font-semibold tracking-tight text-foreground transition-colors hover:text-primary"
+          className="font-mono text-lg font-bold tracking-tight text-foreground transition-colors hover:text-primary"
         >
           {".atlas"}
         </a>
@@ -43,7 +43,7 @@ export function Nav() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                className="text-sm text-muted-foreground transition-colors duration-300 hover:text-primary"
               >
                 {link.label}
               </a>
@@ -63,14 +63,14 @@ export function Nav() {
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <div className="mt-2 mx-4 rounded-2xl bg-card border border-border p-4 md:hidden">
+        <div className="mt-2 mx-4 rounded-xl glass red-glow p-4 md:hidden">
           <ul className="flex flex-col gap-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="block text-sm text-muted-foreground transition-colors hover:text-primary"
                 >
                   {link.label}
                 </a>

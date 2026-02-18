@@ -6,10 +6,11 @@ import { GalleryCard, type GalleryItem } from "./gallery-card"
 interface BentoGridProps {
   title: string
   id: string
+  sectionNumber: string
   items: GalleryItem[]
 }
 
-export function BentoGrid({ title, id, items }: BentoGridProps) {
+export function BentoGrid({ title, id, sectionNumber, items }: BentoGridProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const sectionRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
@@ -26,20 +27,26 @@ export function BentoGrid({ title, id, items }: BentoGridProps) {
   }, [])
 
   return (
-    <section id={id} ref={sectionRef} className="py-16 md:py-24">
-      <div className="mx-auto max-w-5xl px-6">
-        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
-          {title}
-        </h2>
+    <section id={id} ref={sectionRef} className="py-24 md:py-32">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Section header with number and gradient line */}
+        <div className="mb-12 flex items-center gap-4">
+          <span className="font-mono text-sm text-primary">{sectionNumber} /</span>
+          <h2 className="text-3xl font-bold text-foreground md:text-4xl">
+            {title}
+          </h2>
+          <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+        </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Responsive grid: 1 col mobile, 2 col tablet, 3 col desktop */}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item, i) => (
             <div
               key={item.id}
               className={`${
                 i === 0 ? "sm:col-span-2 lg:col-span-2" : ""
               } ${visible ? "animate-fade-up" : "opacity-0"}`}
-              style={{ animationDelay: visible ? `${i * 80}ms` : "0ms" }}
+              style={{ animationDelay: visible ? `${i * 100}ms` : "0ms" }}
             >
               <GalleryCard
                 item={item}

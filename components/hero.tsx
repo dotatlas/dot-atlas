@@ -23,12 +23,15 @@ export function Hero() {
       >
         <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl">
           Hi, I{"'"}m{" "}
-          <span className="text-primary">
+          <span
+            className="text-primary"
+            style={{ textShadow: "0 0 40px hsl(0 72% 51% / 0.3)" }}
+          >
             Joshua Evenden-Wallick
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-lg text-pretty text-base leading-relaxed text-muted-foreground md:text-lg">
+        <p className="mx-auto mt-6 max-w-lg text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
           Find me building web applications, embedded systems, and enterprise software. Pursuing a B.S. in
           Computer Engineering w/ a focus on Software Development at the University of Central Florida. I also wakeboard in my freetime as well as 3D printing & collecting vinyls :)
         </p>
@@ -36,13 +39,13 @@ export function Hero() {
         <div className="mt-10 flex items-center justify-center gap-4">
           <a
             href="#contact"
-            className="inline-flex items-center gap-2 rounded-2xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90"
+            className="red-glow inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
           >
             Get in Touch
           </a>
           <a
             href="#projects"
-            className="inline-flex items-center gap-2 rounded-2xl border border-border px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:border-primary/30 hover:text-primary"
+            className="glass glass-hover inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-foreground transition-all duration-300"
           >
             View Work
           </a>
@@ -54,7 +57,7 @@ export function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            className="text-muted-foreground transition-colors duration-300 hover:text-primary"
           >
             <Github size={20} />
           </a>
@@ -63,14 +66,14 @@ export function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            className="text-muted-foreground transition-colors duration-300 hover:text-primary"
           >
             <Linkedin size={20} />
           </a>
           <a
             href="mailto:jewallick@pm.me"
             aria-label="Email"
-            className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            className="text-muted-foreground transition-colors duration-300 hover:text-primary"
           >
             <Mail size={20} />
           </a>
@@ -79,7 +82,7 @@ export function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Resume"
-            className="text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            className="text-muted-foreground transition-colors duration-300 hover:text-primary"
           >
             <FileText size={20} />
           </a>
@@ -90,7 +93,7 @@ export function Hero() {
       <a
         href="#experience"
         aria-label="Scroll down"
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground transition-colors hover:text-foreground"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground transition-colors hover:text-primary"
       >
         <ChevronDown size={24} />
       </a>

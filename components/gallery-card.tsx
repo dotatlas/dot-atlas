@@ -24,8 +24,15 @@ interface GalleryCardProps {
   onCollapse: () => void
 }
 
+const floatClasses = [
+  "animate-float",
+  "animate-float-delay-1",
+  "animate-float-delay-2",
+]
+
 export function GalleryCard({
   item,
+  index,
   isExpanded,
   onExpand,
   onCollapse,
@@ -54,13 +61,13 @@ export function GalleryCard({
 
   return (
     <>
-      {/* Bento card */}
+      {/* Grid card */}
       <button
         onClick={onExpand}
-        className="group relative h-full w-full cursor-pointer rounded-2xl border border-border bg-card p-6 text-left card-hover"
+        className={`group relative h-full w-full cursor-pointer rounded-2xl glass glass-hover red-glow p-6 text-left transition-all duration-300 ${floatClasses[index % 3]}`}
         aria-label={`View details for ${item.title}`}
       >
-        <p className="text-xs text-muted-foreground">{item.period}</p>
+        <p className="font-mono text-xs text-muted-foreground">{item.period}</p>
 
         <h3 className="mt-2 text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
           {item.title}
@@ -69,7 +76,7 @@ export function GalleryCard({
         <div className="flex items-center gap-2 mt-1.5">
           {item.logo && (
             <img
-              src={`/images/${item.subtitle.trim().replace(/\s+/g, '')}.png`}
+              src={`/images/${item.subtitle.trim().replace(/\s+/g, "")}.png`}
               alt={`${item.subtitle} logo`}
               className="h-5 rounded-xs"
             />
@@ -81,13 +88,13 @@ export function GalleryCard({
           {item.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
-              className="rounded-lg bg-secondary px-2.5 py-1 text-xs text-secondary-foreground"
+              className="rounded-lg bg-primary/10 px-2.5 py-1 text-xs text-primary/80"
             >
               {tag}
             </span>
           ))}
           {item.tags.length > 3 && (
-            <span className="rounded-lg bg-secondary px-2.5 py-1 text-xs text-muted-foreground">
+            <span className="rounded-lg bg-secondary/60 px-2.5 py-1 text-xs text-muted-foreground">
               +{item.tags.length - 3}
             </span>
           )}
@@ -97,12 +104,12 @@ export function GalleryCard({
           {item.description}
         </p>
 
-        <span className="mt-4 inline-block text-xs text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="mt-4 inline-block font-mono text-xs text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           Click to expand
         </span>
       </button>
 
-      {/* Expanded modal */}
+      {/* Full-screen expanded modal */}
       {isExpanded && (
         <div
           ref={overlayRef}
@@ -118,16 +125,16 @@ export function GalleryCard({
           <div className="absolute inset-0 bg-background/80 backdrop-blur-sm modal-backdrop-enter" />
 
           {/* Modal content */}
-          <div className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-border bg-card p-8 shadow-2xl modal-content-enter">
+          <div className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl glass red-glow-strong p-8 shadow-2xl modal-content-enter">
             <button
               onClick={onCollapse}
-              className="absolute right-4 top-4 rounded-xl p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+              className="absolute right-4 top-4 rounded-xl p-2 text-muted-foreground transition-colors hover:bg-secondary/60 hover:text-foreground"
               aria-label="Close modal"
             >
               <X size={20} />
             </button>
 
-            <p className="text-sm text-muted-foreground">{item.period}</p>
+            <p className="font-mono text-sm text-muted-foreground">{item.period}</p>
             <h2 className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
               {item.title}
             </h2>
@@ -137,7 +144,7 @@ export function GalleryCard({
               {item.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="rounded-lg bg-secondary px-3 py-1 text-xs text-secondary-foreground"
+                  className="rounded-lg bg-primary/10 px-3 py-1 text-xs text-primary/80"
                 >
                   {tag}
                 </span>
@@ -162,7 +169,7 @@ export function GalleryCard({
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90"
+                className="red-glow mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
               >
                 {item.linkDesc || "View Project"} <ExternalLink size={14} />
               </a>

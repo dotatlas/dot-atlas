@@ -10,39 +10,39 @@
 
 @layer base {
   :root {
-    --background: 0 0% 7%;
+    --background: 0 0% 5%;
     --foreground: 0 0% 90%;
-    --card: 0 0% 10%;
+    --card: 0 0% 8%;
     --card-foreground: 0 0% 90%;
-    --popover: 0 0% 10%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 90%;
-    --primary: 0 65% 50%;
+    --primary: 0 72% 51%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 13%;
+    --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 80%;
-    --muted: 0 0% 13%;
-    --muted-foreground: 0 0% 52%;
-    --accent: 0 65% 50%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 0 72% 51%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 15%;
-    --input: 0 0% 15%;
-    --ring: 0 65% 50%;
-    --chart-1: 0 65% 50%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 0 72% 51%;
+    --chart-1: 0 72% 51%;
     --chart-2: 0 0% 40%;
     --chart-3: 0 50% 35%;
     --chart-4: 0 0% 60%;
     --chart-5: 0 60% 45%;
-    --radius: 0.75rem;
-    --sidebar-background: 0 0% 10%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 8%;
     --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 0 65% 50%;
+    --sidebar-primary: 0 72% 51%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent: 0 0% 12%;
     --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 0 0% 15%;
-    --sidebar-ring: 0 65% 50%;
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 0 72% 51%;
   }
 }
 
@@ -55,27 +55,70 @@
   }
 }
 
-/* Subtle grain texture overlay on body */
+/* Glassmorphism */
+.glass {
+  background: hsl(0 0% 8% / 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid hsl(0 0% 100% / 0.06);
+}
+.glass-hover {
+  transition: all 0.3s ease;
+}
+.glass-hover:hover {
+  background: hsl(0 0% 10% / 0.7);
+  border-color: hsl(0 72% 51% / 0.15);
+}
+
+/* Red glow */
+.red-glow {
+  box-shadow: 0 0 20px hsl(0 72% 51% / 0.15), 0 0 40px hsl(0 72% 51% / 0.05);
+}
+.red-glow-strong {
+  box-shadow: 0 0 30px hsl(0 72% 51% / 0.2), 0 0 60px hsl(0 72% 51% / 0.08);
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+.animate-float-delay-1 {
+  animation: float 6s ease-in-out 1s infinite;
+}
+.animate-float-delay-2 {
+  animation: float 6s ease-in-out 2s infinite;
+}
+
+/* Horizontal gallery scrollbar */
+.gallery-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.gallery-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.gallery-scroll::-webkit-scrollbar-thumb {
+  background: hsl(0 0% 20%);
+  border-radius: 999px;
+}
+.gallery-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(0 72% 51% / 0.5);
+}
+
+/* Grain texture */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  opacity: 0.045;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 128px 128px;
-}
-
-/* Soft card hover utility */
-.card-hover {
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card-hover:hover {
-  border-color: hsl(0 65% 50% / 0.25);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px hsl(0 0% 0% / 0.3);
 }
 
 /* Modal animations */
@@ -94,7 +137,7 @@ body::before {
   animation: modal-content-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Staggered fade-in for bento items */
+/* Staggered fade-in for grid items */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
