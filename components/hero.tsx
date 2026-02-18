@@ -25,14 +25,14 @@ export function Hero() {
           Computer Engineering Student
         </div> */}
 
-        <h1 className="text-balance text-5xl font-bold leading-tight tracking-tight text-foreground md:text-7xl">
+        <h1 className="text-balance text-4xl font-bold leading-tight tracking-tight text-foreground md:text-7xl">
           Hi, I{"'"}m{" "}
           <span className="text-primary" style={{ textShadow: "0 0 30px hsl(0 72% 51% / 0.4)" }}>
             Joshua Evenden-Wallick
           </span>
         </h1>
 
-        <p className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+        <p className="mx-auto mt-6 max-w-xl text-pretty text-sm leading-relaxed text-muted-foreground md:text-lg">
           Find me building web applications, embedded systems, and enterprise software. Pursuing a B.S. in
           Computer Engineering w/ a focus on Software Development at the University of Central Florida. I also wakeboard in my freetime as well as 3D printing & collecting vinyls :)
         </p>
