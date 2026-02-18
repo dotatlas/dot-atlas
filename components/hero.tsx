@@ -21,9 +21,9 @@ export function Hero() {
           visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
         }`}
       >
-        <div className="mb-6 inline-block rounded-full glass px-4 py-1.5 text-xs font-mono text-primary red-glow">
-          Computer Engineering Student &middot; Secret Clearance
-        </div>
+        {/* <div className="mb-6 inline-block rounded-full glass px-4 py-1.5 text-xs font-mono text-primary red-glow">
+          Computer Engineering Student
+        </div> */}
 
         <h1 className="text-balance text-5xl font-bold leading-tight tracking-tight text-foreground md:text-7xl">
           Hi, I{"'"}m{" "}
@@ -33,8 +33,8 @@ export function Hero() {
         </h1>
 
         <p className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
-          I build performant, scalable software across web applications, embedded systems, and enterprise solutions. Currently pursuing a B.S. in
-          Computer Engineering at the University of Central Florida while developing innovative systems at Lockheed Martin.
+          Find me building web applications, embedded systems, and enterprise software. Pursuing a B.S. in
+          Computer Engineering w/ a focus on Software Development at the University of Central Florida. I also wakeboard in my freetime as well as 3D printing & collecting vinyls :)
         </p>
 
         <div className="mt-8 flex items-center justify-center gap-4">

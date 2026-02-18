@@ -12,13 +12,14 @@ export const experienceItems: GalleryItem[] = [
     details: [
       "",
     ],
+    logo: true
   },
   {
     id: "exp-1",
     title: "Software Engineering Intern",
     subtitle: "Lockheed Martin",
     period: "Apr 2025 - Present",
-    tags: ["Python", "C", "Agile", "Telemetry"],
+    tags: ["Python", "C", "Systems Integration", "Telemetry"],
     description:
       "Architecting Python pipelines and engineering C flight software for missile systems in an Agile environment.",
     details: [
@@ -26,6 +27,7 @@ export const experienceItems: GalleryItem[] = [
       "Engineered C data transmission software into a missile flight computer codebase to align prototypes with validation and debugging requirements.",
       "Resolved software integration bottlenecks in an Agile environment to maintain delivery schedules for functional flight software.",
     ],
+    logo: true
   },
   {
     id: "exp-2",
@@ -39,6 +41,7 @@ export const experienceItems: GalleryItem[] = [
       "Engineered a scalable, microservice-based Java backend to manage data for 50+ users, designing and building RESTful API endpoints for a full-stack web application.",
       "Developed fault-tolerant C++ firmware for ESP32 microcontrollers, implementing object-oriented design principles for motor control and sensor processing, reducing battery power consumption by 12%.",
     ],
+    logo: true
   },
   {
     id: "exp-3",
@@ -54,14 +57,15 @@ export const experienceItems: GalleryItem[] = [
       "Optimized the C#/.NET 3D graphical engine for the company's proprietary CAD software, developing a diagnostic tool to reduce rendering latency by 40% for large-scale models.",
     ],
     link: "http://finfrocktech.com/xceleraytor/",
-    linkDesc: "Visit what I contributed to!"
+    linkDesc: "Visit what I contributed to!",
+    logo: true
   },
   {
     id: "exp-4",
     title: "Tool Rental Technician",
     subtitle: "Home Depot",
     period: "Feb 2024 - Present",
-    tags: ["Troubleshooting", "Problem Solving", "Communication"],
+    tags: ["Critical Thinking", "Problem Solving", "Communication"],
     description:
       "Provided hands-on support in tool rental operations, focusing on repair and diagnostics to ensure customer satisfaction and equipment reliability.",
     details: [
@@ -70,6 +74,7 @@ export const experienceItems: GalleryItem[] = [
       "Maintained accurate records of tool repairs and rentals, contributing to inventory management and operational efficiency, which streamlined the rental process.",
       "Trained new staff on tool operation and safety protocols, fostering a culture of safety and knowledge sharing within the team.",
     ],
+    logo: true
   },
 ]
 

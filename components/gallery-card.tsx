@@ -13,6 +13,7 @@ export interface GalleryItem {
   details: string[]
   link?: string
   linkDesc?: string
+  logo?: boolean
 }
 
 interface GalleryCardProps {
@@ -65,10 +66,18 @@ export function GalleryCard({
         <div className="mb-4 h-0.5 w-10 rounded-full bg-primary opacity-60" />
 
         <p className="font-mono text-xs text-primary">{item.period}</p>
+
         <h3 className="mt-2 text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
           {item.title}
         </h3>
-        <p className="mt-1 text-sm text-muted-foreground">{item.subtitle}</p>
+
+        {/* div wraps title & small company logo png */}
+        <div className="flex items-center gap-2 mt-2">
+          {item.logo && (
+            <img src={`/images/${item.subtitle.trim().replace(/\s+/g, '')}.png`} alt={`${item.subtitle} logo`} className="h-6 rounded-xs" />
+          )}
+          <p className="mt-1 text-sm text-muted-foreground">{item.subtitle}</p>
+        </div>
 
         <div className="mt-4 flex flex-wrap gap-2">
           {item.tags.slice(0, 3).map((tag) => (
