@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { GraduationCap, Award, Landmark } from "lucide-react"
+import { GraduationCap, Award } from "lucide-react"
 
 export function Education() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -19,17 +19,14 @@ export function Education() {
   }, [])
 
   return (
-    <section id="education" ref={sectionRef} className="py-20 md:py-28">
-      <div className="mx-auto md:w-[65%] w-[85%]">
-        <span className="font-mono text-xs uppercase tracking-widest text-primary">
-          04 /{" "}
-        </span>
-        <h2 className="mt-1 text-3xl font-bold text-foreground md:text-4xl">
+    <section id="education" ref={sectionRef} className="py-16 md:py-24">
+      <div className="mx-auto max-w-5xl px-6">
+        <h2 className="text-2xl font-semibold text-foreground md:text-3xl">
           Education
         </h2>
 
         <div
-          className={`mt-10 rounded-2xl glass red-glow p-8 transition-all duration-700 ${
+          className={`mt-8 rounded-2xl border border-border bg-card p-8 transition-all duration-700 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"
           }`}
         >
@@ -47,7 +44,7 @@ export function Education() {
               <p className="mt-1 text-sm text-muted-foreground">
                 University of Central Florida &middot; Expected May 2028
               </p>
-              <p className="mt-1 font-mono text-sm text-primary">GPA: 3.7 / 4.0</p>
+              <p className="mt-1 text-sm font-medium text-primary">GPA: 3.7 / 4.0</p>
 
               <div className="mt-6 flex flex-col gap-3">
                 <div className="flex items-start gap-3">

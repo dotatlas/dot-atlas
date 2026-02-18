@@ -26,7 +26,6 @@ interface GalleryCardProps {
 
 export function GalleryCard({
   item,
-  index,
   isExpanded,
   onExpand,
   onCollapse,
@@ -55,26 +54,25 @@ export function GalleryCard({
 
   return (
     <>
-      {/* Card in gallery */}
+      {/* Bento card */}
       <button
         onClick={onExpand}
-        className="group relative flex-shrink-0 w-[320px] md:w-[360px] 2xl:w-[385px] cursor-pointer rounded-2xl glass glass-hover red-glow p-6 text-left transition-all duration-500 animate-float"
-        style={{ animationDelay: `${(index % 4) * 1}s` }}
+        className="group relative h-full w-full cursor-pointer rounded-2xl border border-border bg-card p-6 text-left card-hover"
         aria-label={`View details for ${item.title}`}
       >
-        {/* Red accent line */}
-        <div className="mb-4 h-0.5 w-10 rounded-full bg-primary opacity-60" />
-
-        <p className="font-mono text-xs text-primary">{item.period}</p>
+        <p className="text-xs text-muted-foreground">{item.period}</p>
 
         <h3 className="mt-2 text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
           {item.title}
         </h3>
 
-        {/* div wraps title & small company logo png */}
-        <div className="flex items-center gap-2 mt-2">
+        <div className="flex items-center gap-2 mt-1.5">
           {item.logo && (
-            <img src={`/images/${item.subtitle.trim().replace(/\s+/g, '')}.png`} alt={`${item.subtitle} logo`} className="h-6 rounded-xs" />
+            <img
+              src={`/images/${item.subtitle.trim().replace(/\s+/g, '')}.png`}
+              alt={`${item.subtitle} logo`}
+              className="h-5 rounded-xs"
+            />
           )}
           <p className="text-sm text-muted-foreground">{item.subtitle}</p>
         </div>
@@ -99,13 +97,12 @@ export function GalleryCard({
           {item.description}
         </p>
 
-        {/* Bottom glow hint */}
-        <div className="mt-4 flex items-center gap-1 text-xs text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="mt-4 inline-block text-xs text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           Click to expand
-        </div>
+        </span>
       </button>
 
-      {/* Expanded modal overlay */}
+      {/* Expanded modal */}
       {isExpanded && (
         <div
           ref={overlayRef}
@@ -118,10 +115,10 @@ export function GalleryCard({
           aria-label={item.title}
         >
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-md modal-backdrop-enter" />
+          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm modal-backdrop-enter" />
 
           {/* Modal content */}
-          <div className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl glass red-glow-strong p-8 modal-content-enter">
+          <div className="relative z-10 w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-2xl border border-border bg-card p-8 shadow-2xl modal-content-enter">
             <button
               onClick={onCollapse}
               className="absolute right-4 top-4 rounded-xl p-2 text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
@@ -130,9 +127,7 @@ export function GalleryCard({
               <X size={20} />
             </button>
 
-            <div className="mb-4 h-0.5 w-12 rounded-full bg-primary" />
-
-            <p className="font-mono text-sm text-primary">{item.period}</p>
+            <p className="text-sm text-muted-foreground">{item.period}</p>
             <h2 className="mt-2 text-2xl font-bold text-foreground md:text-3xl">
               {item.title}
             </h2>
@@ -167,7 +162,7 @@ export function GalleryCard({
                 href={item.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-300 hover:scale-105 red-glow"
+                className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all duration-300 hover:bg-primary/90"
               >
                 {item.linkDesc || "View Project"} <ExternalLink size={14} />
               </a>
