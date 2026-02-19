@@ -3,7 +3,12 @@
 import { useEffect, useRef, useState } from "react"
 import Script from "next/script"
 import { Github, Linkedin, Mail, FileText, Phone } from "lucide-react"
-import { getProtectedEmail, getProtectedPhoneDisplay, getProtectedPhoneE164 } from "@/lib/contact-protection"
+import {
+  getProtectedEmail,
+  getProtectedPhoneDisplay,
+  getProtectedPhoneE164,
+  getProtectedResumePath,
+} from "@/lib/contact-protection"
 
 declare global {
   interface Window {
@@ -117,7 +122,7 @@ export function Contact() {
   const handleResumeOpen = () => {
     if (!isHumanVerified) return
 
-    window.open("/Joshua_Evenden-Wallick_resume.pdf", "_blank", "noopener,noreferrer")
+    window.open(getProtectedResumePath(), "_blank", "noopener,noreferrer")
   }
 
   return (
@@ -157,7 +162,7 @@ export function Contact() {
             <p className="mt-3 text-xs text-muted-foreground">
               {isVerifying
                 ? "Verifying challenge..."
-                : verificationError ?? "Complete Turnstile to reveal email/phone."}
+                : verificationError ?? "Complete Turnstile to reveal email/phone/resume."}
             </p>
           )}
 
