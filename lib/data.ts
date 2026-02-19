@@ -56,7 +56,7 @@ export const experienceItems: GalleryItem[] = [
       "Engineered a secure .NET licensing module to transition the proprietary 3D CAD software to a monthly subscription model, deploying it on internal servers to manage 20+ client licenses.",
       "Optimized the C#/.NET 3D graphical engine for the company's proprietary CAD software, developing a diagnostic tool to reduce rendering latency by 40% for large-scale models.",
     ],
-    link: "http://finfrocktech.com/xceleraytor/",
+    link: "https://finfrocktech.com/xceleraytor/",
     linkDesc: "Visit what I contributed to!",
     logo: true
   },
@@ -121,7 +121,7 @@ export const projectItems: GalleryItem[] = [
       "Architected a modular Java framework that served as a reusable developer platform for 20 engineers, standardizing integrations and significantly reducing new-feature development cycles.",
       "Directed a 20-member software team through fast-paced, Agile sprint cycles, driving projects from initial concept through successful competition deployment.",
     ],
-    link: "github.com/Lyman-Robotics/FTC-4228-Powerplay"
+    link: "https://github.com/Lyman-Robotics/FTC-4228-Powerplay"
   },
   {
     id: "proj-4",
