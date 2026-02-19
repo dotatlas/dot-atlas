@@ -2,18 +2,19 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Github, Linkedin, Mail, FileText, Phone } from "lucide-react"
+import { getProtectedEmail, getProtectedPhoneDisplay, getProtectedPhoneE164 } from "@/lib/contact-protection"
 
 const links = [
   { icon: Github, label: "GitHub", href: "https://github.com/dotatlas" },
   { icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/jevendenwallick" },
-  { icon: Mail, label: "Email", href: "mailto:jewallick@pm.me" },
-  { icon: Phone, label: "(407) 452-8929", href: "tel:+14074528929" },
   { icon: FileText, label: "Resume", href: "/Joshua_Evenden-Wallick_resume.pdf" },
 ]
 
 export function Contact() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const [email, setEmail] = useState<string | null>(null)
+  const [phone, setPhone] = useState<string | null>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -25,6 +26,19 @@ export function Contact() {
     if (sectionRef.current) observer.observe(sectionRef.current)
     return () => observer.disconnect()
   }, [])
+
+  const handleEmailReveal = () => {
+    const value = email ?? getProtectedEmail()
+    setEmail(value)
+    window.location.href = `${"mail" + "to"}:${value}`
+  }
+
+  const handlePhoneReveal = () => {
+    const display = phone ?? getProtectedPhoneDisplay()
+    const dial = getProtectedPhoneE164()
+    setPhone(display)
+    window.location.href = `${"te" + "l"}:${dial}`
+  }
 
   return (
     <section id="contact" ref={sectionRef} className="py-20 md:py-28">
@@ -57,6 +71,24 @@ export function Contact() {
                 {label}
                 </a>
             ))}
+
+            <button
+              type="button"
+              onClick={handleEmailReveal}
+              className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm text-muted-foreground transition-all duration-300 glass-hover hover:text-primary"
+            >
+              <Mail size={16} />
+              {email ?? "Reveal Email"}
+            </button>
+
+            <button
+              type="button"
+              onClick={handlePhoneReveal}
+              className="inline-flex items-center gap-2 rounded-xl glass px-5 py-3 text-sm text-muted-foreground transition-all duration-300 glass-hover hover:text-primary"
+            >
+              <Phone size={16} />
+              {phone ?? "Reveal Phone No"}
+            </button>
           </div>
         </div>
       </div>

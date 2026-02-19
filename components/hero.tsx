@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { ChevronDown, Github, Linkedin, Mail, FileText } from "lucide-react"
+import { getProtectedEmail } from "@/lib/contact-protection"
 
 export function Hero() {
   const [visible, setVisible] = useState(false)
@@ -10,6 +11,11 @@ export function Hero() {
     const t = setTimeout(() => setVisible(true), 100)
     return () => clearTimeout(t)
   }, [])
+
+  const handleEmailOpen = () => {
+    const value = getProtectedEmail()
+    window.location.href = `${"mail" + "to"}:${value}`
+  }
 
   return (
     <section
@@ -71,13 +77,14 @@ export function Hero() {
           >
             <Linkedin size={20} />
           </a>
-          <a
-            href="mailto:jewallick@pm.me"
+          <button
+            type="button"
+            onClick={handleEmailOpen}
             aria-label="Email"
             className="text-muted-foreground transition-colors duration-300 hover:text-primary"
           >
             <Mail size={20} />
-          </a>
+          </button>
           {/* resume */}
           <a
             href="/Joshua_Evenden-Wallick_resume.pdf"
