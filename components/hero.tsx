@@ -1,8 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { ChevronDown, Github, Linkedin, Mail, FileText } from "lucide-react"
-import { getProtectedEmail } from "@/lib/contact-protection"
+import { ChevronDown, Github, Linkedin } from "lucide-react"
 
 export function Hero() {
   const [visible, setVisible] = useState(false)
@@ -11,11 +10,6 @@ export function Hero() {
     const t = setTimeout(() => setVisible(true), 100)
     return () => clearTimeout(t)
   }, [])
-
-  const handleEmailOpen = () => {
-    const value = getProtectedEmail()
-    window.location.href = `${"mail" + "to"}:${value}`
-  }
 
   return (
     <section
@@ -77,23 +71,11 @@ export function Hero() {
           >
             <Linkedin size={20} />
           </a>
-          <button
-            type="button"
-            onClick={handleEmailOpen}
-            aria-label="Email"
-            className="text-muted-foreground transition-colors duration-300 hover:text-primary"
-          >
-            <Mail size={20} />
-          </button>
-          {/* resume */}
           <a
-            href="/Joshua_Evenden-Wallick_resume.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Resume"
-            className="text-muted-foreground transition-colors duration-300 hover:text-primary"
+            href="#contact"
+            className="rounded-lg glass px-3 py-1.5 text-xs text-muted-foreground transition-all duration-300 glass-hover hover:text-primary"
           >
-            <FileText size={20} />
+            more below
           </a>
         </div>
       </div>
