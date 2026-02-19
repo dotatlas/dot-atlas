@@ -7,8 +7,13 @@ const geistSans = Geist({ subsets: ['latin'], variable: '--font-geist' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-geist-mono' })
 
 export const metadata: Metadata = {
-  title: 'Joshua Evenden-Wallick | CS Student & Developer',
+  title: 'dotatlas',
   description: 'Portfolio of Joshua Evenden-Wallick - Computer Engineering student, software engineer, and builder of innovative solutions.',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 }
 
 export const viewport: Viewport = {
