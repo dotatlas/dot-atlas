@@ -24,17 +24,14 @@ export function Hero() {
 				}`}
 			>
 				<div className="grid items-start gap-6 md:gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(340px,360px)] lg:gap-12">
-					<div className="min-w-0 text-center lg:text-left">
+					<div className="min-w-0 text-center lg:text-left flex h-full flex-col justify-center">
 						<h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-[3.6rem] xl:text-7xl">
-							Hi, I{"'"}m
+							Hi, I{"'"}m{" "}
 							<span
-								className="mt-1 block text-primary"
+								className="inline text-primary whitespace-nowrap"
 								style={{ textShadow: "0 0 30px hsl(0 72% 51% / 0.4)" }}
 							>
-								<span className="inline xl:block">Joshua </span>
-								<span className="inline xl:block xl:whitespace-nowrap">
-									Evenden-Wallick
-								</span>
+								Josh
 							</span>
 						</h1>
 
