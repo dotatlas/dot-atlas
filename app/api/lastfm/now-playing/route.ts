@@ -44,6 +44,22 @@ type LastFmTopArtistsResponse = {
 	};
 };
 
+type MusicBrainzArtistSearchResponse = {
+	artists?: Array<{
+		id?: string;
+		score?: number | string;
+	}>;
+};
+
+type MusicBrainzArtistLookupResponse = {
+	relations?: Array<{
+		type?: string;
+		url?: {
+			resource?: string;
+		};
+	}>;
+};
+
 function getBestImage(
 	images: Array<{ "#text"?: string; size?: string }> = [],
 ): string {
@@ -69,37 +85,178 @@ function getBestImage(
 	return "";
 }
 
-function getArtistImageURL(artist: LastFmTopArtist, params: URLSearchParams) {
-	if (!artist.name) return Promise.resolve(null);
+async function resolveWikimediaFileUrl(
+	fileName: string,
+): Promise<string | null> {
+	const params = new URLSearchParams({
+		action: "query",
+		format: "json",
+		prop: "imageinfo",
+		iiprop: "url",
+		iiurlwidth: "1280",
+		titles: `File:${fileName}`,
+		origin: "*",
+	});
 
-	const artistParams = new URLSearchParams(params);
-	const mbid = artist.mbid?.trim();
-	if (mbid) {
-		artistParams.set("mbid", mbid);
-		artistParams.delete("artist");
-	} else {
-		artistParams.delete("mbid");
-		artistParams.set("artist", artist.name.trim());
+	try {
+		const response = await fetch(
+			`https://commons.wikimedia.org/w/api.php?${params.toString()}`,
+			{ cache: "no-store" },
+		);
+
+		if (!response.ok) return null;
+
+		const data = (await response.json()) as {
+			query?: {
+				pages?: Record<
+					string,
+					{ imageinfo?: Array<{ thumburl?: string; url?: string }> }
+				>;
+			};
+		};
+
+		const pages = data.query?.pages;
+		if (!pages) return null;
+
+		for (const page of Object.values(pages)) {
+			const imageInfo = page.imageinfo?.[0];
+			if (imageInfo?.thumburl) return imageInfo.thumburl;
+			if (imageInfo?.url) return imageInfo.url;
+		}
+	} catch {
+		return null;
 	}
-	const fetchLink = `https://ws.audioscrobbler.com/2.0/?${artistParams.toString()}`;
 
-	return (
-		fetch(fetchLink, {
-			cache: "no-store",
-		})
-			.then((res) => res.json())
-			// .then((data) => {
-			// 	console.log("Artist info payload:", data);
-			// 	return data;
-			// });
-			.then((data) => {
-				const images = data?.artist?.image as
-					| Array<{ "#text"?: string; size?: string }>
-					| undefined;
-				return getBestImage(images);
-			})
-			.catch(() => null)
+	return null;
+}
+
+async function getMusicBrainzImageFromRelations(
+	relations: MusicBrainzArtistLookupResponse["relations"] = [],
+): Promise<string | null> {
+	const isLikelyImageUrl = (url?: string) => {
+		if (!url) return false;
+
+		try {
+			const parsed = new URL(url);
+			const isWikiFilePage =
+				/^\/wiki\/File:/i.test(parsed.pathname) ||
+				/^\/wiki\/Datei:/i.test(parsed.pathname);
+
+			if (isWikiFilePage) return false;
+
+			const isUploadWikimedia = parsed.hostname === "upload.wikimedia.org";
+			if (isUploadWikimedia) return true;
+
+			return /\.(png|jpe?g|webp|gif|avif)(\?|$)/i.test(parsed.pathname);
+		} catch {
+			return false;
+		}
+	};
+
+	const normalizeImageUrl = async (url?: string): Promise<string | null> => {
+		if (!url) return null;
+
+		if (isLikelyImageUrl(url)) return url;
+
+		try {
+			const parsed = new URL(url);
+			const isCommons = parsed.hostname === "commons.wikimedia.org";
+			const match = parsed.pathname.match(/^\/wiki\/File:(.+)$/i);
+
+			if (isCommons && match?.[1]) {
+				const fileName = decodeURIComponent(match[1]);
+				return resolveWikimediaFileUrl(fileName);
+			}
+		} catch {
+			return null;
+		}
+
+		return null;
+	};
+
+	const imageRelation = relations.find(
+		(relation) => relation.type === "image" && relation.url?.resource,
 	);
+	if (imageRelation?.url?.resource) {
+		const normalized = await normalizeImageUrl(imageRelation.url.resource);
+		if (normalized) return normalized;
+	}
+
+	const directImageUrl = relations.find((relation) =>
+		isLikelyImageUrl(relation.url?.resource),
+	);
+	if (directImageUrl?.url?.resource) {
+		const normalized = await normalizeImageUrl(directImageUrl.url.resource);
+		if (normalized) return normalized;
+	}
+
+	for (const relation of relations) {
+		const normalized = await normalizeImageUrl(relation.url?.resource);
+		if (normalized) return normalized;
+	}
+
+	return null;
+}
+
+async function getArtistImageURL(
+	artist: LastFmTopArtist,
+): Promise<string | null> {
+	if (!artist.name?.trim()) return null;
+
+	const userAgent =
+		process.env.MUSICBRAINZ_USER_AGENT ??
+		"dot-atlas/1.0.0 (https://github.com; contact: admin@localhost)";
+
+	const fetchWithHeaders = (url: string) =>
+		fetch(url, {
+			cache: "no-store",
+			headers: {
+				"User-Agent": userAgent,
+				Accept: "application/json",
+			},
+		});
+
+	try {
+		let mbid = artist.mbid?.trim();
+
+		if (!mbid) {
+			const searchParams = new URLSearchParams({
+				query: `artist:${artist.name.trim()}`,
+				fmt: "json",
+				limit: "1",
+			});
+
+			const searchResponse = await fetchWithHeaders(
+				`https://musicbrainz.org/ws/2/artist/?${searchParams.toString()}`,
+			);
+
+			if (searchResponse.ok) {
+				const searchPayload =
+					(await searchResponse.json()) as MusicBrainzArtistSearchResponse;
+				mbid = searchPayload.artists?.[0]?.id?.trim();
+			}
+		}
+
+		if (!mbid) return null;
+
+		const artistInfoParams = new URLSearchParams({
+			inc: "url-rels",
+			fmt: "json",
+		});
+
+		const artistInfoResponse = await fetchWithHeaders(
+			`https://musicbrainz.org/ws/2/artist/${encodeURIComponent(mbid)}?${artistInfoParams.toString()}`,
+		);
+
+		if (!artistInfoResponse.ok) return null;
+
+		const artistInfoPayload =
+			(await artistInfoResponse.json()) as MusicBrainzArtistLookupResponse;
+
+		return await getMusicBrainzImageFromRelations(artistInfoPayload.relations);
+	} catch {
+		return null;
+	}
 }
 
 export async function GET() {
@@ -137,14 +294,6 @@ export async function GET() {
 		format: "json",
 		period: "7day",
 		limit: "3",
-	});
-
-	const artistInfoParams = new URLSearchParams({
-		method: "artist.getinfo",
-		artist: "", // Placeholder, will be set dynamically
-		mbid: "", // Placeholder, will be set dynamically
-		api_key: apiKey,
-		format: "json",
 	});
 
 	try {
@@ -206,7 +355,7 @@ export async function GET() {
 					url: artist.url ?? null,
 					playcount: artist.playcount ?? null,
 					imageUrl:
-						(await getArtistImageURL(artist, artistInfoParams)) ||
+						(await getArtistImageURL(artist)) ||
 						getBestImage(artist.image ?? []) ||
 						null,
 				})),

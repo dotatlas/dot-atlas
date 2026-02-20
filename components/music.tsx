@@ -11,6 +11,12 @@ type NowPlaying = {
 	url: string | null;
 	imageUrl: string | null;
 	playedAt: string | null;
+	topArtists?: Array<{
+		name: string | null;
+		playcount: string | null;
+		url: string | null;
+		imageUrl: string | null;
+	}>;
 	topAlbums?: Array<{
 		name: string | null;
 		artistName: string | null;
@@ -101,55 +107,110 @@ export function Music() {
 				</a>
 			) : null}
 
-			<div className="mt-5 hidden border-t border-border/40 pt-4 lg:block">
-				<p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-					Top Albums This Week
-				</p>
+			<div className="mt-5 hidden border-t border-border/40 pt-4 lg:flex lg:gap-4">
+				<div className="min-w-0 flex-1 basis-1/2">
+					<p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+						Top Artists This Week
+					</p>
 
-				{isLoadingTrack ? (
-					<p className="mt-2 text-xs text-muted-foreground">
-						Loading albums...
+					{isLoadingTrack ? (
+						<p className="mt-2 text-xs text-muted-foreground">
+							Loading artists...
+						</p>
+					) : nowPlaying?.topArtists?.length ? (
+						<div className="mt-3 space-y-2">
+							{nowPlaying.topArtists.map((artist, index) => (
+								<a
+									key={`${artist.name ?? "artist"}-${index}`}
+									href={artist.url ?? "#"}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/30"
+								>
+									<span className="w-4 shrink-0 text-xs text-muted-foreground">
+										{index + 1}
+									</span>
+									<div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded border border-border/40 bg-muted/30">
+										{artist.imageUrl ? (
+											<img
+												src={artist.imageUrl}
+												alt={`${artist.name ?? "Artist"} image`}
+												className="h-full w-full object-cover"
+											/>
+										) : (
+											<Disc3 size={12} className="text-muted-foreground" />
+										)}
+									</div>
+									<div className="min-w-0">
+										<p className="truncate text-xs font-medium text-foreground">
+											{artist.name ?? "Unknown artist"}
+										</p>
+										<p className="truncate text-[11px] text-muted-foreground">
+											{artist.playcount
+												? `${artist.playcount} plays`
+												: "No playcount"}
+										</p>
+									</div>
+								</a>
+							))}
+						</div>
+					) : (
+						<p className="mt-2 text-xs text-muted-foreground">
+							No weekly artist data available.
+						</p>
+					)}
+				</div>
+
+				<div className="min-w-0 flex-1 basis-1/2">
+					<p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+						Top Albums This Week
 					</p>
-				) : nowPlaying?.topAlbums?.length ? (
-					<div className="mt-3 space-y-2">
-						{nowPlaying.topAlbums.map((album, index) => (
-							<a
-								key={`${album.name ?? "album"}-${index}`}
-								href={album.url ?? "#"}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/30"
-							>
-								<span className="w-4 shrink-0 text-xs text-muted-foreground">
-									{index + 1}
-								</span>
-								<div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded border border-border/40 bg-muted/30">
-									{album.imageUrl ? (
-										<img
-											src={album.imageUrl}
-											alt={`${album.name ?? "Album"} art`}
-											className="h-full w-full object-cover"
-										/>
-									) : (
-										<Disc3 size={12} className="text-muted-foreground" />
-									)}
-								</div>
-								<div className="min-w-0">
-									<p className="truncate text-xs font-medium text-foreground">
-										{album.name ?? "Unknown album"}
-									</p>
-									<p className="truncate text-[11px] text-muted-foreground">
-										{album.artistName ?? "Unknown artist"}
-									</p>
-								</div>
-							</a>
-						))}
-					</div>
-				) : (
-					<p className="mt-2 text-xs text-muted-foreground">
-						No weekly album data available.
-					</p>
-				)}
+
+					{isLoadingTrack ? (
+						<p className="mt-2 text-xs text-muted-foreground">
+							Loading albums...
+						</p>
+					) : nowPlaying?.topAlbums?.length ? (
+						<div className="mt-3 space-y-2">
+							{nowPlaying.topAlbums.map((album, index) => (
+								<a
+									key={`${album.name ?? "album"}-${index}`}
+									href={album.url ?? "#"}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors hover:bg-muted/30"
+								>
+									<span className="w-4 shrink-0 text-xs text-muted-foreground">
+										{index + 1}
+									</span>
+									<div className="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded border border-border/40 bg-muted/30">
+										{album.imageUrl ? (
+											<img
+												src={album.imageUrl}
+												alt={`${album.name ?? "Album"} art`}
+												className="h-full w-full object-cover"
+											/>
+										) : (
+											<Disc3 size={12} className="text-muted-foreground" />
+										)}
+									</div>
+									<div className="min-w-0">
+										<p className="truncate text-xs font-medium text-foreground">
+											{album.name ?? "Unknown album"}
+										</p>
+										<p className="truncate text-[11px] text-muted-foreground">
+											{album.artistName ?? "Unknown artist"}
+										</p>
+									</div>
+								</a>
+							))}
+						</div>
+					) : (
+						<p className="mt-2 text-xs text-muted-foreground">
+							No weekly album data available.
+						</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);
