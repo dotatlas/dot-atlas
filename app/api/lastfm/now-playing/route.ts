@@ -44,6 +44,12 @@ type LastFmTopArtistsResponse = {
 	};
 };
 
+type LastFmArtistTopAlbumsResponse = {
+	topalbums?: {
+		album?: LastFmTopAlbum[];
+	};
+};
+
 type MusicBrainzArtistSearchResponse = {
 	artists?: Array<{
 		id?: string;
@@ -198,6 +204,36 @@ async function getMusicBrainzImageFromRelations(
 	return null;
 }
 
+async function getArtistTopAlbum(artistName: string): Promise<string | null> {
+	const apiKey = process.env.LASTFM_API_KEY;
+	if (!apiKey || !artistName.trim()) return null;
+
+	const params = new URLSearchParams({
+		method: "artist.gettopalbums",
+		artist: artistName.trim(),
+		api_key: apiKey,
+		format: "json",
+		limit: "1",
+	});
+
+	try {
+		const response = await fetch(
+			`https://ws.audioscrobbler.com/2.0/?${params.toString()}`,
+			{ cache: "no-store" },
+		);
+
+		if (!response.ok) return null;
+
+		const payload = (await response.json()) as LastFmArtistTopAlbumsResponse;
+		const topAlbum = payload.topalbums?.album?.[0];
+		if (!topAlbum) return null;
+
+		return getBestImage(topAlbum.image ?? []) || null;
+	} catch {
+		return null;
+	}
+}
+
 async function getArtistImageURL(
 	artist: LastFmTopArtist,
 ): Promise<string | null> {
@@ -253,9 +289,14 @@ async function getArtistImageURL(
 		const artistInfoPayload =
 			(await artistInfoResponse.json()) as MusicBrainzArtistLookupResponse;
 
-		return await getMusicBrainzImageFromRelations(artistInfoPayload.relations);
+		const musicBrainzImage = await getMusicBrainzImageFromRelations(
+			artistInfoPayload.relations,
+		);
+		if (musicBrainzImage) return musicBrainzImage;
+
+		return await getArtistTopAlbum(artist.name);
 	} catch {
-		return null;
+		return await getArtistTopAlbum(artist.name);
 	}
 }
 

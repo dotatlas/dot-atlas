@@ -61,7 +61,11 @@ export function Music() {
 	return (
 		<div className="glass mx-auto w-full max-w-md rounded-2xl border border-border/40 p-5 text-left lg:mx-0 lg:max-w-none">
 			<p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-				Now Playing
+				{nowPlaying?.isPlaying
+					? "Now Playing"
+					: isLoadingTrack
+						? "Loading..."
+						: "Last Played"}
 			</p>
 			<div className="mt-3 flex gap-3">
 				<div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg border border-border/40 bg-muted/30">
@@ -75,13 +79,13 @@ export function Music() {
 				</div>
 
 				<div className="min-w-0">
-					<p className="text-xs text-muted-foreground">
+					{/* <p className="text-xs text-muted-foreground">
 						{isLoadingTrack
 							? "Loading from Last.fm..."
 							: nowPlaying?.isPlaying
 								? "Listening now on Spotify"
 								: "Last played"}
-					</p>
+					</p> */}
 					<p className="truncate text-sm font-semibold text-foreground">
 						{nowPlaying?.trackName ?? "No recent track"}
 					</p>
