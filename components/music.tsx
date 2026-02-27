@@ -75,7 +75,9 @@ export function Music() {
 							alt="Album art"
 							className="h-full w-full object-cover"
 						/>
-					) : null}
+					) : (
+						<Disc3 size={24} className="m-auto text-muted-foreground" />
+					)}
 				</div>
 
 				<div className="min-w-0">
