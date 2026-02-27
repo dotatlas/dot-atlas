@@ -99,7 +99,7 @@ export const projectItems: GalleryItem[] = [
 		title: "PEP 25 - Robotics Club",
 		subtitle: "Autonomous robot diagnostics & navigation",
 		period: "Software Team",
-		tags: ["Linux", "Python", "Embedded", "IoT"],
+		tags: ["Linux", "Python", "Embedded"], //, "IoT"],
 		description:
 			"Real-time diagnostics platform and autonomous navigation system for the Robotics Club of Central Florida.",
 		details: [
