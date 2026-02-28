@@ -76,7 +76,9 @@ export function Music() {
 							className="h-full w-full object-cover"
 						/>
 					) : (
-						<Disc3 size={24} className="m-auto text-muted-foreground" />
+						<div className="flex items-center justify-center h-full w-full">
+							<Disc3 size={24} className="text-muted-foreground" />
+						</div>
 					)}
 				</div>
 
