@@ -1,10 +1,7 @@
-# v0 runtime files (should only exist in preview, not in git)
-__v0_runtime_loader.js
-__v0_devtools.tsx
-__v0_jsx-dev-runtime.ts
+# Environment variables
+.env*.local
 
 # Common ignores
-node_modules/
+node_modules
 .next/
-.env*.local
 .DS_Store
