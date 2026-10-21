@@ -11,9 +11,18 @@ const archivo = Archivo({
 })
 
 export const metadata: Metadata = {
-  title: 'Joshua Evenden-Wallick · Full-stack and embedded software engineer',
-  description:
-    'Full-stack and embedded software engineer: React, TypeScript and GraphQL products at The Home Depot, telemetry platforms and C firmware at Lockheed Martin, Golang services and C++ firmware at Limbitless Solutions. Computer Engineering at UCF.',
+  title: 'Portfolio',
+  description: 'My portfolio site :)',
+  openGraph: {
+    type: 'website',
+    title: 'Portfolio',
+    description: 'My portfolio site :)',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Portfolio',
+    description: 'My portfolio site :)',
+  },
   icons: {
     icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
   },
