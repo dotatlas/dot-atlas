@@ -7,6 +7,15 @@ const UCF = SECTIONS.find((s) => s.id === 'education')!.nodes[0]
 const START = new Date(2024, 7, 1) // Aug 2024
 const END = new Date(2028, 4, 1) // May 2028
 
+const at = (d: Date) => (d.getTime() - START.getTime()) / (END.getTime() - START.getTime())
+
+/** Each class year starts in August; senior year ends early, at May graduation. */
+const YEARS = ['Freshman', 'Sophomore', 'Junior', 'Senior'].map((name, i) => ({
+  name,
+  from: at(new Date(2024 + i, 7, 1)),
+  to: i === 3 ? 1 : at(new Date(2025 + i, 7, 1)),
+}))
+
 /**
  * The degree as a trace from enrolment to graduation, copper up to today.
  */
@@ -52,6 +61,20 @@ export function Education() {
 
       {/* enrolment to graduation */}
       <div className="mt-20" data-reveal>
+        <div className="t-small relative mb-3 h-[1.45em] font-semibold">
+          {YEARS.map((y) => {
+            const now = progress !== null && progress >= y.from && progress < y.to
+            return (
+              <span
+                key={y.name}
+                className={`absolute -translate-x-1/2 transition-colors duration-200 ${now ? 'text-silk' : 'text-silk-2'}`}
+                style={{ left: `${((y.from + y.to) / 2) * 100}%` }}
+              >
+                {y.name}
+              </span>
+            )
+          })}
+        </div>
         <div className="relative h-3 bg-copper-dim">
           <div
             className="absolute inset-y-0 left-0 origin-left bg-copper"
@@ -61,6 +84,15 @@ export function Education() {
               transition: 'transform 1600ms var(--ease-out) 300ms',
             }}
           />
+          {/* year boundaries, cut through the trace */}
+          {YEARS.slice(1).map((y) => (
+            <span
+              key={y.name}
+              aria-hidden
+              className="absolute inset-y-0 w-0.75 -translate-x-1/2 bg-mask"
+              style={{ left: `${y.from * 100}%` }}
+            />
+          ))}
           {progress !== null && (
             <span
               aria-hidden
