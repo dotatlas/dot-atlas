@@ -1,0 +1,2483 @@
+{
+ "url": "http://localhost:3123/?intro=off",
+ "at": "2026-10-20T22:42:31.188Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.57,
+    0.57,
+    0.62,
+    0.71,
+    0.63,
+    0.69,
+    0.54,
+    0.73,
+    1,
+    0.51,
+    0.08,
+    0.14
+   ],
+   "motion": {
+    "elements": 149,
+    "css": 45,
+    "transitions": 97,
+    "scripted": 7,
+    "videos": 1,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 12375,
+     "screens": 13.8,
+     "words": 1051,
+     "img": 4,
+     "video": 1,
+     "canvas": 0,
+     "svg": 8,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "image-sensor.jpg",
+      "apollo-guidance-computer.jpg",
+      "esp32-dev-board.jpg",
+      "pcb-op-amps.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Joshua Evenden-Wallick",
+     "words": 2,
+     "chars": 22,
+     "lines": 2,
+     "size": 129.6,
+     "vw": 9,
+     "font": "Archivo",
+     "weight": 820,
+     "tracking": -0.035,
+     "leading": 0.86,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "left",
+     "widthRatio": 0.44,
+     "top": 317,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Joshua Evenden-Wallick",
+     "words": 2,
+     "lines": 2,
+     "size": 129.6,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "Joshua Evenden-Wallick",
+      "words": 2,
+      "chars": 22,
+      "lines": 2,
+      "size": 129.6,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.44,
+      "top": 317,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Experience",
+      "words": 1,
+      "chars": 10,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 1102,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "The Home Depot Technology",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.4,
+      "top": 1407,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Lockheed Martin",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.24,
+      "top": 2430,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "90%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 129.6,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.15,
+      "top": 2743,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Limbitless Solutions",
+      "words": 2,
+      "chars": 20,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 3998,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "12%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 129.6,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.15,
+      "top": 4282,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "FINFROCK",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.16,
+      "top": 5421,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Volunteer Hub",
+      "words": 2,
+      "chars": 13,
+      "lines": 2,
+      "size": 129.6,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 7222,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Built solo, end to end",
+      "words": 5,
+      "chars": 22,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.38,
+      "top": 8551,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bill of materials",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.3,
+      "top": 9212,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "University of Central Florida",
+      "words": 4,
+      "chars": 29,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.54,
+      "top": 10374,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Let’s talk.",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 129.6,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.31,
+      "top": 10979,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "jewallick@pm.me",
+      "words": 1,
+      "chars": 15,
+      "lines": 1,
+      "size": 56.2,
+      "vw": 3.9,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 11253,
+      "tag": "button",
+      "kind": "heading"
+     },
+     {
+      "text": "Evenden-Wallick",
+      "words": 1,
+      "chars": 15,
+      "lines": 1,
+      "size": 218.9,
+      "vw": 15.2,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.92,
+      "top": 12107,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 15,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 1,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Archivo",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      18,
+      22,
+      56,
+      130,
+      219
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Archivo",
+      "size": 18,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 16
+     },
+     "measureChars": 52,
+     "max": {
+      "size": 218.9,
+      "vw": 15.2,
+      "font": "Archivo",
+      "text": "Evenden-Wallick"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0e100f",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.07,
+      "l": 0.06
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#151816",
+       "top": 6943,
+       "hsl": {
+        "h": 140,
+        "s": 0.07,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#9a1f18",
+       "top": 10840,
+       "hsl": {
+        "h": 3,
+        "s": 0.73,
+        "l": 0.35
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ecebe7",
+       "share": 0.75
+      },
+      {
+       "color": "#a9aba4",
+       "share": 0.21
+      },
+      {
+       "color": "#d4ab55",
+       "share": 0.03
+      },
+      {
+       "color": "#090a09",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ff4433",
+      "hsl": {
+       "h": 5,
+       "s": 1,
+       "l": 0.6
+      },
+      "fg": "#090a09"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 2,
+     "radius": 0,
+     "height": 80,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Email me",
+      "Email jewallick@pm.me"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 5,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "svg",
+      "ratio": 0.42
+     }
+    ],
+    "nav": {
+     "links": 6,
+     "fixed": false,
+     "height": 72,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "archivo fallback"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 12375,
+    "margins": {
+     "left": 40,
+     "right": 40
+    },
+    "sections": [
+     {
+      "sel": "div#top.relative.flex",
+      "tag": "div",
+      "top": 0,
+      "height": 6049,
+      "words": 731,
+      "media": 4,
+      "middle": 0,
+      "heading": {
+       "text": "Joshua",
+       "size": 130,
+       "tag": "h1"
+      },
+      "left": 40,
+      "right": 20,
+      "textLeft": 40,
+      "textRight": 614,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": true
+     },
+     {
+      "sel": "figure.m-0.mt-(--section-gap)",
+      "tag": "figure",
+      "top": 6250,
+      "height": 653,
+      "words": 11,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 40,
+      "right": 989,
+      "textLeft": 40,
+      "textRight": 989,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div#role-volunteer-hub.relative.h-[150svh]",
+      "tag": "div",
+      "top": 7105,
+      "height": 1350,
+      "words": 6,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Hub",
+       "size": 130,
+       "tag": "h2"
+      },
+      "left": 565,
+      "right": 376,
+      "textLeft": 565,
+      "textRight": 376,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": true
+     },
+     {
+      "sel": "div.mt-24.grid",
+      "tag": "div",
+      "top": 8551,
+      "height": 459,
+      "words": 116,
+      "media": 0,
+      "middle": 195,
+      "heading": null,
+      "left": 40,
+      "right": 44,
+      "textLeft": 40,
+      "textRight": 44,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#skills.mt-(--section-gap).grid",
+      "tag": "section",
+      "top": 9212,
+      "height": 960,
+      "words": 92,
+      "media": 0,
+      "middle": 33,
+      "heading": null,
+      "left": 40,
+      "right": 114,
+      "textLeft": 40,
+      "textRight": 114,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#education.mt-(--section-gap).scroll-mt-16",
+      "tag": "section",
+      "top": 10374,
+      "height": 264,
+      "words": 27,
+      "media": 0,
+      "middle": 131,
+      "heading": null,
+      "left": 40,
+      "right": 40,
+      "textLeft": 40,
+      "textRight": 40,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#contact.relative.mt-(--section-gap)",
+      "tag": "section",
+      "top": 10840,
+      "height": 743,
+      "words": 2,
+      "media": 1,
+      "middle": 251,
+      "heading": {
+       "text": "Let’s talk.",
+       "size": 130,
+       "tag": "h2"
+      },
+      "left": 40,
+      "right": 40,
+      "textLeft": 40,
+      "textRight": 955,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.relative.isolate",
+      "tag": "footer",
+      "top": 11583,
+      "height": 792,
+      "words": 47,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Evenden-Wallick",
+       "size": 219,
+       "tag": "p"
+      },
+      "left": 40,
+      "right": 40,
+      "textLeft": 40,
+      "textRight": 40,
+      "fullBleed": true,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 10636,
+      "height": 324
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Joshua Evenden-Wallick",
+      "size": 130,
+      "top": 317,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 40,
+      "n": 19
+     },
+     {
+      "x": 283,
+      "n": 1
+     },
+     {
+      "x": 504,
+      "n": 1
+     },
+     {
+      "x": 736,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 22,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.1,
+    "voidBox": {
+     "x": 0,
+     "y": 120,
+     "w": 720,
+     "h": 180
+    }
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.55,
+    0.34,
+    0.41,
+    0.41,
+    0.35,
+    0.5,
+    1,
+    0.73,
+    0.22,
+    0.16,
+    0.93,
+    0.85
+   ],
+   "motion": {
+    "elements": 142,
+    "css": 42,
+    "transitions": 97,
+    "scripted": 3,
+    "videos": 1,
+    "playingVideos": 1
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 12442,
+     "screens": 12.2,
+     "words": 1047,
+     "img": 4,
+     "video": 1,
+     "canvas": 0,
+     "svg": 8,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "image-sensor.jpg",
+      "apollo-guidance-computer.jpg",
+      "esp32-dev-board.jpg",
+      "pcb-op-amps.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Joshua Evenden-Wallick",
+     "words": 2,
+     "chars": 22,
+     "lines": 2,
+     "size": 93.7,
+     "vw": 12.2,
+     "font": "Archivo",
+     "weight": 820,
+     "tracking": -0.035,
+     "leading": 0.86,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.94,
+     "top": 448,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Joshua Evenden-Wallick",
+     "words": 2,
+     "lines": 2,
+     "size": 93.7,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "Joshua Evenden-Wallick",
+      "words": 2,
+      "chars": 22,
+      "lines": 2,
+      "size": 93.7,
+      "vw": 12.2,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 448,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Experience",
+      "words": 1,
+      "chars": 10,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.75,
+      "top": 1049,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "The Home Depot Technology",
+      "words": 4,
+      "chars": 25,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.49,
+      "top": 1265,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Lockheed Martin",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.29,
+      "top": 2174,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "90%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.15,
+      "top": 2463,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Limbitless Solutions",
+      "words": 2,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 3633,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "12%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.15,
+      "top": 3922,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "FINFROCK",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.19,
+      "top": 4976,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Volunteer Hub",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 6286,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Built solo, end to end",
+      "words": 5,
+      "chars": 22,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 7785,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bill of materials",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 8518,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "University of Central Florida",
+      "words": 4,
+      "chars": 29,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.94,
+      "top": 9803,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Let’s talk.",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 69.1,
+      "vw": 9,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.31,
+      "top": 10425,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "jewallick@pm.me",
+      "words": 1,
+      "chars": 15,
+      "lines": 1,
+      "size": 36,
+      "vw": 4.7,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.35,
+      "top": 10617,
+      "tag": "button",
+      "kind": "heading"
+     },
+     {
+      "text": "Evenden-Wallick",
+      "words": 1,
+      "chars": 15,
+      "lines": 1,
+      "size": 116.7,
+      "vw": 15.2,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.91,
+      "top": 12255,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 15,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 1,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Archivo",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      18,
+      20,
+      36,
+      69,
+      94,
+      117
+     ],
+     "sizeCount": 7,
+     "notLoaded": [],
+     "body": {
+      "font": "Archivo",
+      "size": 18,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 16
+     },
+     "measureChars": 58,
+     "max": {
+      "size": 116.7,
+      "vw": 15.2,
+      "font": "Archivo",
+      "text": "Evenden-Wallick"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0e100f",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.07,
+      "l": 0.06
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#151816",
+       "top": 6050,
+       "hsl": {
+        "h": 140,
+        "s": 0.07,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#9a1f18",
+       "top": 10297,
+       "hsl": {
+        "h": 3,
+        "s": 0.73,
+        "l": 0.35
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ecebe7",
+       "share": 0.75
+      },
+      {
+       "color": "#a9aba4",
+       "share": 0.21
+      },
+      {
+       "color": "#d4ab55",
+       "share": 0.03
+      },
+      {
+       "color": "#090a09",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ff4433",
+      "hsl": {
+       "h": 5,
+       "s": 1,
+       "l": 0.6
+      },
+      "fg": "#090a09"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 2,
+     "radius": 0,
+     "height": 80,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Email me",
+      "Email jewallick@pm.me"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 5,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "svg",
+      "ratio": 0.42
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": false,
+     "height": 72,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "archivo fallback"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 12442,
+    "margins": {
+     "left": 22,
+     "right": 22
+    },
+    "sections": [
+     {
+      "sel": "div.order-first.lg:order-last",
+      "tag": "div",
+      "top": 0,
+      "height": 532,
+      "words": 0,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 22,
+      "right": 22,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.relative.z-10",
+      "tag": "div",
+      "top": 532,
+      "height": 5015,
+      "words": 729,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "90%",
+       "size": 69,
+       "tag": "span"
+      },
+      "left": 22,
+      "right": 171,
+      "textLeft": 22,
+      "textRight": 174,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "figure.m-0.mt-(--section-gap)",
+      "tag": "figure",
+      "top": 5667,
+      "height": 365,
+      "words": 11,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 22,
+      "right": 336,
+      "textLeft": 22,
+      "textRight": 336,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div#role-volunteer-hub.relative.h-[150svh]",
+      "tag": "div",
+      "top": 6153,
+      "height": 1536,
+      "words": 7,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Volunteer",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 200,
+      "right": 200,
+      "textLeft": 200,
+      "textRight": 200,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": true
+     },
+     {
+      "sel": "div.mt-24.grid",
+      "tag": "div",
+      "top": 7785,
+      "height": 613,
+      "words": 116,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 22,
+      "right": 23,
+      "textLeft": 22,
+      "textRight": 23,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#skills.mt-(--section-gap).grid",
+      "tag": "section",
+      "top": 8518,
+      "height": 1165,
+      "words": 92,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 22,
+      "right": 91,
+      "textLeft": 22,
+      "textRight": 91,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#education.mt-(--section-gap).scroll-mt-16",
+      "tag": "section",
+      "top": 9803,
+      "height": 375,
+      "words": 27,
+      "media": 0,
+      "middle": 128,
+      "heading": null,
+      "left": 22,
+      "right": 22,
+      "textLeft": 22,
+      "textRight": 22,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#contact.relative.mt-(--section-gap)",
+      "tag": "section",
+      "top": 10297,
+      "height": 1243,
+      "words": 22,
+      "media": 1,
+      "middle": 138,
+      "heading": {
+       "text": "Let’s talk.",
+       "size": 69,
+       "tag": "h2"
+      },
+      "left": 22,
+      "right": 80,
+      "textLeft": 22,
+      "textRight": 80,
+      "fullBleed": true,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.relative.isolate",
+      "tag": "footer",
+      "top": 11540,
+      "height": 901,
+      "words": 47,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 22,
+      "right": 22,
+      "textLeft": 22,
+      "textRight": 22,
+      "fullBleed": true,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [
+     {
+      "text": "Joshua Evenden-Wallick",
+      "size": 94,
+      "top": 448,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 22,
+      "n": 18
+     },
+     {
+      "x": 58,
+      "n": 4
+     },
+     {
+      "x": 162,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 23,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 12,
+   "filled": [
+    0.64,
+    0.48,
+    0.5,
+    0.65,
+    0.54,
+    0.66,
+    0.43,
+    0.68,
+    0.86,
+    0.83,
+    0.51,
+    0.22
+   ],
+   "motion": {
+    "elements": 135,
+    "css": 44,
+    "transitions": 88,
+    "scripted": 3,
+    "videos": 1,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 13209,
+     "screens": 15.7,
+     "words": 1045,
+     "img": 4,
+     "video": 1,
+     "canvas": 0,
+     "svg": 8,
+     "sections": 5,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 5,
+     "videoCount": 1,
+     "uiPictures": 0,
+     "pictureSamples": [
+      "image-sensor.jpg",
+      "apollo-guidance-computer.jpg",
+      "esp32-dev-board.jpg",
+      "pcb-op-amps.jpg"
+     ],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "Joshua Evenden-Wallick",
+     "words": 2,
+     "chars": 22,
+     "lines": 2,
+     "size": 47.6,
+     "vw": 12.2,
+     "font": "Archivo",
+     "weight": 820,
+     "tracking": -0.035,
+     "leading": 0.86,
+     "upper": false,
+     "italic": false,
+     "mono": false,
+     "align": "left",
+     "position": "center",
+     "widthRatio": 0.9,
+     "top": 396,
+     "tag": "h1",
+     "kind": "heading"
+    },
+    "h1": {
+     "text": "Joshua Evenden-Wallick",
+     "words": 2,
+     "lines": 2,
+     "size": 47.6,
+     "font": "Archivo"
+    },
+    "headings": [
+     {
+      "text": "Joshua Evenden-Wallick",
+      "words": 2,
+      "chars": 22,
+      "lines": 2,
+      "size": 47.6,
+      "vw": 12.2,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 396,
+      "tag": "h1",
+      "kind": "heading"
+     },
+     {
+      "text": "Experience",
+      "words": 1,
+      "chars": 10,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 965,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "The Home Depot Technology",
+      "words": 4,
+      "chars": 25,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.81,
+      "top": 1234,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Lockheed Martin",
+      "words": 2,
+      "chars": 15,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.58,
+      "top": 2424,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "90%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.21,
+      "top": 2811,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "Limbitless Solutions",
+      "words": 2,
+      "chars": 20,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.69,
+      "top": 4058,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "12%",
+      "words": 1,
+      "chars": 3,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.21,
+      "top": 4391,
+      "tag": "span",
+      "kind": "statement"
+     },
+     {
+      "text": "FINFROCK",
+      "words": 1,
+      "chars": 8,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": true,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.37,
+      "top": 5492,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Volunteer Hub",
+      "words": 2,
+      "chars": 13,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "center",
+      "position": "center",
+      "widthRatio": 1,
+      "top": 6982,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Built solo, end to end",
+      "words": 5,
+      "chars": 22,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 8234,
+      "tag": "h3",
+      "kind": "heading"
+     },
+     {
+      "text": "Bill of materials",
+      "words": 3,
+      "chars": 17,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 9179,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "University of Central Florida",
+      "words": 4,
+      "chars": 29,
+      "lines": 2,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": -0.03,
+      "leading": 0.92,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.9,
+      "top": 10824,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "Let’s talk.",
+      "words": 2,
+      "chars": 11,
+      "lines": 1,
+      "size": 48,
+      "vw": 12.3,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.86,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.42,
+      "top": 11502,
+      "tag": "h2",
+      "kind": "heading"
+     },
+     {
+      "text": "jewallick@pm.me",
+      "words": 1,
+      "chars": 15,
+      "lines": 1,
+      "size": 36,
+      "vw": 9.2,
+      "font": "Archivo",
+      "weight": 800,
+      "tracking": 0,
+      "leading": 1.55,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "left",
+      "widthRatio": 0.68,
+      "top": 11700,
+      "tag": "button",
+      "kind": "heading"
+     },
+     {
+      "text": "Evenden-Wallick",
+      "words": 1,
+      "chars": 15,
+      "lines": 1,
+      "size": 59.3,
+      "vw": 15.2,
+      "font": "Archivo",
+      "weight": 820,
+      "tracking": -0.035,
+      "leading": 0.8,
+      "upper": false,
+      "italic": false,
+      "mono": false,
+      "align": "left",
+      "position": "center",
+      "widthRatio": 0.87,
+      "top": 13005,
+      "tag": "p",
+      "kind": "statement"
+     }
+    ],
+    "headingSummary": {
+     "count": 15,
+     "maxLines": 2,
+     "over2Lines": 0,
+     "statements": 3,
+     "centered": 1,
+     "medianWords": 2,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Archivo",
+       "share": 1,
+       "mono": false
+      }
+     ],
+     "familyCount": 1,
+     "sizes": [
+      14,
+      18,
+      20,
+      36,
+      48,
+      59
+     ],
+     "sizeCount": 6,
+     "notLoaded": [],
+     "body": {
+      "font": "Archivo",
+      "size": 18,
+      "leading": 1.55,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 16
+     },
+     "measureChars": 35,
+     "max": {
+      "size": 59.3,
+      "vw": 15.2,
+      "font": "Archivo",
+      "text": "Evenden-Wallick"
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0,
+     "centerShare": 0.01,
+     "smallText": 0
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#0e100f",
+     "bodyBgHsl": {
+      "h": 150,
+      "s": 0.07,
+      "l": 0.06
+     },
+     "dark": true,
+     "sectionBgs": [
+      {
+       "color": "#151816",
+       "top": 6788,
+       "hsl": {
+        "h": 140,
+        "s": 0.07,
+        "l": 0.09
+       }
+      },
+      {
+       "color": "#9a1f18",
+       "top": 11406,
+       "hsl": {
+        "h": 3,
+        "s": 0.73,
+        "l": 0.35
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#ecebe7",
+       "share": 0.75
+      },
+      {
+       "color": "#a9aba4",
+       "share": 0.21
+      },
+      {
+       "color": "#d4ab55",
+       "share": 0.03
+      },
+      {
+       "color": "#090a09",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ff4433",
+      "hsl": {
+       "h": 5,
+       "s": 1,
+       "l": 0.6
+      },
+      "fg": "#090a09"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 5,
+     "inHero": 2,
+     "radius": 0,
+     "height": 80,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Email me",
+      "Email jewallick@pm.me"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 0,
+     "shadowOverlay": 0,
+     "shadowSamples": [],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 0,
+     "hairlineSamples": [],
+     "outlinedBoxes": 0,
+     "dashed": 0,
+     "blurred": 0,
+     "roundedBoxes": 0,
+     "boxRadius": 0,
+     "squareMedia": 3,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [
+     {
+      "type": "svg",
+      "ratio": 0.38
+     }
+    ],
+    "nav": {
+     "links": 2,
+     "fixed": false,
+     "height": 68,
+     "floatingPill": false,
+     "blur": false
+    },
+    "fontsLoaded": [
+     "archivo",
+     "archivo fallback"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 13209,
+    "margins": {
+     "left": 20,
+     "right": 20
+    },
+    "sections": [
+     {
+      "sel": "div.order-first.lg:order-last",
+      "tag": "div",
+      "top": 0,
+      "height": 439,
+      "words": 0,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 20,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.relative.z-10",
+      "tag": "div",
+      "top": 439,
+      "height": 5844,
+      "words": 729,
+      "media": 3,
+      "middle": 0,
+      "heading": {
+       "text": "90%",
+       "size": 48,
+       "tag": "span"
+      },
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "figure.m-0.mt-(--section-gap)",
+      "tag": "figure",
+      "top": 6403,
+      "height": 349,
+      "words": 11,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 35,
+      "textLeft": 20,
+      "textRight": 35,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div#role-volunteer-hub.relative.h-[150svh]",
+      "tag": "div",
+      "top": 6872,
+      "height": 1266,
+      "words": 7,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Volunteer",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 40,
+      "right": 40,
+      "textLeft": 40,
+      "textRight": 40,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": true
+     },
+     {
+      "sel": "div.mt-24.grid",
+      "tag": "div",
+      "top": 8234,
+      "height": 824,
+      "words": 116,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 27,
+      "textLeft": 20,
+      "textRight": 27,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#skills.mt-(--section-gap).grid",
+      "tag": "section",
+      "top": 9179,
+      "height": 1526,
+      "words": 62,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 21,
+      "textLeft": 20,
+      "textRight": 21,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#education.mt-(--section-gap).scroll-mt-16",
+      "tag": "section",
+      "top": 10824,
+      "height": 462,
+      "words": 0,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": null,
+      "right": null,
+      "textLeft": null,
+      "textRight": null,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#contact.relative.mt-(--section-gap)",
+      "tag": "section",
+      "top": 11406,
+      "height": 1060,
+      "words": 2,
+      "media": 1,
+      "middle": 0,
+      "heading": {
+       "text": "Let’s talk.",
+       "size": 48,
+       "tag": "h2"
+      },
+      "left": 20,
+      "right": 205,
+      "textLeft": 20,
+      "textRight": 205,
+      "fullBleed": true,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.relative.isolate",
+      "tag": "footer",
+      "top": 12466,
+      "height": 743,
+      "words": 47,
+      "media": 1,
+      "middle": 0,
+      "heading": null,
+      "left": 20,
+      "right": 20,
+      "textLeft": 20,
+      "textRight": 20,
+      "fullBleed": true,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [
+     {
+      "top": 10312,
+      "height": 508
+     },
+     {
+      "top": 10896,
+      "height": 600
+     },
+     {
+      "top": 11552,
+      "height": 532
+     }
+    ],
+    "h1s": [
+     {
+      "text": "Joshua Evenden-Wallick",
+      "size": 48,
+      "top": 396,
+      "firstScreen": true
+     }
+    ],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 20,
+      "n": 16
+     },
+     {
+      "x": 56,
+      "n": 4
+     },
+     {
+      "x": 125,
+      "n": 1
+     }
+    ],
+    "leftBlocks": 21,
+    "bodySize": 18,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": null,
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "pinned-over-picture",
+   "width": 1440,
+   "message": "Pinned large text slides across pictures while the page scrolls: \"Volunteer\" (screen 9, 100% over a picture); \"Hub\" (screen 9, 100% over a picture)",
+   "fix": "Jurors read a pinned title crossing drawings or photographs as a collision. Keep the pictures in the column the title does not occupy, or unpin it.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "empty-screens",
+   "width": 1440,
+   "message": "2 of 12 desktop screens are almost empty ground (under 20% of the screen holds text, a picture or a colour field): screens 11, 12.",
+   "fix": "An empty screen is a rest only once per page. Elsewhere it means the section is underbuilt: set its content larger, give it the full information, put it on a colour field, or cut it."
+  },
+  {
+   "level": "FAIL",
+   "id": "blank-gap",
+   "width": 390,
+   "message": "3 stretch(es) of the page hold nothing at all: 508px at 10312px; 600px at 10896px; 532px at 11552px (the screen is 844px tall).",
+   "fix": "Close the gap: a section gap is 120–240px on desktop and 72–112px on a phone. Look for a min-height: 100vh on a short section, an empty grid row, a hidden element still holding its space, or a reveal that never fired. A deliberate rest is a placed picture or colour field, not nothing."
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\desktop-fold.jpg",
+   "pages": [
+    "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\desktop-page-01.jpg",
+    "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\desktop-page-02.jpg",
+    "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\desktop-page-03.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\tablet-fold.jpg",
+   "pages": [
+    "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\tablet-page-01.jpg",
+    "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\tablet-page-02.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\mobile-fold.jpg",
+   "pages": [
+    "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\mobile-page-01.jpg",
+    "C:\\.code\\dot-atlas\\.taste-skill\\inspect\\mobile-page-02.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

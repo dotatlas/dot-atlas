@@ -1,0 +1,487 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T21:49:37+00:00",
+  "title": "Design System: Joshua Evenden-Wallick",
+  "extensions": {
+    "colorMeta": {
+      "mask": {
+        "role": "neutral",
+        "displayName": "Solder Mask",
+        "canonical": "#0e100f",
+        "tonalRamp": [
+          "oklch(15% 0.006 150)",
+          "oklch(25% 0.006 150)",
+          "oklch(35% 0.006 150)",
+          "oklch(47% 0.006 150)",
+          "oklch(59% 0.006 150)",
+          "oklch(71% 0.006 150)",
+          "oklch(83% 0.006 150)",
+          "oklch(95% 0.006 150)"
+        ]
+      },
+      "mask-raised": {
+        "role": "neutral",
+        "displayName": "Raised Mask",
+        "canonical": "#151816",
+        "tonalRamp": [
+          "oklch(15% 0.008 150)",
+          "oklch(25% 0.008 150)",
+          "oklch(35% 0.008 150)",
+          "oklch(47% 0.008 150)",
+          "oklch(59% 0.008 150)",
+          "oklch(71% 0.008 150)",
+          "oklch(83% 0.008 150)",
+          "oklch(95% 0.008 150)"
+        ]
+      },
+      "mask-deep": {
+        "role": "neutral",
+        "displayName": "Deep Mask",
+        "canonical": "#090a09",
+        "tonalRamp": [
+          "oklch(15% 0.004 150)",
+          "oklch(25% 0.004 150)",
+          "oklch(35% 0.004 150)",
+          "oklch(47% 0.004 150)",
+          "oklch(59% 0.004 150)",
+          "oklch(71% 0.004 150)",
+          "oklch(83% 0.004 150)",
+          "oklch(95% 0.004 150)"
+        ]
+      },
+      "mask-red": {
+        "role": "tertiary",
+        "displayName": "Red Solder Mask",
+        "canonical": "#9a1f18",
+        "tonalRamp": [
+          "oklch(15% 0.16 29)",
+          "oklch(25% 0.16 29)",
+          "oklch(35% 0.16 29)",
+          "oklch(47% 0.16 29)",
+          "oklch(59% 0.16 29)",
+          "oklch(71% 0.16 29)",
+          "oklch(83% 0.16 29)",
+          "oklch(95% 0.16 29)"
+        ]
+      },
+      "mask-red-raised": {
+        "role": "tertiary",
+        "displayName": "Raised Red Mask",
+        "canonical": "#ab2820",
+        "tonalRamp": [
+          "oklch(15% 0.17 29)",
+          "oklch(25% 0.17 29)",
+          "oklch(35% 0.17 29)",
+          "oklch(47% 0.17 29)",
+          "oklch(59% 0.17 29)",
+          "oklch(71% 0.17 29)",
+          "oklch(83% 0.17 29)",
+          "oklch(95% 0.17 29)"
+        ]
+      },
+      "silk": {
+        "role": "neutral",
+        "displayName": "Silkscreen",
+        "canonical": "#ecebe7",
+        "tonalRamp": [
+          "oklch(15% 0.006 95)",
+          "oklch(25% 0.006 95)",
+          "oklch(35% 0.006 95)",
+          "oklch(47% 0.006 95)",
+          "oklch(59% 0.006 95)",
+          "oklch(71% 0.006 95)",
+          "oklch(83% 0.006 95)",
+          "oklch(95% 0.006 95)"
+        ]
+      },
+      "silk-2": {
+        "role": "neutral",
+        "displayName": "Faded Silkscreen",
+        "canonical": "#a9aba4",
+        "tonalRamp": [
+          "oklch(15% 0.008 120)",
+          "oklch(25% 0.008 120)",
+          "oklch(35% 0.008 120)",
+          "oklch(47% 0.008 120)",
+          "oklch(59% 0.008 120)",
+          "oklch(71% 0.008 120)",
+          "oklch(83% 0.008 120)",
+          "oklch(95% 0.008 120)"
+        ]
+      },
+      "copper": {
+        "role": "secondary",
+        "displayName": "ENIG Copper",
+        "canonical": "#d4ab55",
+        "tonalRamp": [
+          "oklch(15% 0.11 82)",
+          "oklch(25% 0.11 82)",
+          "oklch(35% 0.11 82)",
+          "oklch(47% 0.11 82)",
+          "oklch(59% 0.11 82)",
+          "oklch(71% 0.11 82)",
+          "oklch(83% 0.11 82)",
+          "oklch(95% 0.11 82)"
+        ]
+      },
+      "copper-dim": {
+        "role": "secondary",
+        "displayName": "Dim Copper",
+        "canonical": "#5c4b29",
+        "tonalRamp": [
+          "oklch(15% 0.06 80)",
+          "oklch(25% 0.06 80)",
+          "oklch(35% 0.06 80)",
+          "oklch(47% 0.06 80)",
+          "oklch(59% 0.06 80)",
+          "oklch(71% 0.06 80)",
+          "oklch(83% 0.06 80)",
+          "oklch(95% 0.06 80)"
+        ]
+      },
+      "copper-hot": {
+        "role": "secondary",
+        "displayName": "Hot Copper",
+        "canonical": "#ffe2a1",
+        "tonalRamp": [
+          "oklch(15% 0.1 86)",
+          "oklch(25% 0.1 86)",
+          "oklch(35% 0.1 86)",
+          "oklch(47% 0.1 86)",
+          "oklch(59% 0.1 86)",
+          "oklch(71% 0.1 86)",
+          "oklch(83% 0.1 86)",
+          "oklch(95% 0.1 86)"
+        ]
+      },
+      "chip": {
+        "role": "neutral",
+        "displayName": "Package Black",
+        "canonical": "#1c1e1d",
+        "tonalRamp": [
+          "oklch(15% 0.004 160)",
+          "oklch(25% 0.004 160)",
+          "oklch(35% 0.004 160)",
+          "oklch(47% 0.004 160)",
+          "oklch(59% 0.004 160)",
+          "oklch(71% 0.004 160)",
+          "oklch(83% 0.004 160)",
+          "oklch(95% 0.004 160)"
+        ]
+      },
+      "chip-mark": {
+        "role": "neutral",
+        "displayName": "Package Marking",
+        "canonical": "#8f918b",
+        "tonalRamp": [
+          "oklch(15% 0.008 120)",
+          "oklch(25% 0.008 120)",
+          "oklch(35% 0.008 120)",
+          "oklch(47% 0.008 120)",
+          "oklch(59% 0.008 120)",
+          "oklch(71% 0.008 120)",
+          "oklch(83% 0.008 120)",
+          "oklch(95% 0.008 120)"
+        ]
+      },
+      "shield": {
+        "role": "neutral",
+        "displayName": "Shield Nickel",
+        "canonical": "#8e928c",
+        "tonalRamp": [
+          "oklch(15% 0.008 140)",
+          "oklch(25% 0.008 140)",
+          "oklch(35% 0.008 140)",
+          "oklch(47% 0.008 140)",
+          "oklch(59% 0.008 140)",
+          "oklch(71% 0.008 140)",
+          "oklch(83% 0.008 140)",
+          "oklch(95% 0.008 140)"
+        ]
+      },
+      "led": {
+        "role": "primary",
+        "displayName": "SMD LED Red",
+        "canonical": "#ff4433",
+        "tonalRamp": [
+          "oklch(15% 0.2 29)",
+          "oklch(25% 0.2 29)",
+          "oklch(35% 0.2 29)",
+          "oklch(47% 0.2 29)",
+          "oklch(59% 0.2 29)",
+          "oklch(71% 0.2 29)",
+          "oklch(83% 0.2 29)",
+          "oklch(95% 0.2 29)"
+        ]
+      },
+      "led-off": {
+        "role": "primary",
+        "displayName": "LED Off",
+        "canonical": "#3a1714",
+        "tonalRamp": [
+          "oklch(15% 0.06 27)",
+          "oklch(25% 0.06 27)",
+          "oklch(35% 0.06 27)",
+          "oklch(47% 0.06 27)",
+          "oklch(59% 0.06 27)",
+          "oklch(71% 0.06 27)",
+          "oklch(83% 0.06 27)",
+          "oklch(95% 0.06 27)"
+        ]
+      },
+      "led-hover": {
+        "role": "state",
+        "displayName": "LED Hover",
+        "canonical": "#ff6a59",
+        "tonalRamp": []
+      },
+      "silk-bright": {
+        "role": "state",
+        "displayName": "Bright Silkscreen",
+        "canonical": "#ffffff",
+        "tonalRamp": []
+      },
+      "mask-red-hover": {
+        "role": "state",
+        "displayName": "Red Mask Hover",
+        "canonical": "#ba3127",
+        "tonalRamp": []
+      },
+      "rule": {
+        "role": "state",
+        "displayName": "Table Rule",
+        "canonical": "#262a27",
+        "tonalRamp": []
+      },
+      "led-green": {
+        "role": "state",
+        "displayName": "LED Green",
+        "canonical": "#3ddc84",
+        "tonalRamp": []
+      },
+      "led-green-core": {
+        "role": "state",
+        "displayName": "LED Green Core",
+        "canonical": "#b8f5cf",
+        "tonalRamp": []
+      },
+      "module": {
+        "role": "neutral",
+        "displayName": "OLED Module Board",
+        "canonical": "#121614",
+        "tonalRamp": []
+      },
+      "oled-glass": {
+        "role": "neutral",
+        "displayName": "OLED Glass",
+        "canonical": "#060807",
+        "tonalRamp": []
+      },
+      "oled": {
+        "role": "state",
+        "displayName": "OLED Pixels",
+        "canonical": "#c6f1ff",
+        "tonalRamp": []
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Name, project title, contact headline, footer wordmark, copper result figures."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings and role titles; default for h1-h3."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Ledes, role summaries, section blurbs at 31-36ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Detail bullets, table cells, paragraphs."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Captions, credits, table headers; sentence case."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Default curve: reveals, presses, link trace pull-off, swap-in."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Toolpath wipes and board moves."
+      },
+      {
+        "name": "reveal",
+        "value": "translateY(24px) to none; opacity 700ms, transform 900ms, ease-out; stagger 75ms",
+        "purpose": "Deposition entrance for text blocks."
+      },
+      {
+        "name": "wipe",
+        "value": "clip-path inset(0 100% 0 0) to inset(0); 1100ms ease-in-out; stagger 90ms",
+        "purpose": "Headings uncovered left to right like a nozzle pass."
+      },
+      {
+        "name": "press",
+        "value": "scale(0.97) buttons, scale(0.98) cells; 160ms ease-out",
+        "purpose": "Active state."
+      },
+      {
+        "name": "swap-in",
+        "value": "from opacity 0, blur(4px), translateY(4px); 260ms ease-out",
+        "purpose": "In-place state text change."
+      },
+      {
+        "name": "reply-pulse",
+        "value": "stroke-dash travel, 2.6s cubic-bezier(0.45, 0, 0.2, 1), infinite",
+        "purpose": "Hot copper current along traces into the reply LED."
+      },
+      {
+        "name": "print-intro",
+        "value": "6.45s: substrate 0.15-1.65s, traces 1.6-4.3s, parts 4.2-5.35s, flatten 5.75-6.35s, fade 0.5s",
+        "purpose": "Once-per-session 3D print that flattens onto the page; skipped for reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "LED Button",
+      "kind": "button",
+      "refersTo": "button-led",
+      "description": "Primary filled action, reserved for email.",
+      "html": "<a class=\"ds-btn-led\" href=\"#\">Email jewallick@pm.me</a>",
+      "css": ".ds-btn-led{display:inline-flex;align-items:center;gap:.6em;font-family:var(--font-display);font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 92;text-decoration:none;border:0;border-radius:0;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease;min-height:3.5rem;padding:0 1.6rem;background:var(--led);color:var(--mask-deep)}.ds-btn-led:hover{background:#ff6a59}.ds-btn-led:active{transform:scale(.97)}.ds-btn-led:focus-visible{outline:3px solid var(--copper);outline-offset:3px}"
+    },
+    {
+      "name": "Compact LED Button",
+      "kind": "button",
+      "refersTo": "button-led-compact",
+      "description": "Nav-bar email action.",
+      "html": "<a class=\"ds-btn-led-c\" href=\"#\">Email me</a>",
+      "css": ".ds-btn-led-c{display:inline-flex;align-items:center;gap:.6em;font-family:var(--font-display);font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 92;text-decoration:none;border:0;border-radius:0;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease;min-height:3rem;padding:0 1.25rem;background:var(--led);color:var(--mask-deep)}.ds-btn-led-c:hover{background:#ff6a59}.ds-btn-led-c:active{transform:scale(.97)}.ds-btn-led-c:focus-visible{outline:3px solid var(--copper);outline-offset:3px}"
+    },
+    {
+      "name": "Silk Button",
+      "kind": "button",
+      "refersTo": "button-silk",
+      "description": "Secondary filled action in silkscreen.",
+      "html": "<button class=\"ds-btn-silk\">Send an email</button>",
+      "css": ".ds-btn-silk{display:inline-flex;align-items:center;gap:.6em;font-family:var(--font-display);font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 92;text-decoration:none;border:0;border-radius:0;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease;min-height:3.5rem;padding:0 1.6rem;background:var(--silk);color:var(--mask-deep)}.ds-btn-silk:hover{background:#fff}.ds-btn-silk:active{transform:scale(.97)}.ds-btn-silk:focus-visible{outline:3px solid var(--copper);outline-offset:3px}"
+    },
+    {
+      "name": "Copper Trace Link",
+      "kind": "custom",
+      "refersTo": "link",
+      "description": "Text link with a copper trace that pulls away to the right on hover.",
+      "html": "<a class=\"ds-link\" href=\"#\">Experience</a>",
+      "css": ".ds-link{position:relative;display:inline-block;color:var(--silk);font-weight:600;text-decoration:none;padding-bottom:3px;transition:color 200ms ease;font-family:var(--font-display)}.ds-link::after{content:'';position:absolute;inset:auto 0 0 0;height:2px;background:var(--copper);transform-origin:right;transition:transform 300ms var(--ease-out)}.ds-link:hover{color:var(--copper-hot)}.ds-link:hover::after{transform:scaleX(0)}.ds-link:active{transform:translateY(1px)}.ds-link:focus-visible{outline:3px solid var(--copper);outline-offset:3px}"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "description": "Backgroundless bar: condensed wordmark, copper-trace links, compact LED button.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-mark\" href=\"#\">J. Evenden-Wallick</a><div class=\"ds-nav-r\"><a class=\"ds-nav-link\" href=\"#\">Experience</a><a class=\"ds-nav-link\" href=\"#\">Project</a><a class=\"ds-nav-btn\" href=\"#\">Email me</a></div></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.5rem clamp(1.25rem,2.8vw,2.5rem);background:var(--mask);color:var(--silk);font-family:var(--font-display);font-size:1.125rem}.ds-nav-mark{color:inherit;font-weight:800;font-variation-settings:'wdth' 84;text-decoration:none}.ds-nav-r{display:flex;align-items:center;gap:1.75rem}.ds-nav-link{position:relative;display:inline-block;color:var(--silk);font-weight:600;text-decoration:none;padding-bottom:3px;transition:color 200ms ease}.ds-nav-link::after{content:'';position:absolute;inset:auto 0 0 0;height:2px;background:var(--copper);transform-origin:right;transition:transform 300ms var(--ease-out)}.ds-nav-link:hover{color:var(--copper-hot)}.ds-nav-link:hover::after{transform:scaleX(0)}.ds-nav-btn{display:inline-flex;align-items:center;gap:.6em;font-family:var(--font-display);font-size:1.125rem;font-weight:700;font-variation-settings:'wdth' 92;text-decoration:none;border:0;border-radius:0;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 200ms ease;min-height:3rem;padding:0 1.25rem;background:var(--led);color:var(--mask-deep)}.ds-nav-btn:hover{background:#ff6a59}.ds-nav a:focus-visible{outline:3px solid var(--copper);outline-offset:3px}"
+    },
+    {
+      "name": "Contact Cell",
+      "kind": "button",
+      "refersTo": "contact-cell",
+      "description": "Square filled action cells on the red solder-mask contact board.",
+      "html": "<div class=\"ds-cells\"><a class=\"ds-cell\" href=\"#\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z\"/></svg>LinkedIn</a><a class=\"ds-cell ds-cell-silk\" href=\"#\">Send an email</a></div>",
+      "css": ".ds-cells{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;padding:1.5rem;background:var(--mask-red)}.ds-cell{display:flex;align-items:center;justify-content:center;gap:.75rem;min-height:5rem;background:var(--mask-red-raised);color:var(--silk);font-family:var(--font-display);font-weight:700;text-decoration:none;transition:transform 160ms var(--ease-out),background-color 200ms ease}.ds-cell:hover{background:#ba3127}.ds-cell:active{transform:scale(.98)}.ds-cell:focus-visible{outline:3px solid var(--copper);outline-offset:3px}.ds-cell-silk{background:var(--silk);color:var(--mask-deep)}.ds-cell-silk:hover{background:#fff}"
+    },
+    {
+      "name": "Copper Pad List",
+      "kind": "custom",
+      "description": "Detail bullets marked with square copper pads, closed by a copper tag line.",
+      "html": "<div class=\"ds-pads\"><ul><li>Wrote flight-computer C for a guidance subsystem.</li><li>Built ESP32 firmware for a prosthetic arm.</li></ul><p class=\"ds-tags\">C · C++ · ESP32</p></div>",
+      "css": ".ds-pads{background:var(--mask);color:var(--silk);font-family:var(--font-display);font-size:1.125rem;line-height:1.55;padding:1.5rem}.ds-pads ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1rem}.ds-pads li{position:relative;padding-left:1.75rem}.ds-pads li::before{content:'';position:absolute;top:.62em;left:0;width:.5rem;height:.5rem;background:var(--copper)}.ds-tags{margin:2rem 0 0;color:var(--copper)}"
+    },
+    {
+      "name": "Trace, Via and LED",
+      "kind": "custom",
+      "description": "Board primitives: 45-degree copper trace, ring via, two-pad SMD LED that lights.",
+      "html": "<svg class=\"ds-board\" viewBox=\"0 0 240 120\" aria-hidden=\"true\"><rect width=\"240\" height=\"120\" fill=\"var(--mask-raised)\"/><path d=\"M10 90 H90 L130 50 H180\" fill=\"none\" stroke=\"var(--copper)\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><circle cx=\"90\" cy=\"90\" r=\"6.5\" fill=\"var(--copper)\"/><circle cx=\"90\" cy=\"90\" r=\"2.6\" fill=\"var(--mask-deep)\"/><rect x=\"180\" y=\"44\" width=\"8\" height=\"12\" fill=\"var(--copper)\"/><rect x=\"208\" y=\"44\" width=\"8\" height=\"12\" fill=\"var(--copper)\"/><rect class=\"ds-led\" x=\"186\" y=\"42\" width=\"24\" height=\"16\"/></svg>",
+      "css": ".ds-board{display:block;width:100%;max-width:360px}.ds-led{fill:var(--led-off);transition:fill 160ms ease}.ds-board:hover .ds-led{fill:var(--led)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Populated Board",
+    "overview": "The page is a fabricated printed circuit board. A 3D print lays it down layer by layer (substrate, copper, component bodies), the camera settles straight down, and the materials flatten to the exact page colours so the print becomes the page with no seam. From then on every surface is board material: matte black solder mask for ground, ENIG gold copper for every line, pad and via, silkscreen off-white for every word, and one red SMD LED for the one thing to do.\n\nDensity is low and deliberate. Type is very large and very condensed, rows are separated by wide section gaps, and the board itself is the only dense area: a central MCU wired by 45-degree copper to one component per role. Photographs are of the material world the work lives in, always greyscale, so colour stays reserved for copper and the LED. Motion is fabrication: toolpath wipes left to right, traces drawn along their length, signal pulses travelling to a part. Nothing bounces and nothing fades in for decoration alone.\n\nDark ground and the red accent are product commitments, not choices this world can revisit.",
+    "keyCharacteristics": [
+      "Matte black mask ground with a single green-black raised step; no gradients, no glass.",
+      "Copper is the only line colour: rules, bullets, underlines, traces, vias, figures.",
+      "LED red only for the email action and whatever is lit; one lit component at a time on the board.",
+      "Square rectangles everywhere; circles appear only as vias, mounting holes and fiducials.",
+      "Archivo variable: heavy condensed display (wdth 74-76), normal-width text (wdth 100).",
+      "Motion as deposition: wipes, drawn traces, pulses; strong ease-out, no bounce."
+    ],
+    "rules": [
+      {
+        "name": "The LED Means On Rule",
+        "body": "LED red is only ever the email action or a part that is lit (the active component, a status LED, the reply LED, the boat on its route). It is never decoration, emphasis or a status colour for text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Copper Line Rule",
+        "body": "Every non-type line on the page is copper (or dim copper). No grey hairlines, no silk rules; the BOM table's dark row rule is the single exception, because it is a printed table.",
+        "section": "colors"
+      },
+      {
+        "name": "The Flat Hand-off Rule",
+        "body": "The print intro's `flat` material colours equal these tokens exactly. Change a token, change config/print-config.ts in the same commit.",
+        "section": "colors"
+      },
+      {
+        "name": "The Five Steps Rule",
+        "body": "Five sizes, no more: display, title, lead, body, small. Emphasis comes from weight and width, not new sizes.",
+        "section": "typography"
+      },
+      {
+        "name": "The Silkscreen Case Rule",
+        "body": "Type is set in sentence case at normal tracking. No uppercase labels, no small tracked headers above headings.",
+        "section": "typography"
+      },
+      {
+        "name": "The Layer Not Lift Rule",
+        "body": "Separate surfaces with a mask tone step or copper, never with a shadow or blur.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do reserve LED red for the email action and lit parts; light one board component at a time.",
+      "Do draw every non-type line in copper or dim copper, with 45-degree routing and round caps.",
+      "Do separate surfaces with mask tone steps (mask, mask-raised, mask-deep) rather than shadows.",
+      "Do set headings heavy and condensed (weight 800-820, wdth 74-76) and running text at full width.",
+      "Do show photographs greyscale (grayscale 1, contrast 1.08, brightness 0.86) and credit them.",
+      "Do animate by deposition: wipes, drawn traces, pulses, on the ease-out curve, with a reduced-motion path.",
+      "Do update config/print-config.ts flat colours whenever a colour token changes."
+    ],
+    "donts": [
+      "Don't round rectangles; circles are only for vias, holes, fiducials and ring markers.",
+      "Don't add box-shadows, glows, gradients or glass panels.",
+      "Don't introduce a sixth type size or a second typeface.",
+      "Don't use uppercase tracked labels or small headers stacked above headings.",
+      "Don't use LED red for decoration, emphasis or text colour; red solder mask belongs to the contact board alone.",
+      "Don't bounce or overshoot; nothing springs."
+    ]
+  }
+}

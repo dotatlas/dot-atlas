@@ -1,138 +1,779 @@
 @import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
-/* portfolio: dark base + restrained red accent */
+/*
+ * Solder mask. The page is a fabricated circuit board: matte black mask,
+ * ENIG gold copper, silkscreen white type, one red SMD LED for the action.
+ * The 3D intro flattens its materials to these exact values at the hand-off,
+ * so keep config/print-config.ts in sync when changing them.
+ */
+:root {
+  --mask: #0e100f;
+  --mask-raised: #151816;
+  --mask-deep: #090a09;
+  --mask-red: #9a1f18;
+  --mask-red-raised: #ab2820;
+  --silk: #ecebe7;
+  --silk-2: #a9aba4;
+  --copper: #d4ab55;
+  --copper-dim: #5c4b29;
+  --copper-hot: #ffe2a1;
+  --chip: #1c1e1d;
+  --chip-mark: #8f918b;
+  --shield: #8e928c;
+  --led: #ff4433;
+  --led-off: #3a1714;
+  --led-hover: #ff6a59;
+  --silk-bright: #ffffff;
+  --mask-red-hover: #ba3127;
+  --rule: #262a27;
+  --led-green: #3ddc84;
+  --led-green-core: #b8f5cf;
+  --module: #121614;
+  --oled-glass: #060807;
+  --oled: #c6f1ff;
+
+  --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
+
+  /* five sizes, no more */
+  --step-display: clamp(3rem, 9vw, 9rem);
+  --step-title: clamp(2.25rem, 3.9vw, 3.75rem);
+  --step-lead: clamp(1.25rem, 1.55vw, 1.5rem);
+  --step-body: 1.125rem;
+  --step-small: 0.875rem;
+
+  --gutter: clamp(1.25rem, 2.8vw, 2.5rem);
+  --section-gap: clamp(7.5rem, 14vw, 13.5rem);
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  color-scheme: dark;
+}
 
 @theme inline {
-  --font-heading: var(--font-sans);
-  --font-sans: var(--font-geist-sans), 'Geist Fallback';
-  --font-mono: var(--font-geist-mono), 'Geist Mono Fallback';
-  --color-accent-red: var(--accent-red);
-  --color-accent-red-foreground: var(--accent-red-foreground);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-:root {
-  /* Dark base with a restrained red accent. --background is intentionally
-     kept in sync with PRINT_LAYER_COLOR in scene-config so the 3D print
-     fade is seamless. */
-  --background: oklch(0.16 0.004 20);
-  --foreground: oklch(0.96 0 0);
-  --card: oklch(0.2 0.005 20);
-  --card-foreground: oklch(0.96 0 0);
-  --popover: oklch(0.18 0.005 20);
-  --popover-foreground: oklch(0.96 0 0);
-  --primary: oklch(0.96 0 0);
-  --primary-foreground: oklch(0.18 0.005 20);
-  --secondary: oklch(0.24 0.005 20);
-  --secondary-foreground: oklch(0.96 0 0);
-  --muted: oklch(0.24 0.005 20);
-  --muted-foreground: oklch(0.66 0.01 20);
-  --accent: oklch(0.26 0.01 20);
-  --accent-foreground: oklch(0.96 0 0);
-  --accent-red: oklch(0.58 0.21 25);
-  --accent-red-foreground: oklch(0.98 0 0);
-  --destructive: oklch(0.58 0.21 25);
-  --border: oklch(1 0 0 / 8%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.58 0.21 25);
-  --chart-1: oklch(0.58 0.21 25);
-  --chart-2: oklch(0.66 0.01 20);
-  --chart-3: oklch(0.5 0.01 20);
-  --chart-4: oklch(0.4 0.01 20);
-  --chart-5: oklch(0.3 0.01 20);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.18 0.005 20);
-  --sidebar-foreground: oklch(0.96 0 0);
-  --sidebar-primary: oklch(0.58 0.21 25);
-  --sidebar-primary-foreground: oklch(0.98 0 0);
-  --sidebar-accent: oklch(0.26 0.01 20);
-  --sidebar-accent-foreground: oklch(0.96 0 0);
-  --sidebar-border: oklch(1 0 0 / 8%);
-  --sidebar-ring: oklch(0.58 0.21 25);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --color-mask: var(--mask);
+  --color-mask-raised: var(--mask-raised);
+  --color-mask-deep: var(--mask-deep);
+  --color-mask-red: var(--mask-red);
+  --color-silk: var(--silk);
+  --color-silk-2: var(--silk-2);
+  --color-copper: var(--copper);
+  --color-copper-dim: var(--copper-dim);
+  --color-led: var(--led);
+  --font-sans: var(--font-display);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
-    @apply font-sans;
+    background: var(--mask);
+    color: var(--silk);
+    font-family: var(--font-display);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-color: var(--copper-dim) var(--mask);
+    scrollbar-width: thin;
+  }
+
+  body {
+    margin: 0;
+    background: var(--mask);
+    font-size: var(--step-body);
+    line-height: 1.55;
+    font-variation-settings: 'wdth' 100;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: var(--copper);
+    color: var(--mask-deep);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--copper);
+    outline-offset: 3px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration-color: var(--copper-dim);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 800;
+    font-variation-settings: 'wdth' 76;
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+/* ---------------------------------------------------------------- type */
+
+.t-display {
+  font-size: var(--step-display);
+  line-height: 0.86;
+  letter-spacing: -0.035em;
+  font-weight: 820;
+  font-variation-settings: 'wdth' 74;
+}
+
+.t-title {
+  font-size: var(--step-title);
+}
+
+.t-lead {
+  font-size: var(--step-lead);
+  line-height: 1.32;
+  font-weight: 450;
+  letter-spacing: -0.008em;
+}
+
+.t-small {
+  font-size: var(--step-small);
+  line-height: 1.45;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ------------------------------------------------------------- controls */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 3.5rem;
+  padding: 0 1.6rem;
+  font-size: var(--step-body);
+  font-weight: 700;
+  font-variation-settings: 'wdth' 92;
+  text-decoration: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease;
+}
+
+.btn-compact {
+  min-height: 3rem;
+  padding: 0 1.25rem;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-led {
+  background: var(--led);
+  color: var(--mask-deep);
+}
+
+.btn-silk {
+  background: var(--silk);
+  color: var(--mask-deep);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn-led:hover {
+    background: var(--led-hover);
+  }
+  .btn-silk:hover {
+    background: var(--silk-bright);
+  }
+}
+
+/* a copper trace under the link; on hover it is pulled away to the right */
+.link {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  text-decoration: none;
+  padding-bottom: 3px;
+  transition: color 200ms ease;
+}
+
+.link::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: var(--copper);
+  transform-origin: right;
+  transition: transform 300ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    color: var(--copper-hot);
+  }
+  .link:hover::after {
+    transform: scaleX(0);
+  }
+}
+
+.link:active {
+  transform: translateY(1px);
+}
+
+}
+
+/* filled action cells in the contact bar */
+.cell {
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease;
+}
+
+.cell:active {
+  transform: scale(0.98);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cell:hover {
+    background-color: var(--mask-red-hover);
+  }
+  .cell.bg-silk:hover {
+    background-color: var(--silk-bright);
+  }
+}
+
+/* --------------------------------------------------------------- motion */
+
+/*
+ * Deposition: content is visible by default. When JS is present, `.js` on
+ * <html> arms the reveal and an observer adds `.is-in` as parts arrive.
+ */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 900ms var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 75ms);
+}
+
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* the toolpath wipe: a pass left-to-right, like a nozzle laying a line */
+.js [data-wipe] {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1100ms var(--ease-in-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.js [data-wipe].is-in {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+  .js [data-wipe] {
+    clip-path: none;
+    opacity: 0;
+    transition: opacity 300ms ease;
+  }
+  .js [data-wipe].is-in {
+    opacity: 1;
+  }
+}
+
+/* --------------------------------------------------------------- photos */
+
+.photo {
+  filter: grayscale(1) contrast(1.08) brightness(0.86);
+}
+
+/* board components are pressable */
+.board-part {
+  cursor: pointer;
+  outline: none;
+}
+
+.board-part:focus-visible > rect:first-child {
+  stroke: var(--copper);
+  stroke-width: 3;
+}
+
+/* a state change in place: the new text sharpens in */
+.swap-in {
+  animation: swap-in 260ms var(--ease-out);
+}
+
+@keyframes swap-in {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-in {
+    animation: none;
+  }
+}
+
+/* the name returns heavy: it settles to full size as the footer arrives */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .wordmark-settle {
+      transform-origin: 0 100%;
+      animation: wordmark-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+  }
+}
+
+@keyframes wordmark-settle {
+  from {
+    transform: scale(0.94);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* a slow scroll-linked push into the macro photograph */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .slow-drift {
+      animation: slow-drift linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+@keyframes slow-drift {
+  from {
+    transform: scale(1.12) translateY(-3%);
+  }
+  to {
+    transform: scale(1.02) translateY(3%);
+  }
+}
+
+/* the bill of materials is a real table, so it keeps a table's rules */
+.bom th,
+.bom td {
+  padding: 0.85rem 1rem 0.85rem 0;
+  vertical-align: top;
+  border-bottom: 1px solid var(--rule);
+}
+
+.bom thead th {
+  padding-top: 0;
+  font-size: var(--step-small);
+  font-weight: 600;
+  color: var(--silk-2);
+}
+
+.bom .bom-group th {
+  padding-top: 2.5rem;
+  font-size: var(--step-lead);
+  font-weight: 800;
+  font-variation-settings: 'wdth' 90;
+  color: var(--silk);
+  border-bottom-color: var(--copper-dim);
+}
+
+.bom td:last-child,
+.bom th:last-child {
+  padding-right: 0;
+}
+
+/* contact board: current keeps arriving at the reply LED */
+.reply-pulse {
+  /* the traces are about 430 units long */
+  stroke-dasharray: 38 620;
+  stroke-dashoffset: 38;
+  animation: reply-pulse 2.6s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+@keyframes reply-pulse {
+  to {
+    stroke-dashoffset: -440;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reply-pulse {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* project schematic: signals keep moving across the seam */
+.schem-pulse {
+  stroke-dasharray: 30 1000;
+  stroke-dashoffset: 30;
+  animation: schem-pulse 2.4s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+@keyframes schem-pulse {
+  to {
+    stroke-dashoffset: -320;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schem-pulse {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* the schematic closes: one bright pass across the seam */
+.schem-connect {
+  animation: schem-connect 900ms var(--ease-out) both;
+}
+
+@keyframes schem-connect {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* PEP 25: telemetry pings leaving the vehicle */
+.pep-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pep-ping 1.8s var(--ease-out) infinite;
+}
+
+@keyframes pep-ping {
+  from {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .schem-connect,
+  .pep-ping {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------- resume viewer */
+
+.resume-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  background: color-mix(in oklab, var(--mask-deep) 84%, transparent);
+  transition: opacity 200ms ease;
+}
+
+.resume-backdrop[data-starting-style],
+.resume-backdrop[data-ending-style] {
+  opacity: 0;
+}
+
+/* a modal: it scales from the centre, not from its trigger */
+.resume-popup {
+  position: fixed;
+  z-index: 90;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--mask-raised);
+  outline: none;
+  transform-origin: 50% 50%;
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 260ms var(--ease-out);
+}
+
+@media (min-width: 640px) {
+  .resume-popup {
+    inset: auto;
+    top: 50%;
+    left: 50%;
+    width: min(1000px, calc(100vw - 2 * var(--gutter)));
+    height: calc(100svh - 2 * clamp(1rem, 4vh, 2.5rem));
+    transform: translate(-50%, -50%);
+  }
+}
+
+.resume-popup[data-starting-style],
+.resume-popup[data-ending-style] {
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+}
+
+@media (min-width: 640px) {
+  .resume-popup[data-starting-style],
+  .resume-popup[data-ending-style] {
+    transform: translate(-50%, -50%) translateY(14px) scale(0.98);
+  }
+}
+
+/* leaving is quicker than arriving */
+.resume-popup[data-ending-style] {
+  transition-duration: 160ms;
+}
+
+.resume-close {
+  display: inline-grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 0;
+  background: var(--mask-raised);
+  color: var(--silk);
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease;
+}
+
+.resume-close:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .resume-close:hover {
+    background: var(--chip);
+  }
+}
+
+.resume-body {
+  position: relative;
+  flex: 1;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: clamp(0.75rem, 3vw, 2.5rem);
+  scrollbar-color: var(--copper-dim) var(--mask-raised);
+  scrollbar-width: thin;
+}
+
+.resume-page {
+  position: relative;
+  background: var(--silk-bright);
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 360ms var(--ease-out),
+    transform 460ms var(--ease-out);
+}
+
+.resume-page[data-ready] {
+  opacity: 1;
+  transform: none;
+}
+
+.resume-page canvas {
+  display: block;
+}
+
+/* zoom: a small square control group, in the header (or a phone's lower corner) */
+.resume-zoom {
+  display: flex;
+  align-items: stretch;
+  background: var(--mask-raised);
+}
+
+.resume-zoom-float {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 5;
+  background: var(--mask);
+}
+
+.resume-zoom button {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  background: transparent;
+  color: var(--silk);
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 200ms ease,
+    opacity 200ms ease;
+}
+
+.resume-zoom button:active:not(:disabled) {
+  transform: scale(0.94);
+}
+
+.resume-zoom button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .resume-zoom button:hover:not(:disabled) {
+    background: var(--chip);
+  }
+}
+
+.resume-zoom span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 4.5ch;
+  font-size: var(--step-small);
+  font-weight: 600;
+}
+
+/* while the PDF loads, a copper trace runs across the top of the board */
+.resume-loading {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  overflow: hidden;
+}
+
+.resume-loading-trace {
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: var(--copper);
+  animation: resume-trace 900ms var(--ease-in-out) infinite;
+}
+
+@keyframes resume-trace {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(260%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume-popup,
+  .resume-page {
+    transition: opacity 200ms ease;
+  }
+  .resume-popup[data-starting-style],
+  .resume-popup[data-ending-style],
+  .resume-page {
+    transform: none;
+  }
+  @media (min-width: 640px) {
+    .resume-popup[data-starting-style],
+    .resume-popup[data-ending-style] {
+      transform: translate(-50%, -50%);
+    }
+  }
+  .resume-loading-trace {
+    animation: none;
+    width: 100%;
+  }
+}
+
+/* pdf.js text layer: transparent text over the canvas, so the resume is selectable */
+.textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  line-height: 1;
+  text-align: initial;
+  transform-origin: 0 0;
+  forced-color-adjust: none;
+  --min-font-size: 1;
+  --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+  --min-font-size-inv: calc(1 / var(--min-font-size));
+}
+
+.textLayer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.textLayer > :not(.markedContent),
+.textLayer .markedContent span:not(.markedContent) {
+  --font-height: 0;
+  font-size: calc(var(--text-scale-factor) * var(--font-height));
+  --scale-x: 1;
+  --rotate: 0deg;
+  transform: rotate(var(--rotate)) scaleX(var(--scale-x)) scale(var(--min-font-size-inv));
+}
+
+.textLayer .markedContent {
+  display: contents;
+}
+
+.textLayer ::selection {
+  background: color-mix(in oklab, var(--copper) 35%, transparent);
+  color: transparent;
+}
+
+/* contact board: one pulse per press, down the input and on through U1 */
+.contact-pulse {
+  stroke-dasharray: 30 1000;
+  stroke-dashoffset: 30;
+  animation: contact-pulse 460ms cubic-bezier(0.45, 0, 0.2, 1) both;
+}
+
+@keyframes contact-pulse {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+
+/* the OLED's cursor blinks the way a screen does: on, off, no fade */
+.oled-cursor {
+  animation: oled-cursor 1s steps(1, end) infinite;
+}
+
+@keyframes oled-cursor {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-pulse {
+    animation: none;
+    opacity: 0;
+  }
+  .oled-cursor {
+    animation: none;
   }
 }

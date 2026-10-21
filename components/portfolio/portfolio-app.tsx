@@ -1,76 +1,90 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { SECTIONS, type CarouselNode } from '@/config/portfolio-content'
-import { TRANSITION_CONFIG } from '@/config/scene-config'
-import { Hero } from './hero'
-import { SectionCarousel } from './section-carousel'
-import { NodeDetail } from './node-detail'
-import { PrintOverlay } from '@/components/three/print-overlay'
+import { INTRO_SESSION_KEY } from '@/config/print-config'
+import { SiteNav } from './site-nav'
+import { Passage } from './passage'
+import { Figures } from './figures'
+import { Project } from './project'
+import { Education } from './education'
+import { Bom } from './bom'
+import { Contact } from './contact'
+import { SiteFooter } from './site-footer'
+import { useReveal } from './use-reveal'
+import { ResumeDialog } from './resume'
 
-// The Three.js intro is client + WebGL only; load it without SSR.
-const PrintIntro = dynamic(
-  () => import('@/components/three/print-intro').then((m) => m.PrintIntro),
-  { ssr: false },
-)
+// WebGL only: never rendered on the server.
+const PrintIntro = dynamic(() => import('@/components/three/print-intro').then((m) => m.PrintIntro), {
+  ssr: false,
+})
+
+type Phase = 'checking' | 'printing' | 'ready'
+
+function canPrint() {
+  try {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
+    if (new URLSearchParams(window.location.search).get('intro') === 'off') return false
+    if (sessionStorage.getItem(INTRO_SESSION_KEY)) return false
+    const c = document.createElement('canvas')
+    return Boolean(c.getContext('webgl2') || c.getContext('webgl'))
+  } catch {
+    return false
+  }
+}
 
 export function PortfolioApp() {
-  const [introDone, setIntroDone] = useState(true) // assume done until we check session
-  const [introReplayKey, setIntroReplayKey] = useState(0)
-  const [activeNode, setActiveNode] = useState<CarouselNode | null>(null)
-  const [overlayOpen, setOverlayOpen] = useState(false)
+  const [phase, setPhase] = useState<Phase>('checking')
+  const [run, setRun] = useState(0)
 
-  // Decide whether to play the intro (once per session).
   useEffect(() => {
-    const played = sessionStorage.getItem(TRANSITION_CONFIG.sessionKey)
-    if (!played) setIntroDone(false)
+    setPhase(canPrint() ? 'printing' : 'ready')
   }, [])
 
-  const finishIntro = () => {
-    sessionStorage.setItem(TRANSITION_CONFIG.sessionKey, '1')
-    setIntroDone(true)
-  }
+  const finish = useCallback(() => {
+    try {
+      sessionStorage.setItem(INTRO_SESSION_KEY, '1')
+    } catch {}
+    setPhase('ready')
+  }, [])
 
-  const replayIntro = () => {
-    setIntroReplayKey((value) => value + 1)
-    setIntroDone(false)
-  }
-
-  const openNode = (node: CarouselNode) => {
-    setActiveNode(node)
-    setOverlayOpen(true)
-  }
-
-  const requestClose = () => setOverlayOpen(false) // triggers heat-dissolve
-  const afterClosed = () => {
-    setActiveNode(null)
-  }
+  const replay = useCallback(() => {
+    window.scrollTo(0, 0)
+    // re-hide the type so the print hands off to a bare board again
+    document.querySelectorAll('.is-in').forEach((el) => el.classList.remove('is-in'))
+    setRun((n) => n + 1)
+    setPhase('printing')
+  }, [])
 
   return (
     <>
-      {!introDone && <PrintIntro key={introReplayKey} onDone={finishIntro} />}
-
-      <main className="relative min-h-screen">
-        <Hero onReplayIntro={replayIntro} canReplayIntro={introDone} />
-        {SECTIONS.map((section) => (
-          <SectionCarousel key={section.id} section={section} onOpenNode={openNode} />
-        ))}
-
-        <footer className="mx-auto max-w-6xl px-6 py-16 text-center font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          Built with Three.js · Printed by Joshua Evenden-Wallick
-        </footer>
-      </main>
-
-      {activeNode && (
-        <PrintOverlay
-          open={overlayOpen}
-          onClosed={afterClosed}
-          region={{ mode: 'centered', widthPct: 92, heightPct: 86 }}
-        >
-          <NodeDetail node={activeNode} onClose={requestClose} />
-        </PrintOverlay>
-      )}
+      {phase === 'printing' && <PrintIntro key={run} onDone={finish} />}
+      <Page ready={phase === 'ready'} onReplay={replay} />
     </>
   )
+}
+
+function Page({ ready, onReplay }: { ready: boolean; onReplay: () => void }) {
+  return (
+    <>
+      {ready && <RevealArm />}
+      <SiteNav />
+      <main>
+        <Passage silk={ready} />
+        <Figures />
+        <Project />
+        <Bom />
+        <Education />
+        <Contact />
+      </main>
+      <SiteFooter onReplay={onReplay} />
+      <ResumeDialog />
+    </>
+  )
+}
+
+/** Starts the entrance choreography only once the page is in view. */
+function RevealArm() {
+  useReveal()
+  return null
 }
