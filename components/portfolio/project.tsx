@@ -90,6 +90,7 @@ function VolunteerHub() {
 
           {/* the title tears at its word gap and closes with the circuit */}
           <div className="pointer-events-none absolute inset-x-0 top-[10svh] flex flex-col items-center text-center">
+            <p className="t-small m-0 mb-4 font-semibold text-silk-2">Project 01</p>
             <h2 id="hub-h" className="t-display m-0 flex w-full justify-center gap-[0.32em] text-silk">
               <motion.span className="block" style={{ transform: tTitleL }}>
                 {first}
@@ -105,8 +106,12 @@ function VolunteerHub() {
         </div>
       </div>
 
-      <div className="mt-24 grid gap-12 px-(--gutter) lg:grid-cols-12 lg:gap-8">
+      <div className="mt-14 grid gap-12 px-(--gutter) lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-5">
+          {/* the details sit below the panel, so they carry the project's name back down with them */}
+          <p className="t-small m-0 mb-3 font-semibold text-copper" data-reveal>
+            {HUB.title}
+          </p>
           <h3 className="t-title" data-wipe>
             Built solo, end to end
           </h3>
@@ -398,6 +403,10 @@ function Pep25() {
       aria-labelledby="pep-h"
       className="mt-(--section-gap) scroll-mt-16 px-(--gutter)"
     >
+      {/* a rule closes Volunteer Hub's details and opens this project */}
+      <p className="t-small m-0 mb-10 border-t border-copper-dim pt-5 font-semibold text-copper lg:mb-14">
+        Project 02
+      </p>
       <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-8">
         <h2 id="pep-h" className="t-display m-0 [word-spacing:0.14em] lg:col-span-5" data-wipe>
           {PEP.title}

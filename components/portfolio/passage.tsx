@@ -40,7 +40,10 @@ export function Passage({ silk }: { silk: boolean }) {
   }
 
   return (
-    <div id="top" className="relative flex flex-col lg:grid lg:grid-cols-2">
+    <div
+      id="top"
+      className="relative flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-[minmax(0,9fr)_minmax(0,11fr)]"
+    >
       {/* the board: sticky stage on desktop, the top of the first screen on phones */}
       <div className="order-first lg:order-last lg:col-start-2 lg:row-start-1">
         <div className="flex h-[52svh] items-start justify-center px-(--gutter) pt-20 lg:sticky lg:top-0 lg:h-svh lg:items-center lg:pt-24 lg:pr-5 lg:pb-5 lg:pl-0">
@@ -106,7 +109,7 @@ function Experience({ active }: { active: string | null }) {
       aria-labelledby="experience-h"
       className="px-(--gutter) pt-(--section-gap)"
     >
-      <div className="max-w-[36rem]">
+      <div className="max-w-[36rem] xl:max-w-[40rem]">
         <h2 id="experience-h" className="t-title" data-reveal>
           Experience
         </h2>
@@ -115,7 +118,7 @@ function Experience({ active }: { active: string | null }) {
         </p>
       </div>
 
-      <div className="mt-20 flex flex-col gap-28 lg:mt-28 lg:gap-36">
+      <div className="mt-16 flex flex-col gap-24 lg:mt-20 lg:gap-28">
         {EXPERIENCE.nodes.map((node) => (
           <Leg key={node.id} node={node} photos={ROLE_PHOTOS[node.id]} live={active === node.id} />
         ))}
@@ -128,7 +131,7 @@ function Leg({ node, photos, live }: { node: Entry; photos?: Photo[]; live: bool
   const [place, ...when] = node.meta.split(' · ')
   const figure = FIGURES[node.id]
   return (
-    <article id={`role-${node.id}`} data-part={node.id} className="max-w-[36rem] scroll-mt-24">
+    <article id={`role-${node.id}`} data-part={node.id} className="max-w-[36rem] scroll-mt-24 xl:max-w-[40rem]">
       <div className="flex items-start gap-4">
         {/* below lg the board scrolls away, so each role carries its own status LED */}
         <span
