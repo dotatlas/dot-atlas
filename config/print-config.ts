@@ -70,6 +70,8 @@ export const PRINT_SIZES = {
     crystal: 13,
     sot223: 10,
     button: 12,
+    rj45: 22,
+    terminal: 16,
   },
   /** Clearance the bit lifts to when travelling between traces. */
   travelHop: 14,

@@ -855,6 +855,38 @@ function PartBody({
         </>
       )
       break
+    case 'rj45':
+      // shield, its top panel, and the plastic front on the board edge (as in the SVG board)
+      body = (
+        <>
+          <Box x={x} z={z} w={w} d={d} h={h} mat={mats.shield.mat} />
+          <Box x={x + 22 * s} z={z + 8 * s} w={w - 30 * s} d={d - 16 * s} h={0.6} y={h} mat={mats.shieldTop.mat} />
+          <Box x={x} z={z} w={14 * s} d={d} h={h + 0.8} mat={mats.bga.mat} />
+        </>
+      )
+      break
+    case 'terminal':
+      body = (
+        <>
+          <Box x={x} z={z} w={w} d={d} h={h} mat={mats.chip.mat} />
+          {[0.25, 0.75].map((f) => {
+            const cx = x + w - 34 * s
+            const cz = z + d * f
+            return (
+              <group key={f}>
+                <Box x={x + w - 9 * s} z={cz - 8 * s} w={6 * s} d={16 * s} h={0.4} y={h} mat={mats.hole.mat} />
+                <mesh position={[cx, h + 0.5, cz]} material={mats.shield.mat} castShadow>
+                  <cylinderGeometry args={[12 * s, 12 * s, 1, 24]} />
+                </mesh>
+                <mesh position={[cx, h + 1.2, cz]} rotation-y={-Math.PI / 4} material={mats.bga.mat}>
+                  <boxGeometry args={[18 * s, 0.4, 3.5 * s]} />
+                </mesh>
+              </group>
+            )
+          })}
+        </>
+      )
+      break
   }
   return (
     <>

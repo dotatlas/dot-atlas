@@ -37,6 +37,7 @@ Visited on desktop and phone, usually once, often from a resume. The board-milli
 ## Evidence on Hand
 
 - Resume content: 4 roles (The Home Depot, Lockheed Martin, Limbitless Solutions, FINFROCK), 2 projects (Volunteer Hub, solo; PEP 25, Robotics Club of Central Florida Systems Software Team), education (UCF Computer Engineering, 3.7 GPA, Burnett Honors and Provost Scholar), skills, contact links (email, GitHub, LinkedIn, phone). The site does not show the phone number.
+- Two in-progress projects, not on the resume, from their public repos' docs (github.com/dotatlas): Printing Profiles (live at printingprofiles.com; Go, Next.js, PostgreSQL) and Auto Safety HIL ECU (in board bring-up; C, FreeRTOS, STM32, Python). Their copy separates what is built from what is planned; their roadmaps in `config/portfolio-content.ts` need updating as milestones land.
 - `public/models/nozzle.stl`: the hotend model from the old printer intro, no longer used.
 - Resume PDF: `public/resume/joshua-evenden-wallick-resume.pdf`, shown in the on-site viewer and offered as a download; replacing the file updates both.
 - No photographs of his own work, no testimonials. Never fabricate quotes, logos, metrics or press beyond the resumes' own numbers (90% handoff reduction, 12% battery, 1,000+ employees, 20+ licenses, 3.7 GPA). Pictures on the site are credited open-licence photos of the field, captioned as such.

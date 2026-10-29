@@ -25,6 +25,8 @@ export type Package =
   | 'crystal' // oscillator can
   | 'sot223' // voltage regulator with a heat tab
   | 'button' // tactile reset switch
+  | 'rj45' // Ethernet jack with link LEDs, opening on the board edge
+  | 'terminal' // two-way screw terminal, wire entries on the board edge
 
 export type BoardPart = {
   id: string
@@ -158,6 +160,10 @@ export function pinRects(p: BoardPart): Rect[] {
     case 'crystal':
       out.push({ x: p.x - 8, y: p.y + p.h / 2 - 8, w: p.w + 16, h: 16 })
       break
+    case 'rj45':
+      // the shield's two solder tabs, near the back of the jack
+      out.push({ x: p.x + p.w - 30, y: p.y - 6, w: 14, h: 6 }, { x: p.x + p.w - 30, y: p.y + p.h, w: 14, h: 6 })
+      break
   }
   return out
 }
@@ -210,7 +216,7 @@ export const PARTS: BoardPart[] = [
     h: 200,
     marking: ['LIMBITLESS', 'SOLUTIONS'],
     silk: 'U4',
-    silkAt: [423, 275],
+    silkAt: [448, 278],
     led: [404, 296],
   },
   {
@@ -291,6 +297,34 @@ export const PARTS: BoardPart[] = [
     silk: 'SW1',
     silkAt: [455, 647],
   },
+  {
+    // a live website: the jack faces out of the left edge, its link LED lit
+    id: 'printing-profiles',
+    node: 'printing-profiles',
+    pkg: 'rj45',
+    x: 10,
+    y: 392,
+    w: 108,
+    h: 72,
+    marking: ['PRINTING', 'PROFILES'],
+    silk: 'J1',
+    silkAt: [130, 470],
+    led: [132, 440],
+  },
+  {
+    // the CAN bus out to the bench: CANH and CANL into a screw terminal on the right edge
+    id: 'hil-ecu',
+    node: 'hil-ecu',
+    pkg: 'terminal',
+    x: 508,
+    y: 196,
+    w: 84,
+    h: 72,
+    marking: ['HIL', 'ECU'],
+    silk: 'J2',
+    silkAt: [482, 193],
+    led: [484, 258],
+  },
 ]
 
 /* -------------------------------------------------------------- copper */
@@ -322,6 +356,15 @@ export const TRACES: Trace[] = [
   { to: 'volunteer-hub', width: W, pts: route(u1('b', 8), [u1('b', 8)[0], 490], [369.5, 499.3], [369.5, 546]) },
   // U1 bottom pin 5 -> PEP 25: down past the Volunteer Hub chip, then in from the right
   { to: 'pep-25', width: W, pts: route(u1('b', 5), [u1('b', 5)[0], 596], [286.6, 618], [260, 618]) },
+  // U1 left pins 8, 9 -> the Ethernet jack (end under the shield)
+  ...[8, 9].map((k) => ({
+    to: 'printing-profiles',
+    width: W,
+    pts: route(u1('l', k), [104, u1('l', k)[1]]),
+  })),
+  // CANH from U1 top pin 9 and CANL from right pin 0, side by side into the terminal (end under it)
+  { to: 'hil-ecu', width: W, pts: route(u1('t', 9), [u1('t', 9)[0], 240], [403.4, 214], [522, 214]) },
+  { to: 'hil-ecu', width: W, pts: route(u1('r', 0), [418, u1('r', 0)[1]], [438.6, 250], [522, 250]) },
   // U1 right pin 8 -> UCF crystal: down past the module, then under the can
   { to: 'ucf', width: W, pts: route(u1('r', 8), [412, 422.2], [412, 486], [426, 500], [500, 500], [500, 586]) },
   // power: the regulator's output pin straight down into U1 top pin 4
@@ -343,12 +386,18 @@ export const VIAS: Pt[] = [
   [412, 486],
   [540, 671],
   [130, 236],
-  [560, 230],
+  [586, 300],
   [560, 700],
 ]
 
 /** Test points: bare copper rings an engineer can probe. */
 export const TEST_POINTS: Pt[] = [[318, 150]]
+
+/** Free silkscreen text: net names beside the connectors. */
+export const SILK_NOTES: { at: Pt; text: string }[] = [
+  { at: [468, 207], text: 'CANH' },
+  { at: [468, 243], text: 'CANL' },
+]
 
 /** Small passives: 0603 resistors and capacitors. x, y is the top-left. */
 export type Passive = { x: number; y: number; kind: 'r' | 'c'; vertical?: boolean }
@@ -357,7 +406,7 @@ export const PASSIVE_SIZE = { len: 18, wide: 9, pad: 5 }
 
 export const PASSIVES: Passive[] = [
   // decoupling capacitors hugging U1
-  { x: 402, y: 214, kind: 'c' },
+  { x: 408, y: 226, kind: 'c' },
   { x: 176, y: 224, kind: 'c' },
   { x: 288, y: 452, kind: 'r', vertical: true },
   { x: 440, y: 404, kind: 'c', vertical: true },
@@ -369,7 +418,7 @@ export const PASSIVES: Passive[] = [
   { x: 82, y: 204, kind: 'r' },
   { x: 108, y: 204, kind: 'r' },
   // the rest
-  { x: 540, y: 198, kind: 'c' },
+  { x: 330, y: 716, kind: 'c' },
   { x: 86, y: 560, kind: 'r' },
   { x: 60, y: 590, kind: 'c' },
   { x: 150, y: 700, kind: 'c' },

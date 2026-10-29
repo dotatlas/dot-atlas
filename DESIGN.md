@@ -141,7 +141,7 @@ Dark ground and the red accent are product commitments, not choices this world c
 A PCB palette: three tones of black mask, one red mask field, gold copper in three heats, silkscreen white in two strengths, and a single LED red.
 
 ### Primary
-- **SMD LED Red** (led): the email action (filled buttons), the lit component's silkscreen outline and status LED, the boat marker on the route. It is light, not paint: it means "on" or "act here".
+- **SMD LED Red** (led): the email action (filled buttons), the lit component's silkscreen outline and status LED, the PEP 25 vehicle on its map. It is light, not paint: it means "on" or "act here".
 - **LED Off** (led-off): the unlit body of the same LED, so the lit state reads as a change in one part rather than a new element.
 
 ### Secondary
@@ -161,7 +161,7 @@ A PCB palette: three tones of black mask, one red mask field, gold copper in thr
 - **Package Black** (chip), **Package Marking** (chip-mark), **Shield Nickel** (shield): component bodies on the board, their laser markings, and metal RF cans. Board-only.
 
 ### Named Rules
-**The LED Means On Rule.** LED red is only ever the email action or a part that is lit (the active component, a status LED, the reply LED, the boat on its route). It is never decoration, emphasis or a status colour for text.
+**The LED Means On Rule.** LED red is only ever the email action or a part that is lit (the active component, a status LED, the reply LED, the vehicle on its map). It is never decoration, emphasis or a status colour for text.
 
 **The Copper Line Rule.** Every non-type line on the page is copper (or dim copper). No grey hairlines, no silk rules; the BOM table's dark row rule is the single exception, because it is a printed table.
 
@@ -193,7 +193,7 @@ Intermediate widths are used for emphasis inside text: wdth 92 on buttons, 84 on
 
 A full-bleed long scroll with fluid side padding (gutter) and very large vertical spacing between sections (section-gap). The first screen and the experience legs share a split stage at lg (1024px): text on the left, the board sticky full-height on the right, its active part tracking the role being read. Below lg the board sits at the top of the first screen (about 52svh) and scrolls away; each role then carries its own small status LED beside its title.
 
-Later sections use a 12-column grid at lg with 2rem gaps and asymmetric spans (5/6, 4/8, 7/4). The macro photograph and project split pane go full bleed; the project runs a 150svh sticky stage. Text columns stay narrow (31-36ch ledes, 36rem legs, 56ch notes). Stacked rhythm inside a section steps through roughly 1.5rem, 2.5rem, 5-7rem; tap targets are at least 3rem tall.
+Later sections use a 12-column grid at lg with 2rem gaps and asymmetric spans (5/6, 4/8, 7/4). The macro photograph and project split pane go full bleed; the first project runs a 150svh sticky stage. Every project after it never pins: its drawing plays only while the panel is wholly in view (offset `end end` to `start start`), so a run costs one short scroll. PEP 25 is a ground station: raw GPS fixes scatter round a smooth fused estimate, the route bends round a keep-out between numbered waypoints, and a telemetry log streams beside the map. The two in-progress projects (Printing Profiles, Auto Safety HIL ECU) open with a status LED (green breathing when live, amber blinking in bring-up), and close on their repo's roadmap as copper pads (filled done, half plated underway, bare next). Text columns stay narrow (31-36ch ledes, 36rem legs, 56ch notes). Stacked rhythm inside a section steps through roughly 1.5rem, 2.5rem, 5-7rem; tap targets are at least 3rem tall.
 
 ## Elevation & Depth
 
@@ -231,7 +231,7 @@ Filled, square, decisive: an SMD part you press.
 A real table that keeps a table's rules: small faded-silk headers, rows ruled 1px in rule (#262a27), group headings at lead size weight 800 wdth 90 over a dim-copper rule, reference numbers in tabular copper.
 
 ### Circuit board (signature)
-The SVG board shared with the milling intro: raised-mask substrate with corner mounting holes, a central MCU wired to one package per role (BGA, RF shield, module, SOIC, QFN, crystal), a voltage regulator with its input and output capacitors, a reset switch, a test point, passives and vias. Silkscreen carries only what a real board prints: courtyard corner marks, laser-etched part markings, and small faded reference designators (U1 to U8, Y1, SW1); there are no descriptive labels. Copper follows one rule: every signal trace is exactly pin width (5 units) and leaves a pin from its outer tip, collinear and butt-ended, so pin and trace read as one line; traces into pinless packages end under the body. Pin geometry comes from one function (pinRects in config/board.ts) shared with the 3D scene. Inactive traces are dim copper; the active part's traces turn full copper, its silkscreen bracket turns LED red and thickens, and its LED lights. Tapping a part routes a hot-copper pulse along its trace and scrolls to the role. Wide and narrow bus variants make the bus always enter from the side where the name sits.
+The SVG board shared with the milling intro: raised-mask substrate with corner mounting holes, a central MCU wired to one package per role (BGA, RF shield, module, SOIC, QFN, crystal, and two edge connectors for the in-progress projects: an RJ45 jack for the live website, its green link LED always lit, and a CAN screw terminal for the HIL bench), a voltage regulator with its input and output capacitors, a reset switch, a test point, passives and vias. Silkscreen carries only what a real board prints: courtyard corner marks, laser-etched part markings, small faded reference designators (U1 to U8, Y1, SW1, J1, J2) and net names beside a connector (CANH, CANL); there are no descriptive labels. The silkscreen layer ignores the pointer, so pressing a part's marking presses the part. Copper follows one rule: every signal trace is exactly pin width (5 units) and leaves a pin from its outer tip, collinear and butt-ended, so pin and trace read as one line; traces into pinless packages end under the body. Pin geometry comes from one function (pinRects in config/board.ts) shared with the 3D scene. Inactive traces are dim copper; the active part's traces turn full copper, its silkscreen bracket turns LED red and thickens, and its LED lights. Tapping a part routes a hot-copper pulse along its trace and scrolls to the role. Wide and narrow bus variants make the bus always enter from the side where the name sits.
 
 ### Motion vocabulary
 - **Deposition reveal:** content rises 24px and appears (700ms opacity, 900ms transform, ease-out), staggered 75ms per index.

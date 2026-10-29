@@ -483,11 +483,133 @@
   }
 }
 
+/* PEP 25: the receive LED flashes as each telemetry packet lands (it remounts per packet) */
+.pep-rx {
+  animation: pep-rx 420ms var(--ease-out) both;
+}
+
+@keyframes pep-rx {
+  from {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+  to {
+    opacity: 0.35;
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .schem-connect,
   .pep-ping {
     animation: none;
     opacity: 0;
+  }
+  .pep-rx {
+    animation: none;
+  }
+}
+
+/* project status LEDs: a live site breathes, a board in bring-up blinks */
+.status-live::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: inherit;
+  animation: status-ring 2.4s var(--ease-out) infinite;
+}
+
+@keyframes status-ring {
+  from {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}
+
+.status-build {
+  animation: status-blink 1.2s steps(1, end) infinite;
+}
+
+/* the hero board's Ethernet jack: its activity LED flickers while the part is read */
+.jack-act {
+  animation: status-blink 0.24s steps(1, end) infinite;
+}
+
+@keyframes status-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Printing Profiles: the hotend sweeps a layer while it prints, like a real one slowing at each end */
+.pp-sweep {
+  animation: pp-sweep 0.9s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes pp-sweep {
+  from {
+    transform: translateX(150px);
+  }
+  to {
+    transform: translateX(1050px);
+  }
+}
+
+.pp-verified {
+  opacity: 0.3;
+  transform: scale(0.96);
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 220ms var(--ease-out);
+}
+
+.pp-verified.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* HIL ECU: frames crossing the CAN bus, each fading in off one chip and out into the other */
+.can-frame {
+  animation: can-frame 1.65s linear infinite;
+}
+
+@keyframes can-frame {
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  12%,
+  88% {
+    opacity: 1;
+  }
+  to {
+    transform: translateX(var(--run));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-live::after,
+  .can-frame {
+    animation: none;
+    opacity: 0;
+  }
+  .status-build,
+  .jack-act {
+    animation: none;
+  }
+  .pp-sweep {
+    animation: none;
+    transform: translateX(1030px);
+  }
+  .pp-verified {
+    transform: none;
+    transition: opacity 200ms ease;
   }
 }
 

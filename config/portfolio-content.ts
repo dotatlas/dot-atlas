@@ -5,9 +5,16 @@
  * from elsewhere. Where a resume bullet was general, the copy says what was
  * actually built, but the stack stays exactly the resume's.
  *
+ * The two in-progress projects (Printing Profiles, Auto Safety HIL ECU) are
+ * not on that resume: their copy, stack and roadmap come from each repo's own
+ * docs (README, IDEA, SPEC, ROADMAP), and say plainly what is built and what
+ * is still planned. Update `roadmap` as their milestones land.
+ *
  * `glance` is the one statement a recruiter reads first; `details` are the
  * full points underneath it.
  */
+
+export type Milestone = { name: string; state: 'done' | 'underway' | 'next' }
 
 export type Entry = {
   id: string
@@ -20,6 +27,12 @@ export type Entry = {
   tags: string[]
   /** Full points, readable inline. */
   details: string[]
+  /** In-progress builds: where it stands, shown beside a status LED. `live` means people can use it now. */
+  status?: { label: string; live: boolean }
+  /** Where to see it. */
+  links?: { label: string; href: string }[]
+  /** The repo's roadmap, milestone by milestone, in build order. */
+  roadmap?: Milestone[]
 }
 
 export type PortfolioSection = {
@@ -121,7 +134,7 @@ export const SECTIONS: PortfolioSection[] = [
   {
     id: 'projects',
     label: 'Projects',
-    blurb: 'Built outside of work: one solo, one with a team.',
+    blurb: 'Built outside of work: two finished, two on the bench now.',
     nodes: [
       {
         id: 'volunteer-hub',
@@ -152,6 +165,79 @@ export const SECTIONS: PortfolioSection[] = [
           'Transmitted that telemetry wirelessly to the team, so every test run could be watched and diagnosed as it happened rather than after the fact.',
           'Computed waypoint-based pathfinding, so the vehicle plans its own course and steers itself from point to point.',
           'Built for the realities of a moving vehicle: sensor data that never stops arriving, a wireless link that has to keep up, and navigation decisions made in real time.',
+        ],
+      },
+      {
+        id: 'printing-profiles',
+        title: 'Printing Profiles',
+        subtitle: 'Independent project · Solo full-stack build',
+        meta: 'Oct 2026 - Present · Golang · Next.js · PostgreSQL',
+        status: { label: 'Live at printingprofiles.com, in active development', live: true },
+        links: [
+          { label: 'printingprofiles.com', href: 'https://printingprofiles.com' },
+          { label: 'Source on GitHub', href: 'https://github.com/dotatlas/printing-profiles' },
+        ],
+        glance:
+          'A community site for 3D printing slicer presets: the exact settings that make one filament print well on one printer, backed by photos of real prints. Open source, already live, and built solo from the Go API to the Next.js front end.',
+        tags: ['Golang', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'GitHub Actions'],
+        details: [
+          'Built the Go API on the standard library: PostgreSQL through pgx and sqlc-generated type-safe queries, goose migrations, RFC 9457 problem-detail errors, structured request logs and graceful shutdown.',
+          'Reads uploaded PrusaSlicer, SuperSlicer, OrcaSlicer and Bambu Studio preset files, shows their key settings as a clean table with no typing, and strips the network passwords and API keys that printer presets can carry.',
+          'Passwordless accounts: GitHub and Discord sign-in over OAuth with PKCE, or a single-use email link, with hashed sessions and rate limits kept in Postgres. The site never stores a password.',
+          'Made trust visible: a preset with a photo of a real print is marked Photo verified, and every photo is checked by its bytes and re-encoded without metadata, so a phone picture never leaks where it was taken.',
+          'Search that forgives typos: full-text search with a fuzzy fallback, real printers and filaments ranked above words in a title, and sorting by Bayesian rating, downloads and trend.',
+          'Reviews, comments, bookmarks and public profiles on server-rendered Next.js pages, with API types generated from the OpenAPI contract and a GitHub Actions pipeline of Go race tests, govulncheck, lint and type checks.',
+        ],
+        roadmap: [
+          { name: 'Decide and set up', state: 'done' },
+          { name: 'Backend skeleton', state: 'done' },
+          { name: 'Database', state: 'done' },
+          { name: 'Frontend skeleton', state: 'done' },
+          { name: 'CI and first deploy', state: 'underway' },
+          { name: 'Accounts', state: 'underway' },
+          { name: 'Presets', state: 'done' },
+          { name: 'Preset files', state: 'underway' },
+          { name: 'Photos and Photo verified', state: 'underway' },
+          { name: 'Community', state: 'underway' },
+          { name: 'Search and discovery', state: 'done' },
+          { name: 'Moderation and safety', state: 'next' },
+          { name: 'Privacy, legal and trust', state: 'next' },
+          { name: 'Background processing', state: 'next' },
+          { name: 'Observability', state: 'next' },
+          { name: 'Quality pass', state: 'next' },
+          { name: 'Open-source launch', state: 'next' },
+        ],
+      },
+      {
+        id: 'hil-ecu',
+        title: 'Auto Safety HIL ECU',
+        subtitle: 'Independent project · Embedded and automotive',
+        meta: 'Oct 2026 - Present · C · FreeRTOS · STM32 · Python',
+        status: { label: 'Board bring-up: the first firmware builds clean', live: false },
+        links: [{ label: 'Source on GitHub', href: 'https://github.com/dotatlas/auto-safety-hil-ecu' }],
+        glance:
+          'A hardware-in-the-loop bench for a vehicle safety ECU: a Python 3D driving simulator streams sensor data over a real CAN bus to an STM32 running FreeRTOS, and the ECU decides, in deterministic C, whether to brake.',
+        tags: ['C', 'FreeRTOS', 'STM32', 'CAN bus', 'Python', 'Panda3D', 'pytest'],
+        details: [
+          'Brought up the NUCLEO-G474RE: a 170 MHz clock from its 24 MHz crystal for an accurate CAN bit rate, FDCAN on PA11 and PA12, and a first firmware build with zero warnings.',
+          'Designed the firmware as a pure-C safety core under a FreeRTOS layer, so the same logic is unit-tested on a PC, run in simulation, and flashed to the board unchanged.',
+          'Designed staged time-to-collision braking: at 40 mph a single "brake below one second" rule fires 18 m out but needs 20 m to stop, so warning, partial and full braking come from a table.',
+          'One DBC file defines the CAN protocol for both sides: cantools generates the C and Python codecs, and every frame carries an alive counter and a CRC-8.',
+          'Planned faults as a first-class feature: dropped, delayed and corrupted frames, frozen wheel speeds, radar outliers and a stopped heartbeat, each one detected, reported on CAN, shown on the LEDs and logged to SD.',
+          'Specified every scenario to run two ways, in CI with the core stepped in lockstep (SIL) and on the bench over real CAN (HIL), with latency, deadline misses, CPU load and stack use measured rather than guessed.',
+        ],
+        roadmap: [
+          { name: 'Spike: CAN adapter on Windows', state: 'next' },
+          { name: 'Walking skeleton', state: 'underway' },
+          { name: 'Full CAN protocol', state: 'next' },
+          { name: 'Simulator and 3D view', state: 'next' },
+          { name: 'Safety core, test-first', state: 'next' },
+          { name: 'Closed loop on the bench', state: 'next' },
+          { name: 'Fault injection', state: 'next' },
+          { name: 'SD card logging', state: 'next' },
+          { name: 'Timing report', state: 'next' },
+          { name: 'TinyML anomaly detection', state: 'next' },
+          { name: 'Portfolio polish', state: 'next' },
         ],
       },
     ],
@@ -185,12 +271,12 @@ export const BOM: BomGroup[] = [
   {
     name: 'Languages',
     items: [
-      { part: 'TypeScript', usedIn: 'The Home Depot, Lockheed Martin, Limbitless Solutions, Volunteer Hub' },
-      { part: 'Golang', usedIn: 'Limbitless Solutions, FINFROCK' },
+      { part: 'TypeScript', usedIn: 'The Home Depot, Lockheed Martin, Limbitless Solutions, Volunteer Hub, Printing Profiles' },
+      { part: 'Golang', usedIn: 'Limbitless Solutions, FINFROCK, Printing Profiles' },
       { part: 'C', usedIn: 'Lockheed Martin firmware' },
       { part: 'C++', usedIn: 'Limbitless Solutions firmware' },
       { part: 'GraphQL', usedIn: 'The Home Depot, Volunteer Hub' },
-      { part: 'SQL', usedIn: 'Lockheed Martin' },
+      { part: 'SQL', usedIn: 'Lockheed Martin, Printing Profiles' },
       { part: 'JavaScript', usedIn: '' },
       { part: 'Python', usedIn: 'PEP 25 navigation' },
     ],
@@ -198,7 +284,7 @@ export const BOM: BomGroup[] = [
   {
     name: 'Frameworks and libraries',
     items: [
-      { part: 'React', usedIn: 'The Home Depot, Lockheed Martin, Limbitless Solutions, Volunteer Hub' },
+      { part: 'React', usedIn: 'The Home Depot, Lockheed Martin, Limbitless Solutions, Volunteer Hub, Printing Profiles' },
       { part: 'React Native', usedIn: '' },
       { part: 'Node.js', usedIn: '' },
       { part: 'LangChain', usedIn: '' },
@@ -208,11 +294,11 @@ export const BOM: BomGroup[] = [
   {
     name: 'Tools and platforms',
     items: [
-      { part: 'Git, CI/CD pipelines', usedIn: 'Lockheed Martin' },
+      { part: 'Git, CI/CD pipelines', usedIn: 'Lockheed Martin, Printing Profiles' },
       { part: 'REST APIs, IoT platforms', usedIn: 'Limbitless Solutions' },
       { part: 'Firebase', usedIn: 'Volunteer Hub' },
       { part: 'Embedded Linux', usedIn: 'PEP 25' },
-      { part: 'Docker', usedIn: '' },
+      { part: 'Docker', usedIn: 'Printing Profiles' },
       { part: 'GCP Vertex AI', usedIn: '' },
     ],
   },

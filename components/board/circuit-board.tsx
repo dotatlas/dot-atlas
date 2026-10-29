@@ -6,6 +6,7 @@ import {
   MOUNTS,
   PARTS,
   PASSIVES,
+  SILK_NOTES,
   TEST_POINTS,
   TRACES,
   VIAS,
@@ -13,6 +14,7 @@ import {
   pinRects,
   polyLength,
   type BoardPart,
+  type Package,
   type Pt,
   type Rect,
   type Trace,
@@ -187,9 +189,15 @@ export function CircuitBoard({ activeId, onSelect, silk, titles = {}, className 
       ))}
 
       {/* silkscreen + LEDs, printed after the board itself */}
-      <g mask="url(#silk-scan)" aria-hidden="true">
+      {/* print only: presses on a marking fall through to its part */}
+      <g mask="url(#silk-scan)" aria-hidden="true" pointerEvents="none">
         {TEST_POINTS.map(([x, y], i) => (
           <circle key={i} cx={x} cy={y} r={11} fill="none" stroke="var(--silk-2)" strokeWidth={1.6} />
+        ))}
+        {SILK_NOTES.map(({ at: [x, y], text }) => (
+          <text key={text} x={x} y={y} fill="var(--silk-2)" fontSize={11} fontWeight={600} style={{ fontVariationSettings: "'wdth' 90" }}>
+            {text}
+          </text>
         ))}
         {PARTS.map((p) => (
           <g key={p.id}>
@@ -207,6 +215,7 @@ export function CircuitBoard({ activeId, onSelect, silk, titles = {}, className 
             <Corners part={p} live={live(p.id)} />
             {p.marking.length > 0 && <Marking part={p} />}
             {p.led && <Led at={p.led} on={live(p.id)} />}
+            {p.pkg === 'rj45' && <JackLeds part={p} live={live(p.id)} />}
           </g>
         ))}
       </g>
@@ -327,8 +336,37 @@ function Body({ part: p }: { part: BoardPart }) {
           <circle cx={p.x + p.w / 2} cy={p.y + p.h / 2} r={p.w * 0.3} fill="#141615" />
         </>
       )
+    case 'rj45':
+      // metal shield, its top panel, and the plastic front where the cable plugs in
+      return (
+        <>
+          <rect x={p.x} y={p.y} width={p.w} height={p.h} fill="var(--shield)" />
+          <rect x={p.x + 22} y={p.y + 8} width={p.w - 30} height={p.h - 16} fill="#9a9e98" />
+          <rect x={p.x} y={p.y} width={JACK_FRONT} height={p.h} fill="#2a2e2c" />
+        </>
+      )
+    case 'terminal':
+      // plastic block; a slotted screw per way, wire entry beside it on the edge
+      return (
+        <>
+          <rect x={p.x} y={p.y} width={p.w} height={p.h} fill="var(--chip)" />
+          {terminalWays(p).map(([cx, cy]) => (
+            <g key={cy}>
+              <rect x={p.x + p.w - 9} y={cy - 8} width={6} height={16} fill="var(--mask-deep)" />
+              <circle cx={cx} cy={cy} r={12} fill="var(--shield)" />
+              <rect x={cx - 9} y={cy - 1.75} width={18} height={3.5} fill="#2a2e2c" transform={`rotate(45 ${cx} ${cy})`} />
+            </g>
+          ))}
+        </>
+      )
   }
 }
+
+/** Width of the jack's plastic front, which carries its two LEDs. */
+const JACK_FRONT = 14
+
+/** Screw centres of a two-way terminal, one per way. */
+const terminalWays = (p: BoardPart): Pt[] => [0.25, 0.75].map((f) => [p.x + p.w - 34, p.y + p.h * f])
 
 /** The part's full copper and body extent, for its courtyard brackets. */
 function extent(p: BoardPart): Rect {
@@ -371,12 +409,14 @@ function Corners({ part: p, live }: { part: BoardPart; live: boolean }) {
   )
 }
 
+const MARK_SIZE: Partial<Record<Package, number>> = { mcu: 22, crystal: 15, sot223: 12, qfn: 13, terminal: 13 }
+
 function Marking({ part: p }: { part: BoardPart }) {
-  const light = p.pkg === 'shield' || p.pkg === 'crystal' || p.pkg === 'module'
-  const size =
-    p.pkg === 'mcu' ? 22 : p.pkg === 'crystal' ? 15 : p.pkg === 'sot223' ? 12 : p.pkg === 'qfn' ? 13 : 16
+  const light = p.pkg === 'shield' || p.pkg === 'crystal' || p.pkg === 'module' || p.pkg === 'rj45'
+  const size = MARK_SIZE[p.pkg] ?? 16
   const lineH = size * 1.05
-  const cx = p.x + p.w / 2
+  // centred on the clear face: the jack's shield top, the terminal's strip beside its screws
+  const cx = p.pkg === 'rj45' ? p.x + p.w / 2 + 7 : p.pkg === 'terminal' ? p.x + (p.w - 46) / 2 : p.x + p.w / 2
   const top = p.pkg === 'module' ? p.y + p.h * 0.33 : p.y + p.h / 2
   const start = top - ((p.marking.length - 1) * lineH) / 2
   return (
@@ -409,6 +449,24 @@ function Led({ at: [x, y], on }: { at: Pt; on: boolean }) {
         height={10}
         fill={on ? 'var(--led)' : 'var(--led-off)'}
         style={{ transition: 'fill 160ms ease' }}
+      />
+    </g>
+  )
+}
+
+/** The jack's own LEDs: link lit green while the site is up, activity blinking amber while it is read. */
+function JackLeds({ part: p, live }: { part: BoardPart; live: boolean }) {
+  return (
+    <g>
+      <rect x={p.x + 3} y={p.y + 8} width={JACK_FRONT - 6} height={12} fill="var(--led-green)" />
+      <rect
+        x={p.x + 3}
+        y={p.y + p.h - 20}
+        width={JACK_FRONT - 6}
+        height={12}
+        fill="var(--copper-hot)"
+        className={live ? 'jack-act' : undefined}
+        opacity={live ? 1 : 0.2}
       />
     </g>
   )
