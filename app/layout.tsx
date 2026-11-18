@@ -13,16 +13,13 @@ const archivo = Archivo({
 const TITLE = 'Joshua Evenden-Wallick'
 const DESCRIPTION = 'Embedded software engineer. Portfolio of firmware, backend and hardware projects.'
 
-// the preview image comes from app/opengraph-image.tsx
+// preview image and icons come from app/opengraph-image.tsx, app/icon.tsx and app/apple-icon.tsx
 export const metadata: Metadata = {
   metadataBase: new URL('https://dotatlas.dev'),
   title: TITLE,
   description: DESCRIPTION,
   openGraph: { type: 'website', url: '/', title: TITLE, description: DESCRIPTION },
   twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
-  icons: {
-    icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
-  },
 }
 
 export const viewport: Viewport = {
