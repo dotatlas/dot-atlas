@@ -10,19 +10,16 @@ const archivo = Archivo({
   display: 'swap',
 })
 
+const TITLE = 'Joshua Evenden-Wallick'
+const DESCRIPTION = 'Embedded software engineer. Portfolio of firmware, backend and hardware projects.'
+
+// the preview image comes from app/opengraph-image.tsx
 export const metadata: Metadata = {
-  title: 'Portfolio',
-  description: 'My portfolio site :)',
-  openGraph: {
-    type: 'website',
-    title: 'Portfolio',
-    description: 'My portfolio site :)',
-  },
-  twitter: {
-    card: 'summary',
-    title: 'Portfolio',
-    description: 'My portfolio site :)',
-  },
+  metadataBase: new URL('https://dotatlas.dev'),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: { type: 'website', url: '/', title: TITLE, description: DESCRIPTION },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
   icons: {
     icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
   },
