@@ -1,20 +1,17 @@
 /**
- * Portfolio content, from Joshua's resume (the October 2026 PDF).
+ * Portfolio content, from Joshua's resume (the November 2026 PDF).
  *
- * Every technology named here appears on that resume; nothing is added
- * from elsewhere. Where a resume bullet was general, the copy says what was
- * actually built, but the stack stays exactly the resume's.
+ * Every technology named in a resume entry appears on that resume; nothing is
+ * added from elsewhere. Three entries are not on that resume and are kept as
+ * they were: the FINFROCK role, Volunteer Hub, and Printing Profiles (whose
+ * copy comes from its repo's README).
  *
- * The two in-progress projects (Printing Profiles, Auto Safety HIL ECU) are
- * not on that resume: their copy, stack and roadmap come from each repo's own
- * docs (README, IDEA, SPEC, ROADMAP), and say plainly what is built and what
- * is still planned. Update `roadmap` as their milestones land.
+ * In-progress projects carry a one-line `status` notice only; the site does
+ * not show their build plans.
  *
  * `glance` is the one statement a recruiter reads first; `details` are the
  * full points underneath it.
  */
-
-export type Milestone = { name: string; state: 'done' | 'underway' | 'next' }
 
 export type Entry = {
   id: string
@@ -27,12 +24,10 @@ export type Entry = {
   tags: string[]
   /** Full points, readable inline. */
   details: string[]
-  /** In-progress builds: where it stands, shown beside a status LED. `live` means people can use it now. */
+  /** In-progress builds: a one-line notice beside a status LED. `live` means people can use it now. */
   status?: { label: string; live: boolean }
   /** Where to see it. */
   links?: { label: string; href: string }[]
-  /** The repo's roadmap, milestone by milestone, in build order. */
-  roadmap?: Milestone[]
 }
 
 export type PortfolioSection = {
@@ -44,7 +39,7 @@ export type PortfolioSection = {
 
 export const PROFILE = {
   name: 'Joshua Evenden-Wallick',
-  role: 'Full-stack and embedded software engineer',
+  role: 'Embedded software engineer',
   location: 'Orlando, FL',
   email: 'jewallick@pm.me',
   phone: '(407) 452-8929',
@@ -52,13 +47,12 @@ export const PROFILE = {
   linkedin: 'https://linkedin.com/in/jevendenwallick',
   portfolio: 'https://dotatlas.dev',
   /** The one sentence under the name on the first screen. */
-  lede: 'Full-stack and embedded software engineer: React, TypeScript and GraphQL products, C firmware and real-time telemetry. Computer Engineering at UCF, class of 2028.',
+  lede: 'Embedded software engineer: C firmware for flight computers and safety ECUs, and the services that carry real-time telemetry. Computer Engineering at UCF, class of 2028.',
 }
 
 /** Measured results, set as figures inside their roles. */
 export const FIGURES: Record<string, { value: string; label: string }> = {
-  lockheed: { value: '90%', label: 'less data handoff time across millions of rows of hardware test data' },
-  limbitless: { value: '12%', label: 'lower battery draw from fault-tolerant ESP32 firmware' },
+  limbitless: { value: '12%', label: 'lower battery power use from fault-tolerant ESP32 firmware' },
 }
 
 export const SECTIONS: PortfolioSection[] = [
@@ -66,53 +60,48 @@ export const SECTIONS: PortfolioSection[] = [
     id: 'experience',
     label: 'Experience',
     blurb:
-      'Full-stack and embedded work: AI features in enterprise web apps, telemetry platforms and firmware for defense hardware, monitoring for bionic devices, and backend services.',
+      'Embedded and backend work: flight-computer software for defense hardware, telemetry services in the cloud, firmware for bionic devices, and backend services.',
     nodes: [
-      {
-        id: 'home-depot',
-        title: 'The Home Depot Technology',
-        subtitle: 'Full-Stack Software Engineering Intern',
-        meta: 'Atlanta, GA · May 2026 - Aug 2026',
-        glance:
-          'Brought conversational and agentic AI into enterprise web apps with React, TypeScript and GraphQL, including the handoff from an AI assistant to a live agent that keeps the whole conversation intact.',
-        tags: ['TypeScript', 'React', 'GraphQL'],
-        details: [
-          'Built scalable full-stack features with React, TypeScript and GraphQL that embed conversational and agentic AI into high-impact enterprise web applications.',
-          'Built the frontend side of AI-to-agent escalations: when an assistant hands a customer to a live agent, the conversation and its context carry over instead of starting again.',
-          'Integrated real-time data connections in a React frontend so AI models receive a continuous stream of data, iterating quickly on what users actually needed.',
-          'Kept message delivery dependable across browser tabs by synchronizing client and server state around asynchronous API payloads.',
-          'Surfaced contextual insights across internal and consumer-facing tools to streamline day-to-day operations.',
-        ],
-      },
       {
         id: 'lockheed',
         title: 'Lockheed Martin',
-        subtitle: 'Full-Stack Software Engineering Intern',
+        subtitle: 'Embedded Software Engineering Intern',
         meta: 'Orlando, FL · Apr 2025 - May 2026, Sep 2026 - Present',
         glance:
-          'Work on both sides of the hardware line: a React and TypeScript platform that indexes millions of rows of hardware telemetry, and the C firmware and serial drivers that produce it.',
-        tags: ['React', 'TypeScript', 'C', 'SQL', 'Git', 'CI/CD'],
+          'C software for a missile flight computer: video data transmission, and custom I2C protocols that carry hundreds of telemetry points out of FPGA hardware.',
+        tags: ['C', 'I2C', 'Git', 'CI/CD'],
         details: [
-          'Built a full-stack data ingestion and storage application in React and TypeScript that securely manages and indexes millions of rows of hardware telemetry and test data.',
-          'Added server-side pagination and filtered SQL queries so engineers can pull exactly the records they need from very large datasets, quickly.',
-          'Authored low-level C firmware for a real-time multimedia processing pipeline that handles high-frame-rate camera sensors in demanding environments.',
-          'Engineered custom embedded software and serial drivers that stream raw sensor telemetry and hardware metrics from devices to a centralized platform.',
-          'Cleared integration bottlenecks in an Agile flight-software team with Git and CI/CD pipelines, keeping deliveries on schedule.',
+          'Engineered video data transmission software for a missile flight computer codebase in C, supporting validation and debugging of hardware prototypes.',
+          'Implemented custom I2C data transmission protocols to interface with FPGA outputs, processing hundreds of telemetry points from temperature to positional data.',
+          'Resolved software integration bottlenecks in an Agile environment using Git and CI/CD pipelines to keep functional flight software deliveries on schedule.',
+        ],
+      },
+      {
+        id: 'home-depot',
+        title: 'The Home Depot Technology',
+        subtitle: 'Software Engineering Intern',
+        meta: 'Atlanta, GA · May 2026 - Aug 2026',
+        glance:
+          'Stateless Java microservices on AWS that route real-time telemetry and state data, with a Redis cache so nothing is lost when a system hands off.',
+        tags: ['Java', 'AWS ECS', 'ElastiCache (Redis)', 'TypeScript'],
+        details: [
+          'Engineered stateless Java microservices on AWS ECS to route real-time telemetry and state data via APIs.',
+          'Built an Amazon ElastiCache (Redis) caching layer that persists operating histories across distributed nodes, preventing context loss during system handoffs.',
+          'Developed asynchronous TypeScript components to manage API payloads and synchronize client-server state, ensuring reliable data delivery across nodes.',
         ],
       },
       {
         id: 'limbitless',
         title: 'Limbitless Solutions',
-        subtitle: 'Software Engineering Intern',
+        subtitle: 'Embedded Software Engineering Intern',
         meta: 'Orlando, FL · Jan 2025 - Mar 2025',
         glance:
-          'Connected bionic hardware to the web, end to end: firmware on the device, IoT telemetry to Golang services, and React tools for monitoring devices remotely.',
-        tags: ['Golang', 'TypeScript', 'React', 'C++', 'REST APIs', 'IoT'],
+          'Firmware for bionic devices: fault-tolerant ESP32 sensor processing in C++, SPI sensor feedback in real-time control loops, and PCB revisions with the hardware team.',
+        tags: ['C++', 'ESP32', 'SPI', 'KiCad'],
         details: [
-          'Developed reliable IoT data transmission routines between embedded hardware and remote backend infrastructure, and scaled telemetry ingestion as testing grew.',
-          'Built Golang backend services and REST APIs that connect the embedded hardware to external web applications.',
-          'Built TypeScript and React features for remote hardware monitoring: device status, test workflows and actionable insights in one place.',
-          'Wrote fault-tolerant C++ firmware for ESP32 microcontrollers covering sensor processing and motor control, cutting battery consumption by 12%.',
+          'Developed fault-tolerant ESP32 sensor-processing firmware in C++, cutting battery power use by 12%.',
+          'Implemented SPI communication protocols to integrate sensor feedback into real-time hardware control loops.',
+          'Worked with hardware teams on custom KiCad PCB revisions, analyzing signal integrity and reliability.',
         ],
       },
       {
@@ -134,7 +123,7 @@ export const SECTIONS: PortfolioSection[] = [
   {
     id: 'projects',
     label: 'Projects',
-    blurb: 'Built outside of work: two finished, two on the bench now.',
+    blurb: 'Built outside of work: two finished, two in development.',
     nodes: [
       {
         id: 'volunteer-hub',
@@ -155,16 +144,13 @@ export const SECTIONS: PortfolioSection[] = [
         id: 'pep-25',
         title: 'PEP 25',
         subtitle: 'Robotics Club of Central Florida · Systems Software Team',
-        meta: 'Aug 2024 - Apr 2025 · Python · Embedded Linux',
+        meta: 'Aug 2024 - Apr 2025 · Python · Embedded Linux · Raspberry Pi',
         glance:
-          'The navigation brain of an autonomous electric vehicle: Python on embedded Linux that fuses sensor data, streams telemetry wirelessly, and plans its own route from waypoint to waypoint.',
-        tags: ['Python', 'Embedded Linux', 'Sensor fusion', 'Telemetry', 'Pathfinding'],
+          'A real-time diagnostics platform for an autonomous vehicle: Python on a Raspberry Pi streams GPS and IMU data to a remote dashboard, and a navigation algorithm fuses the sensors to find its own way between waypoints.',
+        tags: ['Python', 'Embedded Linux', 'Raspberry Pi', 'GPS', 'IMU', 'Sensor Fusion'],
         details: [
-          'Collaborated with the Systems Software team to deliver a complete embedded Linux software stack for an autonomous electric vehicle platform.',
-          'Engineered a real-time navigation and diagnostics system in Python that fuses GPS and IMU readings into one live estimate of where the vehicle is and which way it is heading.',
-          'Transmitted that telemetry wirelessly to the team, so every test run could be watched and diagnosed as it happened rather than after the fact.',
-          'Computed waypoint-based pathfinding, so the vehicle plans its own course and steers itself from point to point.',
-          'Built for the realities of a moving vehicle: sensor data that never stops arriving, a wireless link that has to keep up, and navigation decisions made in real time.',
+          'Engineered a real-time diagnostics platform on an embedded Linux (Raspberry Pi) system in Python, streaming GPS and IMU data to a remote dashboard.',
+          'Developed a navigation algorithm fusing multiple sensor inputs to achieve autonomous waypoint pathfinding.',
         ],
       },
       {
@@ -172,13 +158,13 @@ export const SECTIONS: PortfolioSection[] = [
         title: 'Printing Profiles',
         subtitle: 'Independent project · Solo full-stack build',
         meta: 'Oct 2026 - Present · Golang · Next.js · PostgreSQL',
-        status: { label: 'Live at printingprofiles.com, in active development', live: true },
+        status: { label: 'In development', live: false },
         links: [
-          { label: 'printingprofiles.com', href: 'https://printingprofiles.com' },
+          { label: 'Test build', href: 'https://printingprofiles.com' },
           { label: 'Source on GitHub', href: 'https://github.com/dotatlas/printing-profiles' },
         ],
         glance:
-          'A community site for 3D printing slicer presets: the exact settings that make one filament print well on one printer, backed by photos of real prints. Open source, already live, and built solo from the Go API to the Next.js front end.',
+          'A community site for 3D printing slicer presets: the exact settings that make one filament print well on one printer, backed by photos of real prints. Open source, and built solo from the Go API to the Next.js front end.',
         tags: ['Golang', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'GitHub Actions'],
         details: [
           'Built the Go API on the standard library: PostgreSQL through pgx and sqlc-generated type-safe queries, goose migrations, RFC 9457 problem-detail errors, structured request logs and graceful shutdown.',
@@ -188,56 +174,22 @@ export const SECTIONS: PortfolioSection[] = [
           'Search that forgives typos: full-text search with a fuzzy fallback, real printers and filaments ranked above words in a title, and sorting by Bayesian rating, downloads and trend.',
           'Reviews, comments, bookmarks and public profiles on server-rendered Next.js pages, with API types generated from the OpenAPI contract and a GitHub Actions pipeline of Go race tests, govulncheck, lint and type checks.',
         ],
-        roadmap: [
-          { name: 'Decide and set up', state: 'done' },
-          { name: 'Backend skeleton', state: 'done' },
-          { name: 'Database', state: 'done' },
-          { name: 'Frontend skeleton', state: 'done' },
-          { name: 'CI and first deploy', state: 'underway' },
-          { name: 'Accounts', state: 'underway' },
-          { name: 'Presets', state: 'done' },
-          { name: 'Preset files', state: 'underway' },
-          { name: 'Photos and Photo verified', state: 'underway' },
-          { name: 'Community', state: 'underway' },
-          { name: 'Search and discovery', state: 'done' },
-          { name: 'Moderation and safety', state: 'next' },
-          { name: 'Privacy, legal and trust', state: 'next' },
-          { name: 'Background processing', state: 'next' },
-          { name: 'Observability', state: 'next' },
-          { name: 'Quality pass', state: 'next' },
-          { name: 'Open-source launch', state: 'next' },
-        ],
       },
       {
         id: 'hil-ecu',
-        title: 'Auto Safety HIL ECU',
-        subtitle: 'Independent project · Embedded and automotive',
+        title: 'Self-Driving Car Simulator',
+        subtitle: 'ADAS Safety ECU & HIL Simulator · Independent project',
         meta: 'Oct 2026 - Present · C · FreeRTOS · STM32 · Python',
-        status: { label: 'Board bring-up: the first firmware builds clean', live: false },
+        status: { label: 'In development', live: false },
         links: [{ label: 'Source on GitHub', href: 'https://github.com/dotatlas/auto-safety-hil-ecu' }],
         glance:
-          'A hardware-in-the-loop bench for a vehicle safety ECU: a Python 3D driving simulator streams sensor data over a real CAN bus to an STM32 running FreeRTOS, and the ECU decides, in deterministic C, whether to brake.',
-        tags: ['C', 'FreeRTOS', 'STM32', 'CAN bus', 'Python', 'Panda3D', 'pytest'],
+          'A self-driving car built end to end in simulation: PyTorch models steer, hold speed, keep lane and brake; a Python driving simulator feeds them radar, IMU and wheel-speed data over a CAN bus; and a safety computer on an STM32 running FreeRTOS checks every command before it reaches the car.',
+        tags: ['C', 'FreeRTOS', 'STM32', 'CAN Bus', 'Python', 'PyTorch'],
         details: [
-          'Brought up the NUCLEO-G474RE: a 170 MHz clock from its 24 MHz crystal for an accurate CAN bit rate, FDCAN on PA11 and PA12, and a first firmware build with zero warnings.',
-          'Designed the firmware as a pure-C safety core under a FreeRTOS layer, so the same logic is unit-tested on a PC, run in simulation, and flashed to the board unchanged.',
-          'Designed staged time-to-collision braking: at 40 mph a single "brake below one second" rule fires 18 m out but needs 20 m to stop, so warning, partial and full braking come from a table.',
-          'One DBC file defines the CAN protocol for both sides: cantools generates the C and Python codecs, and every frame carries an alive counter and a CRC-8.',
-          'Planned faults as a first-class feature: dropped, delayed and corrupted frames, frozen wheel speeds, radar outliers and a stopped heartbeat, each one detected, reported on CAN, shown on the LEDs and logged to SD.',
-          'Specified every scenario to run two ways, in CI with the core stepped in lockstep (SIL) and on the bench over real CAN (HIL), with latency, deadline misses, CPU load and stack use measured rather than guessed.',
-        ],
-        roadmap: [
-          { name: 'Spike: CAN adapter on Windows', state: 'next' },
-          { name: 'Walking skeleton', state: 'underway' },
-          { name: 'Full CAN protocol', state: 'next' },
-          { name: 'Simulator and 3D view', state: 'next' },
-          { name: 'Safety core, test-first', state: 'next' },
-          { name: 'Closed loop on the bench', state: 'next' },
-          { name: 'Fault injection', state: 'next' },
-          { name: 'SD card logging', state: 'next' },
-          { name: 'Timing report', state: 'next' },
-          { name: 'TinyML anomaly detection', state: 'next' },
-          { name: 'Portfolio polish', state: 'next' },
+          'Developed safety ECU firmware in C with FreeRTOS on an STM32 Nucleo-G474RE board that monitors incoming sensor data and triggers emergency braking in under 12 ms.',
+          'Built a Python driving simulator that transmits radar, IMU, and wheel-speed data to the ECU over a CAN bus, injecting sensor faults to verify the ECU detects bad data and fails safe.',
+          'Trained machine learning driving models in PyTorch for braking, cruise control, and lane keeping, with the ECU checking every command against safety limits before it reaches the vehicle.',
+          'Validated the ECU with software-in-the-loop (SIL) tests in GitHub Actions CI and hardware-in-the-loop (HIL) tests on the physical board, replaying the same driving scenarios.',
         ],
       },
     ],
@@ -271,35 +223,40 @@ export const BOM: BomGroup[] = [
   {
     name: 'Languages',
     items: [
-      { part: 'TypeScript', usedIn: 'The Home Depot, Lockheed Martin, Limbitless Solutions, Volunteer Hub, Printing Profiles' },
-      { part: 'Golang', usedIn: 'Limbitless Solutions, FINFROCK, Printing Profiles' },
-      { part: 'C', usedIn: 'Lockheed Martin firmware' },
-      { part: 'C++', usedIn: 'Limbitless Solutions firmware' },
-      { part: 'GraphQL', usedIn: 'The Home Depot, Volunteer Hub' },
-      { part: 'SQL', usedIn: 'Lockheed Martin, Printing Profiles' },
+      { part: 'C', usedIn: 'Lockheed Martin, Self-Driving Car Simulator' },
+      { part: 'C++', usedIn: 'Limbitless Solutions' },
+      { part: 'Python', usedIn: 'Self-Driving Car Simulator, PEP 25' },
+      { part: 'Java', usedIn: 'The Home Depot' },
+      { part: 'TypeScript', usedIn: 'The Home Depot, Volunteer Hub, Printing Profiles' },
+      { part: 'SQL', usedIn: 'Printing Profiles' },
       { part: 'JavaScript', usedIn: '' },
-      { part: 'Python', usedIn: 'PEP 25 navigation' },
+      { part: 'Bash', usedIn: '' },
+      { part: 'C#', usedIn: '' },
     ],
   },
   {
-    name: 'Frameworks and libraries',
+    name: 'Embedded',
     items: [
-      { part: 'React', usedIn: 'The Home Depot, Lockheed Martin, Limbitless Solutions, Volunteer Hub, Printing Profiles' },
-      { part: 'React Native', usedIn: '' },
-      { part: 'Node.js', usedIn: '' },
-      { part: 'LangChain', usedIn: '' },
-      { part: 'FreeRTOS', usedIn: '' },
+      { part: 'FreeRTOS (RTOS)', usedIn: 'Self-Driving Car Simulator' },
+      { part: 'STM32 (ARM Cortex-M)', usedIn: 'Self-Driving Car Simulator' },
+      { part: 'ESP32', usedIn: 'Limbitless Solutions' },
+      { part: 'CAN Bus', usedIn: 'Self-Driving Car Simulator' },
+      { part: 'SPI', usedIn: 'Limbitless Solutions' },
+      { part: 'I2C', usedIn: 'Lockheed Martin' },
+      { part: 'KiCad', usedIn: 'Limbitless Solutions' },
+      { part: 'HIL/SIL', usedIn: 'Self-Driving Car Simulator' },
     ],
   },
   {
     name: 'Tools and platforms',
     items: [
-      { part: 'Git, CI/CD pipelines', usedIn: 'Lockheed Martin, Printing Profiles' },
-      { part: 'REST APIs, IoT platforms', usedIn: 'Limbitless Solutions' },
-      { part: 'Firebase', usedIn: 'Volunteer Hub' },
-      { part: 'Embedded Linux', usedIn: 'PEP 25' },
+      { part: 'Linux', usedIn: 'PEP 25' },
+      { part: 'Git', usedIn: 'Lockheed Martin' },
+      { part: 'GitHub Actions (CI/CD)', usedIn: 'Self-Driving Car Simulator, Printing Profiles' },
       { part: 'Docker', usedIn: 'Printing Profiles' },
-      { part: 'GCP Vertex AI', usedIn: '' },
+      { part: 'AWS', usedIn: 'The Home Depot' },
+      { part: 'PyTorch', usedIn: 'Self-Driving Car Simulator' },
+      { part: 'pytest', usedIn: '' },
     ],
   },
 ]

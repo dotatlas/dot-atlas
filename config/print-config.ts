@@ -68,8 +68,6 @@ export const PRINT_SIZES = {
     soic: 10,
     qfn: 8,
     crystal: 13,
-    sot223: 10,
-    button: 12,
     rj45: 22,
     terminal: 16,
   },

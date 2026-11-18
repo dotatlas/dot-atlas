@@ -2,10 +2,8 @@
 
 import { useEffect, useRef } from 'react'
 import { PROFILE } from '@/config/portfolio-content'
-import { PHOTOS, PRINT_CLIP } from '@/config/photos'
+import { PRINT_CLIP } from '@/config/photos'
 import { RESUME, ResumeTrigger } from './resume'
-
-const CREDITED = [PHOTOS.pcb, PHOTOS.sensor, PHOTOS.guidance, PHOTOS.esp32, PRINT_CLIP]
 
 /** The name across the last moving picture: a desktop mill, still cutting a board. */
 export function SiteFooter({ onReplay }: { onReplay: () => void }) {
@@ -75,15 +73,11 @@ export function SiteFooter({ onReplay }: { onReplay: () => void }) {
           Evenden-Wallick
         </p>
         <p className="t-small mt-6 max-w-[90ch] text-silk-2">
-          Pictures from Wikimedia Commons, shown cropped in greyscale:{' '}
-          {CREDITED.map((p, i) => (
-            <span key={p.href}>
-              <a href={p.href} target="_blank" rel="noreferrer" className="underline">
-                {p.credit}
-              </a>
-              {i < CREDITED.length - 1 ? '; ' : '.'}
-            </span>
-          ))}{' '}
+          Footage from Wikimedia Commons, shown in greyscale:{' '}
+          <a href={PRINT_CLIP.href} target="_blank" rel="noreferrer" className="underline">
+            {PRINT_CLIP.credit}
+          </a>
+          .{' '}
           © 2026 {PROFILE.name}.
         </p>
       </div>

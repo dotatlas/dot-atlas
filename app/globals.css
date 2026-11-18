@@ -305,12 +305,6 @@
   }
 }
 
-/* --------------------------------------------------------------- photos */
-
-.photo {
-  filter: grayscale(1) contrast(1.08) brightness(0.86);
-}
-
 /* board components are pressable */
 .board-part {
   cursor: pointer;
@@ -359,25 +353,6 @@
   }
   to {
     transform: scale(1);
-  }
-}
-
-/* a slow scroll-linked push into the macro photograph */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .slow-drift {
-      animation: slow-drift linear both;
-      animation-timeline: view();
-    }
-  }
-}
-
-@keyframes slow-drift {
-  from {
-    transform: scale(1.12) translateY(-3%);
-  }
-  to {
-    transform: scale(1.02) translateY(3%);
   }
 }
 

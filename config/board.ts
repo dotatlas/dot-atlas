@@ -23,8 +23,6 @@ export type Package =
   | 'soic' // gull-wing small outline IC
   | 'qfn' // leadless quad package, pads at the body edge
   | 'crystal' // oscillator can
-  | 'sot223' // voltage regulator with a heat tab
-  | 'button' // tactile reset switch
   | 'rj45' // Ethernet jack with link LEDs, opening on the board edge
   | 'terminal' // two-way screw terminal, wire entries on the board edge
 
@@ -37,11 +35,8 @@ export type BoardPart = {
   y: number
   w: number
   h: number
-  /** Laser-etched marking on the body, one entry per line. */
+  /** Label on the body, one entry per line: only the content the part opens. */
   marking: string[]
-  /** Reference designator printed in silkscreen beside the footprint. */
-  silk: string
-  silkAt: Pt
   /** Status LED position (top-left of a 14x8 0603 LED). */
   led?: Pt
 }
@@ -144,19 +139,6 @@ export function pinRects(p: BoardPart): Rect[] {
       }
       break
     }
-    case 'sot223': {
-      for (const f of [0.18, 0.5, 0.82]) {
-        out.push({ x: p.x + p.w * f - half, y: p.y + p.h, w: PIN.w, h: PIN.len })
-      }
-      out.push({ x: p.x + 8, y: p.y - 10, w: p.w - 16, h: 10 })
-      break
-    }
-    case 'button': {
-      for (const y of [p.y + 6, p.y + p.h - 12]) {
-        out.push({ x: p.x - 8, y, w: 8, h: 6 }, { x: p.x + p.w, y, w: 8, h: 6 })
-      }
-      break
-    }
     case 'crystal':
       out.push({ x: p.x - 8, y: p.y + p.h / 2 - 8, w: p.w + 16, h: 16 })
       break
@@ -176,9 +158,7 @@ export const PARTS: BoardPart[] = [
     node: null,
     pkg: 'mcu',
     ...U1,
-    marking: ['EVENDEN-', 'WALLICK', 'CPE 2028'],
-    silk: 'U1',
-    silkAt: [409, 250],
+    marking: [],
   },
   {
     id: 'lockheed',
@@ -189,8 +169,6 @@ export const PARTS: BoardPart[] = [
     w: 176,
     h: 124,
     marking: ['LOCKHEED', 'MARTIN'],
-    silk: 'U2',
-    silkAt: [33, 43],
     led: [228, 64],
   },
   {
@@ -202,8 +180,6 @@ export const PARTS: BoardPart[] = [
     w: 168,
     h: 132,
     marking: ['THE HOME', 'DEPOT'],
-    silk: 'U3',
-    silkAt: [377, 35],
     led: [358, 56],
   },
   {
@@ -215,8 +191,6 @@ export const PARTS: BoardPart[] = [
     w: 132,
     h: 200,
     marking: ['LIMBITLESS', 'SOLUTIONS'],
-    silk: 'U4',
-    silkAt: [448, 278],
     led: [404, 296],
   },
   {
@@ -229,8 +203,6 @@ export const PARTS: BoardPart[] = [
     w: 120,
     h: U1_PITCH * 4,
     marking: ['FINFROCK'],
-    silk: 'U5',
-    silkAt: [33, 249],
     led: [52, 346],
   },
   {
@@ -242,8 +214,6 @@ export const PARTS: BoardPart[] = [
     w: 76,
     h: 76,
     marking: ['VOLUNTEER', 'HUB'],
-    silk: 'U6',
-    silkAt: [299, 533],
     led: [412, 560],
   },
   {
@@ -255,8 +225,6 @@ export const PARTS: BoardPart[] = [
     w: 64,
     h: 64,
     marking: ['PEP', '25'],
-    silk: 'U8',
-    silkAt: [270, 606],
     led: [264, 640],
   },
   {
@@ -268,34 +236,7 @@ export const PARTS: BoardPart[] = [
     w: 92,
     h: 40,
     marking: ['UCF'],
-    silk: 'Y1',
-    silkAt: [455, 563],
     led: [540, 556],
-  },
-  {
-    // the regulator that feeds U1: 5 V in, 3.3 V out
-    id: 'ldo',
-    node: null,
-    pkg: 'sot223',
-    x: U1.x + U1_PITCH * 4.5 - 28,
-    y: 70,
-    w: 56,
-    h: 30,
-    marking: ['1117'],
-    silk: 'U7',
-    silkAt: [262, 134],
-  },
-  {
-    id: 'reset',
-    node: null,
-    pkg: 'button',
-    x: 470,
-    y: 662,
-    w: 34,
-    h: 34,
-    marking: [],
-    silk: 'SW1',
-    silkAt: [455, 647],
   },
   {
     // a live website: the jack faces out of the left edge, its link LED lit
@@ -307,8 +248,6 @@ export const PARTS: BoardPart[] = [
     w: 108,
     h: 72,
     marking: ['PRINTING', 'PROFILES'],
-    silk: 'J1',
-    silkAt: [130, 470],
     led: [132, 440],
   },
   {
@@ -321,8 +260,6 @@ export const PARTS: BoardPart[] = [
     w: 84,
     h: 72,
     marking: ['HIL', 'ECU'],
-    silk: 'J2',
-    silkAt: [482, 193],
     led: [484, 258],
   },
 ]
@@ -367,10 +304,6 @@ export const TRACES: Trace[] = [
   { to: 'hil-ecu', width: W, pts: route(u1('r', 0), [418, u1('r', 0)[1]], [438.6, 250], [522, 250]) },
   // U1 right pin 8 -> UCF crystal: down past the module, then under the can
   { to: 'ucf', width: W, pts: route(u1('r', 8), [412, 422.2], [412, 486], [426, 500], [500, 500], [500, 586]) },
-  // power: the regulator's output pin straight down into U1 top pin 4
-  { to: 'u1', width: W, pts: route([u1('t', 4)[0], 112], u1('t', 4)) },
-  // the reset switch to a via
-  { to: 'u1', width: W, pts: [[512, 671], [540, 671]] },
   // the bus: from the board edge under the end of the name into U1 bottom pins 2, 3
   { to: 'u1', only: 'wide', width: W, pts: route([0, 492], [225, 492], [u1('b', 2)[0], 460], u1('b', 2)) },
   { to: 'u1', only: 'wide', width: W, pts: route([0, 518], [232.2, 518], [u1('b', 3)[0], 476], u1('b', 3)) },
@@ -384,19 +317,9 @@ export const VIAS: Pt[] = [
   round([u1('t', 1)[0], 222]),
   round([u1('t', 7)[0], 222]),
   [412, 486],
-  [540, 671],
   [130, 236],
   [586, 300],
   [560, 700],
-]
-
-/** Test points: bare copper rings an engineer can probe. */
-export const TEST_POINTS: Pt[] = [[318, 150]]
-
-/** Free silkscreen text: net names beside the connectors. */
-export const SILK_NOTES: { at: Pt; text: string }[] = [
-  { at: [468, 207], text: 'CANH' },
-  { at: [468, 243], text: 'CANL' },
 ]
 
 /** Small passives: 0603 resistors and capacitors. x, y is the top-left. */
@@ -410,10 +333,8 @@ export const PASSIVES: Passive[] = [
   { x: 176, y: 224, kind: 'c' },
   { x: 288, y: 452, kind: 'r', vertical: true },
   { x: 440, y: 404, kind: 'c', vertical: true },
-  // the regulator's input and output capacitors
   { x: 230, y: 80, kind: 'c' },
   { x: 336, y: 80, kind: 'c' },
-  // Lockheed's pull-ups
   { x: 56, y: 204, kind: 'r' },
   { x: 82, y: 204, kind: 'r' },
   { x: 108, y: 204, kind: 'r' },

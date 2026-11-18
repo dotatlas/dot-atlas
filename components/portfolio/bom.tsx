@@ -1,9 +1,9 @@
 import { BOM } from '@/config/portfolio-content'
 
-/** Reference designator prefix per group: ICs, connectors, modules. */
+/** Reference designator prefix per group. */
 const PREFIX: Record<string, string> = {
   Languages: 'U',
-  'Frameworks and libraries': 'J',
+  Embedded: 'J',
   'Tools and platforms': 'M',
 }
 

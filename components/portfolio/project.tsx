@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   motion,
   useMotionValueEvent,
@@ -11,7 +11,7 @@ import {
 } from 'framer-motion'
 import { FaGithub } from 'react-icons/fa6'
 import { ArrowUpRight } from 'lucide-react'
-import { SECTIONS, type Entry, type Milestone } from '@/config/portfolio-content'
+import { SECTIONS, type Entry } from '@/config/portfolio-content'
 
 const PROJECTS = SECTIONS.find((s) => s.id === 'projects')!.nodes
 const HUB = PROJECTS.find((p) => p.id === 'volunteer-hub')!
@@ -21,26 +21,14 @@ const HIL = PROJECTS.find((p) => p.id === 'hil-ecu')!
 
 const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3)
 
-function useWide() {
-  const [wide, setWide] = useState(false)
-  useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)')
-    const sync = () => setWide(mq.matches)
-    sync()
-    mq.addEventListener('change', sync)
-    return () => mq.removeEventListener('change', sync)
-  }, [])
-  return wide
-}
-
-/** The finished projects (solo, then team), then the two still being built. */
+/** Newest first: the two in development, then the finished ones. */
 export function Project() {
   return (
-    <section id="project" aria-label="Projects" className="mt-(--section-gap)">
+    <section id="project" aria-label="Projects" className="mt-(--section-gap) flex flex-col gap-(--section-gap)">
+      <HilEcu />
+      <PrintingProfiles />
       <VolunteerHub />
       <Pep25 />
-      <PrintingProfiles />
-      <HilEcu />
     </section>
   )
 }
@@ -53,12 +41,12 @@ function Head({ entry, n }: { entry: Entry; n: number }) {
       <p className="t-small m-0 mb-10 border-t border-copper-dim pt-5 font-semibold text-copper lg:mb-14">{/* taste-skill-ignore: the copper rule between projects (DESIGN.md, The Copper Line Rule) */}
         Project {n}
       </p>
+      {entry.status && <Status {...entry.status} />}
       <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-8">
         <h2 id={`${entry.id}-h`} className="t-display m-0 [word-spacing:0.14em] lg:col-span-5" data-wipe>
           {entry.title}
         </h2>
         <div className="lg:col-span-6 lg:col-start-7">
-          {entry.status && <Status {...entry.status} />}
           <p className="m-0 font-semibold" data-reveal>
             {entry.subtitle}
           </p>
@@ -88,73 +76,28 @@ function Head({ entry, n }: { entry: Entry; n: number }) {
   )
 }
 
-/** Where an unfinished build stands: a live site breathes green, a board in bring-up blinks amber. */
+/**
+ * An unfinished build's notice, the first thing read in its project: a full
+ * width strip edged in its LED colour, green breathing when people can use it,
+ * amber blinking while it is built.
+ */
 function Status({ label, live }: { label: string; live: boolean }) {
+  const color = live ? 'var(--led-green)' : 'var(--copper-hot)'
   return (
-    <p className="t-small m-0 mb-4 inline-flex items-center gap-3 font-semibold" data-reveal>
+    <p
+      className="m-0 mb-10 flex items-center gap-5 border-l-[6px] bg-mask-raised px-5 py-5 sm:px-7 lg:mb-14"
+      style={{ borderColor: color }}
+      data-reveal
+    >
       <span
         aria-hidden
-        className={`relative size-2.5 shrink-0 rounded-full ${live ? 'status-live bg-(--led-green)' : 'status-build bg-(--copper-hot)'}`}
+        className={`relative size-4 shrink-0 rounded-full sm:size-5 ${live ? 'status-live' : 'status-build'}`}
+        style={{ background: color }}
       />
-      {label}
+      <span className="t-title font-extrabold" style={{ color }}>
+        {label}
+      </span>
     </p>
-  )
-}
-
-const MILESTONE: Record<Milestone['state'], string> = { done: 'done', underway: 'underway', next: 'next' }
-
-/** A milestone as a copper pad: filled when done, half plated while underway, bare when next. */
-function Pad({ state }: { state: Milestone['state'] }) {
-  const look = { done: 'bg-copper', underway: 'border-2 border-copper', next: 'border-2 border-copper-dim' }[state]
-  return (
-    <span aria-hidden className={`relative size-3.5 shrink-0 ${look}`}>
-      {state === 'underway' && <span className="absolute inset-y-0 left-0 w-1/2 bg-copper" />}
-    </span>
-  )
-}
-
-/** The repo's own roadmap, in build order, so the state of the build is plain. */
-function Roadmap({ entry }: { entry: Entry }) {
-  const steps = entry.roadmap!
-  return (
-    <div className="mt-14">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3">
-        <h3 className="t-small m-0 font-semibold tracking-normal text-copper [font-variation-settings:normal]">
-          Roadmap, from the repo
-        </h3>
-        <p className="t-small m-0 flex flex-wrap gap-x-5 gap-y-1 text-silk-2 tabular">
-          {(['done', 'underway', 'next'] as const).map((s) => {
-            const n = steps.filter((m) => m.state === s).length
-            return (
-              n > 0 && (
-                <span key={s} className="inline-flex items-center gap-2">
-                  <Pad state={s} />
-                  {n} {MILESTONE[s]}
-                </span>
-              )
-            )
-          })}
-        </p>
-      </div>
-      {/* down each column, so the build reads left to right: done, underway, next */}
-      <ol className="mt-6 list-none gap-x-8 p-0 sm:columns-2 lg:columns-3">
-        {steps.map((m, i) => (
-          <li
-            key={m.name}
-            className={`mb-3 flex break-inside-avoid items-center gap-3 ${m.state === 'next' ? 'text-silk-2' : ''}`}
-            data-reveal
-            style={{ '--i': i % 6 } as React.CSSProperties}
-          >
-            <Pad state={m.state} />
-            <span className="t-small w-5 shrink-0 text-silk-2 tabular">{i}</span>
-            <span>
-              {m.name}
-              <span className="sr-only">, {MILESTONE[m.state]}</span>
-            </span>
-          </li>
-        ))}
-      </ol>
-    </div>
   )
 }
 
@@ -180,90 +123,51 @@ function Holes({ w, h }: { w: number; h: number }) {
 /* ======================================================== Volunteer Hub */
 
 /**
- * A held stage split at the seam: the client on one side, the API and its
- * services on the other, drawn as one schematic. Scrolling forms the
- * circuit: the halves converge and lock, every net draws itself out of its
- * chip, and the bus halves meet exactly at the seam as the halves align.
- * Once closed, the circuit stays closed and signals start to flow.
+ * The stack as one schematic split at the seam: the client on one half, the
+ * API and its services on the other. It sits beside the details like every
+ * other project and never pins: while the panel is wholly in view, scrolling
+ * closes the halves, every net draws itself out of its chip, and the bus
+ * halves meet at the seam. Once closed, it stays closed and signals flow.
  */
 function VolunteerHub() {
-  const stage = useRef<HTMLDivElement>(null)
+  const panel = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
-  const wide = useWide()
-  const still = useRef(true)
-  still.current = Boolean(reduce) || !wide
-
-  const { scrollYProgress } = useScroll({ target: stage, offset: ['start start', 'end end'] })
-  // 0 -> 1 over the first 60% of the hold, then held: the circuit stays closed
-  const form = useTransform(scrollYProgress, (v) =>
-    reduce ? 1 : easeOutCubic(Math.min(1, Math.max(0, v / 0.6))),
-  )
-  const apart = (d: number) => (f: number) => `translate3d(0, ${still.current ? 0 : (1 - f) * d}svh, 0)`
-  const tPaneL = useTransform(form, apart(-10))
-  const tPaneR = useTransform(form, apart(10))
-  const tTitleL = useTransform(form, apart(-4))
-  const tTitleR = useTransform(form, apart(4))
+  const { scrollYProgress } = useScroll({ target: panel, offset: ['end end', 'start start'] })
+  const form = useTransform(scrollYProgress, (v) => (reduce ? 1 : easeOutCubic(playhead(v))))
+  const apart = (d: number) => (f: number) => `translate3d(0, ${(1 - f) * d}%, 0)`
+  const tPaneL = useTransform(form, apart(-14))
+  const tPaneR = useTransform(form, apart(14))
 
   const [formed, setFormed] = useState(Boolean(reduce))
   useMotionValueEvent(form, 'change', (f) => setFormed(f > 0.995))
 
-  const [first, ...rest] = HUB.title.split(' ')
-
   return (
-    <article aria-labelledby="hub-h">
-      <div id="role-volunteer-hub" data-part="volunteer-hub" ref={stage} className="relative h-[150svh]">
-        <div className="sticky top-0 grid h-svh grid-cols-2 overflow-hidden">
-          {/* the board halves hold still as one panel; the drawing on each slides and closes */}
-          {(['client', 'server'] as const).map((half) => (
-            <div key={half} className="relative overflow-hidden bg-mask-raised">
-              <MountHoles side={half === 'client' ? 'left' : 'right'} />
-              <motion.div
-                className="absolute inset-x-0 top-[25svh] bottom-[12svh]"
-                style={{ transform: half === 'client' ? tPaneL : tPaneR }}
-              >
-                <Schematic half={half} form={form} formed={formed} />
-              </motion.div>
-            </div>
-          ))}
+    <article
+      id="role-volunteer-hub"
+      data-part="volunteer-hub"
+      aria-labelledby="volunteer-hub-h"
+      className="scroll-mt-16 px-(--gutter)"
+    >
+      <Head entry={HUB} n={3} />
 
-          {/* the title tears at its word gap and closes with the circuit */}
-          <div className="pointer-events-none absolute inset-x-0 top-[10svh] flex flex-col items-center text-center">
-            <p className="t-small m-0 mb-4 font-semibold text-silk-2">Project 1</p>
-            <h2 id="hub-h" className="t-display m-0 flex w-full justify-center gap-[0.32em] text-silk">
-              <motion.span className="block" style={{ transform: tTitleL }}>
-                {first}
-              </motion.span>
-              <motion.span className="block" style={{ transform: tTitleR }}>
-                {rest.join(' ')}
-              </motion.span>
-            </h2>
+      <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-8">
+        <figure className="m-0 lg:order-last lg:col-span-7">
+          <div ref={panel} aria-hidden className="relative grid aspect-15/8 grid-cols-2 overflow-hidden">
+            {(['client', 'server'] as const).map((half) => (
+              <div key={half} className="relative overflow-hidden bg-mask-raised">
+                <MountHoles side={half === 'client' ? 'left' : 'right'} />
+                {/* inset top and bottom: the drawing scales down toward the seam, clearing the outer corners for the holes */}
+                <motion.div className="absolute inset-x-0 inset-y-[11%]" style={{ transform: half === 'client' ? tPaneL : tPaneR }}>
+                  <Schematic half={half} form={form} formed={formed} />
+                </motion.div>
+              </div>
+            ))}
           </div>
-          <p className="pointer-events-none absolute bottom-8 left-1/2 m-0 w-max max-w-[calc(100%-2.5rem)] -translate-x-1/2 bg-mask px-4 py-2 text-center font-semibold">
-            {HUB.subtitle}
-          </p>
-        </div>
-      </div>
-
-      <div className="mt-14 grid gap-12 px-(--gutter) lg:grid-cols-12 lg:gap-8">
+          <figcaption className="t-small mt-4 text-silk-2">
+            The Volunteer Hub stack as a schematic: the client and its API connect at the seam.
+          </figcaption>
+        </figure>
         <div className="lg:col-span-5">
-          {/* the details sit below the panel, so they carry the project's name back down with them */}
-          <p className="t-small m-0 mb-3 font-semibold text-copper" data-reveal>
-            {HUB.title}
-          </p>
-          <h3 className="t-title" data-wipe>
-            Built solo, end to end
-          </h3>
-          <p className="mt-5 text-silk-2" data-reveal>
-            {HUB.meta}
-          </p>
-          <p className="t-small mt-10 text-silk-2" data-reveal>
-            Above: the Volunteer Hub stack, drawn as a schematic. The client and its API connect at the seam.
-          </p>
-        </div>
-        <div className="lg:col-span-6 lg:col-start-7">
-          <p className="t-lead m-0" data-reveal>
-            {HUB.glance}
-          </p>
           <Details entry={HUB} />
         </div>
       </div>
@@ -303,7 +207,6 @@ type Chip = {
   w: number
   h: number
   marking: string[]
-  ref: string
   /** Pins per side: left, right, top, bottom. Pitch is the side length / count. */
   pins: [number, number, number, number]
 }
@@ -315,12 +218,12 @@ const BUS_Y = [480, 513.3, 546.7, 580]
 
 const CHIPS: Chip[] = [
   // client side
-  { x: 200, y: 430, w: 240, h: 200, marking: ['REACT', 'TYPESCRIPT'], ref: 'U1', pins: [6, 6, 8, 8] },
-  { x: 60, y: 463.3, w: 90, h: 133.4, marking: ['VALIDATE'], ref: 'U5', pins: [0, 4, 0, 0] },
+  { x: 200, y: 430, w: 240, h: 200, marking: ['REACT', 'TYPESCRIPT'], pins: [6, 6, 8, 8] },
+  { x: 60, y: 463.3, w: 90, h: 133.4, marking: ['VALIDATE'], pins: [0, 4, 0, 0] },
   // server side
-  { x: 760, y: 430, w: 200, h: 200, marking: ['GRAPHQL', 'API'], ref: 'U2', pins: [6, 0, 8, 8] },
-  { x: 1010, y: 250, w: 140, h: 100, marking: ['FIREBASE', 'AUTH'], ref: 'U3', pins: [2, 2, 0, 0] },
-  { x: 1010, y: 670, w: 140, h: 100, marking: ['DATA'], ref: 'U4', pins: [2, 2, 0, 0] },
+  { x: 760, y: 430, w: 200, h: 200, marking: ['GRAPHQL', 'API'], pins: [6, 0, 8, 8] },
+  { x: 1010, y: 250, w: 140, h: 100, marking: ['FIREBASE', 'AUTH'], pins: [2, 2, 0, 0] },
+  { x: 1010, y: 670, w: 140, h: 100, marking: ['DATA'], pins: [2, 2, 0, 0] },
 ]
 
 type P = [number, number]
@@ -384,14 +287,14 @@ const VIEW_H = 640
 
 /** Copper mount holes in the panel's outer corners; they belong to the board, not the drawing. */
 function MountHoles({ side }: { side: 'left' | 'right' }) {
-  const x = side === 'left' ? 'left-5' : 'right-5'
+  const x = side === 'left' ? 'left-3 sm:left-5' : 'right-3 sm:right-5'
   return (
     <>
-      {['top-5', 'bottom-5'].map((y) => (
+      {['top-3 sm:top-5', 'bottom-3 sm:bottom-5'].map((y) => (
         <span
           key={y}
           aria-hidden
-          className={`absolute ${y} ${x} size-6 rounded-full border-[6px] border-copper bg-mask-deep`}
+          className={`absolute ${y} ${x} size-4 rounded-full border-4 border-copper bg-mask-deep sm:size-6 sm:border-[6px]`}
         />
       ))}
     </>
@@ -456,7 +359,7 @@ function Schematic({
       </g>
 
       {CHIPS.map((c) => (
-        <ChipShape key={c.ref} c={c} />
+        <ChipShape key={c.marking[0]} c={c} />
       ))}
     </svg>
   )
@@ -489,9 +392,6 @@ function ChipShape({ c }: { c: Chip }) {
             {line}
           </tspan>
         ))}
-      </text>
-      <text x={c.x - 2} y={c.y - (c.pins[2] ? PIN_L + 10 : 12)} fill="var(--silk-2)" fontSize={17} fontWeight={600}>
-        {c.ref}
       </text>
     </g>
   )
@@ -595,9 +495,9 @@ function Pep25() {
       id="role-pep-25"
       data-part="pep-25"
       aria-labelledby="pep-25-h"
-      className="mt-(--section-gap) scroll-mt-16 px-(--gutter)"
+      className="scroll-mt-16 px-(--gutter)"
     >
-      <Head entry={PEP} n={2} />
+      <Head entry={PEP} n={4} />
 
       <div ref={panel} aria-hidden className="mt-14 grid gap-2 lg:grid-cols-12">
         <div className="flex flex-col justify-center bg-mask-raised lg:order-last lg:col-span-8">
@@ -808,9 +708,9 @@ function PrintingProfiles() {
       id="role-printing-profiles"
       data-part="printing-profiles"
       aria-labelledby="printing-profiles-h"
-      className="mt-(--section-gap) scroll-mt-16 px-(--gutter)"
+      className="scroll-mt-16 px-(--gutter)"
     >
-      <Head entry={PRINTING} n={3} />
+      <Head entry={PRINTING} n={2} />
 
       <div
         ref={panel}
@@ -872,12 +772,11 @@ function PrintingProfiles() {
       </p>
 
       <Details entry={PRINTING} columns />
-      <Roadmap entry={PRINTING} />
     </article>
   )
 }
 
-/* =================================================== Auto Safety HIL ECU */
+/* ======================================= ADAS Safety ECU & HIL Simulator */
 
 /** The planned demo, in SI units: 40 mph toward a pedestrian 70 m ahead, stepped at 50 Hz. */
 const DT = 0.02
@@ -886,8 +785,7 @@ const PED_M = 70
 const MAX_DECEL = 8
 /**
  * Staged braking; a stage never steps back down while the car still moves.
- * The thresholds are illustrative: the ECU's real table is tuned and tested
- * in the repo's safety-core milestone.
+ * The thresholds are illustrative.
  */
 const STAGES = [
   { ttc: 3.0, brake: 0, state: 1 },
@@ -924,8 +822,8 @@ const ROAD_X0 = 150
 const PX_PER_M = 12.8
 const PED_X = ROAD_X0 + PED_M * PX_PER_M
 const ROAD = { top: 104, bottom: 264, lane: 224 }
-const SIM_CHIP: Chip = { x: 90, y: 346, w: 240, h: 120, marking: ['HILSIM', 'PYTHON · 3D'], ref: 'PC', pins: [0, 4, 0, 0] }
-const ECU_CHIP: Chip = { x: 870, y: 346, w: 180, h: 120, marking: ['STM32G474', 'FREERTOS'], ref: 'ECU', pins: [4, 4, 4, 4] }
+const SIM_CHIP: Chip = { x: 90, y: 346, w: 240, h: 120, marking: ['SIMULATOR', 'PYTHON'], pins: [0, 4, 0, 0] }
+const ECU_CHIP: Chip = { x: 870, y: 346, w: 180, h: 120, marking: ['SAFETY', 'ECU'], pins: [4, 4, 4, 4] }
 /** Pin centres down both chips' 4-pin sides: the CAN pair uses pins 2 and 3, the LEDs pins 1 to 3. */
 const PIN_Y = [361, 391, 421, 451]
 const BUS = { from: 346, to: 854 }
@@ -957,9 +855,9 @@ function HilEcu() {
       id="role-hil-ecu"
       data-part="hil-ecu"
       aria-labelledby="hil-ecu-h"
-      className="mt-(--section-gap) scroll-mt-16 px-(--gutter)"
+      className="scroll-mt-16 px-(--gutter)"
     >
-      <Head entry={HIL} n={4} />
+      <Head entry={HIL} n={1} />
 
       <div ref={panel} aria-hidden className="mt-14 grid gap-2 lg:grid-cols-12">
         {/* the drawing's cell stretches with the status beside it, so both panels share one height */}
@@ -1021,7 +919,7 @@ function HilEcu() {
             ))}
           </g>
           <text x={600} y={PIN_Y[1] - 22} textAnchor="middle" fill="var(--silk-2)" fontSize={17} fontWeight={600}>
-            CAN · 500 kbit/s
+            CAN bus
           </text>
           {!reduce &&
             [0, 1, 2].map((k) => (
@@ -1093,12 +991,11 @@ function HilEcu() {
         </div>
       </div>
       <p className="t-small mt-4 text-silk-2">
-        The demo it is being built for: a car closing on a pedestrian at 40 mph, braked in stages by the ECU over
-        CAN and stopped short. The thresholds drawn here are illustrative; the real table is tuned on the bench.
+        A car closing on a pedestrian at 40 mph, braked in stages by the ECU over CAN and stopped short. The run
+        drawn here is illustrative.
       </p>
 
       <Details entry={HIL} columns />
-      <Roadmap entry={HIL} />
     </article>
   )
 }

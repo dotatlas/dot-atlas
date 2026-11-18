@@ -6,7 +6,6 @@ import { FileText } from 'lucide-react'
 import { ResumeTrigger } from './resume'
 import { CircuitBoard } from '@/components/board/circuit-board'
 import { FIGURES, PROFILE, SECTIONS, type Entry } from '@/config/portfolio-content'
-import { PHOTOS, type Photo } from '@/config/photos'
 import { useActivePart } from './use-reveal'
 
 const EXPERIENCE = SECTIONS.find((s) => s.id === 'experience')!
@@ -14,13 +13,6 @@ const EXPERIENCE = SECTIONS.find((s) => s.id === 'experience')!
 const TITLES: Record<string, string> = Object.fromEntries(
   SECTIONS.flatMap((s) => s.nodes.map((n) => [n.id, n.title])),
 )
-
-/** Inline photographs that sit inside a role, from the world around it. */
-const ROLE_PHOTOS: Record<string, Photo[]> = {
-  // the two halves of the Lockheed work: sensor firmware and flight hardware
-  lockheed: [PHOTOS.sensor, PHOTOS.guidance],
-  limbitless: [PHOTOS.esp32],
-}
 
 /**
  * The first screen and the experience legs share one split stage: the board
@@ -120,14 +112,14 @@ function Experience({ active }: { active: string | null }) {
 
       <div className="mt-16 flex flex-col gap-24 lg:mt-20 lg:gap-28">
         {EXPERIENCE.nodes.map((node) => (
-          <Leg key={node.id} node={node} photos={ROLE_PHOTOS[node.id]} live={active === node.id} />
+          <Leg key={node.id} node={node} live={active === node.id} />
         ))}
       </div>
     </section>
   )
 }
 
-function Leg({ node, photos, live }: { node: Entry; photos?: Photo[]; live: boolean }) {
+function Leg({ node, live }: { node: Entry; live: boolean }) {
   const [place, ...when] = node.meta.split(' · ')
   const figure = FIGURES[node.id]
   return (
@@ -158,24 +150,6 @@ function Leg({ node, photos, live }: { node: Entry; photos?: Photo[]; live: bool
           <span className="t-display tabular text-copper">{figure.value}</span>
           <span className="max-w-[22ch] pb-2 font-semibold">{figure.label}</span>
         </p>
-      )}
-
-      {photos && (
-        <div className={photos.length > 1 ? 'mt-10 grid grid-cols-2 gap-3' : 'mt-10'}>
-          {photos.map((photo, i) => (
-            <figure key={photo.src} className="m-0" data-reveal style={{ '--i': 3 + i } as React.CSSProperties}>
-              <img
-                src={photo.src}
-                width={photo.width}
-                height={photo.height}
-                alt={photo.alt}
-                loading="lazy"
-                className={`photo w-full object-cover ${photos.length > 1 ? 'aspect-[4/5]' : 'aspect-[3/2]'}`}
-              />
-              <figcaption className="t-small mt-3 text-silk-2">{photo.caption}</figcaption>
-            </figure>
-          ))}
-        </div>
       )}
 
       <ul className="mt-10 flex list-none flex-col gap-4 p-0">

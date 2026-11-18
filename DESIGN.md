@@ -124,7 +124,7 @@ components:
 
 The page is a fabricated printed circuit board. A desktop PCB mill makes it on arrival: the blank rises onto the bed, the spindle engraves every copper route with its V-bit on the surface, the components settle in, the camera eases once to straight down, and the materials flatten to the exact page colours so the machined board becomes the page with no seam. From then on every surface is board material: matte black solder mask for ground, ENIG gold copper for every line, pad and via, silkscreen off-white for every word, and one red SMD LED for the one thing to do.
 
-Density is low and deliberate. Type is very large and very condensed, rows are separated by wide section gaps, and the board itself is the only dense area: a central MCU wired by 45-degree copper to one component per role. Photographs are of the material world the work lives in, always greyscale, so colour stays reserved for copper and the LED. Motion is fabrication: toolpath wipes left to right, traces drawn along their length, signal pulses travelling to a part. Nothing bounces and nothing fades in for decoration alone.
+Density is low and deliberate. Type is very large and very condensed, rows are separated by wide section gaps, and the board itself is the only dense area: a central MCU wired by 45-degree copper to one component per role. The only picture is the footer's milling clip, greyscale, so colour stays reserved for copper and the LED. Motion is fabrication: toolpath wipes left to right, traces drawn along their length, signal pulses travelling to a part. Nothing bounces and nothing fades in for decoration alone.
 
 Dark ground and the red accent are product commitments, not choices this world can revisit.
 
@@ -193,18 +193,18 @@ Intermediate widths are used for emphasis inside text: wdth 92 on buttons, 84 on
 
 A full-bleed long scroll with fluid side padding (gutter) and very large vertical spacing between sections (section-gap). The first screen and the experience legs share a split stage at lg (1024px): text on the left, the board sticky full-height on the right, its active part tracking the role being read. Below lg the board sits at the top of the first screen (about 52svh) and scrolls away; each role then carries its own small status LED beside its title.
 
-Later sections use a 12-column grid at lg with 2rem gaps and asymmetric spans (5/6, 4/8, 7/4). The macro photograph and project split pane go full bleed; the first project runs a 150svh sticky stage. Every project after it never pins: its drawing plays only while the panel is wholly in view (offset `end end` to `start start`), so a run costs one short scroll. PEP 25 is a ground station: raw GPS fixes scatter round a smooth fused estimate, the route bends round a keep-out between numbered waypoints, and a telemetry log streams beside the map. The two in-progress projects (Printing Profiles, Auto Safety HIL ECU) open with a status LED (green breathing when live, amber blinking in bring-up), and close on their repo's roadmap as copper pads (filled done, half plated underway, bare next). Text columns stay narrow (31-36ch ledes, 36rem legs, 56ch notes). Stacked rhythm inside a section steps through roughly 1.5rem, 2.5rem, 5-7rem; tap targets are at least 3rem tall.
+Later sections use a 12-column grid at lg with 2rem gaps and asymmetric spans (5/6, 4/8, 7/4). No project pins the page. Each opens on the same head (title left, who/when/what right), and its drawing sits in a panel beside or under its details; Volunteer Hub's split schematic closes at the seam in a 15:8 panel to the right of its details. Every drawing plays only while the panel is wholly in view (offset `end end` to `start start`), so a run costs one short scroll. PEP 25 is a ground station: raw GPS fixes scatter round a smooth fused estimate, the route bends round a keep-out between numbered waypoints, and a telemetry log streams beside the map. The two in-progress projects (Printing Profiles, Self-Driving Car Simulator) open with a one-line status notice beside an LED (green breathing when live, amber blinking in development); no roadmaps or build plans. Text columns stay narrow (31-36ch ledes, 36rem legs, 56ch notes). Stacked rhythm inside a section steps through roughly 1.5rem, 2.5rem, 5-7rem; tap targets are at least 3rem tall.
 
 ## Elevation & Depth
 
-Flat. There are no box-shadows anywhere. Depth is the board's own physical layering, expressed as tone steps: mask, then raised mask, then component bodies, with deep mask for holes punched through. Photographs and the footer video are pushed back with greyscale and lowered brightness rather than overlays. The only literal depth is the milling intro, which flattens to unlit tokens before it hands off.
+Flat. There are no box-shadows anywhere. Depth is the board's own physical layering, expressed as tone steps: mask, then raised mask, then component bodies, with deep mask for holes punched through. The footer video is pushed back with greyscale and lowered brightness rather than overlays. The only literal depth is the milling intro, which flattens to unlit tokens before it hands off.
 
 ### Named Rules
 **The Layer Not Lift Rule.** Separate surfaces with a mask tone step or copper, never with a shadow or blur.
 
 ## Shapes
 
-Square corners on every rectangle: buttons, cells, panels, photographs, pads, component bodies, status LEDs (radius 0). Circles are reserved for what is round on a real board: vias (copper ring around a deep-mask hole), mounting holes (thick copper border, deep-mask fill, at the four corners of a board field), fiducials, and the education timeline's ring markers. Traces route orthogonally with 45-degree bends and round caps and joins; bus traces are thicker (7) than role traces (5). Bullets are small filled copper squares, i.e. pads. Silkscreen outlines on components are corner brackets, not full boxes.
+Square corners on every rectangle: buttons, cells, panels, pads, component bodies, status LEDs (radius 0). Circles are reserved for what is round on a real board: vias (copper ring around a deep-mask hole), mounting holes (thick copper border, deep-mask fill, at the four corners of a board field), fiducials, and the education timeline's ring markers. Traces route orthogonally with 45-degree bends and round caps and joins; bus traces are thicker (7) than role traces (5). Bullets are small filled copper squares, i.e. pads. Silkscreen outlines on components are corner brackets, not full boxes.
 
 ## Components
 
@@ -231,14 +231,14 @@ Filled, square, decisive: an SMD part you press.
 A real table that keeps a table's rules: small faded-silk headers, rows ruled 1px in rule (#262a27), group headings at lead size weight 800 wdth 90 over a dim-copper rule, reference numbers in tabular copper.
 
 ### Circuit board (signature)
-The SVG board shared with the milling intro: raised-mask substrate with corner mounting holes, a central MCU wired to one package per role (BGA, RF shield, module, SOIC, QFN, crystal, and two edge connectors for the in-progress projects: an RJ45 jack for the live website, its green link LED always lit, and a CAN screw terminal for the HIL bench), a voltage regulator with its input and output capacitors, a reset switch, a test point, passives and vias. Silkscreen carries only what a real board prints: courtyard corner marks, laser-etched part markings, small faded reference designators (U1 to U8, Y1, SW1, J1, J2) and net names beside a connector (CANH, CANL); there are no descriptive labels. The silkscreen layer ignores the pointer, so pressing a part's marking presses the part. Copper follows one rule: every signal trace is exactly pin width (5 units) and leaves a pin from its outer tip, collinear and butt-ended, so pin and trace read as one line; traces into pinless packages end under the body. Pin geometry comes from one function (pinRects in config/board.ts) shared with the 3D scene. Inactive traces are dim copper; the active part's traces turn full copper, its silkscreen bracket turns LED red and thickens, and its LED lights. Tapping a part routes a hot-copper pulse along its trace and scrolls to the role. Wide and narrow bus variants make the bus always enter from the side where the name sits.
+The SVG board shared with the milling intro: raised-mask substrate with corner mounting holes, a central MCU wired to one package per role (BGA, RF shield, module, SOIC, QFN, crystal, and two edge connectors for the in-progress projects: an RJ45 jack for the live website, its green link LED always lit, and a CAN screw terminal for the HIL bench), plus unlabelled passives and vias for texture. It only needs to read broadly as a board, not as a real circuit. The only text on it is each pressable part's label, naming the content it opens; the central chip is blank, and there are no reference designators, part numbers or net names anywhere on the site. Corner brackets frame only pressable parts. The silkscreen layer ignores the pointer, so pressing a part's marking presses the part. Copper follows one rule: every signal trace is exactly pin width (5 units) and leaves a pin from its outer tip, collinear and butt-ended, so pin and trace read as one line; traces into pinless packages end under the body. Pin geometry comes from one function (pinRects in config/board.ts) shared with the 3D scene. Inactive traces are dim copper; the active part's traces turn full copper, its silkscreen bracket turns LED red and thickens, and its LED lights. Tapping a part routes a hot-copper pulse along its trace and scrolls to the role. Wide and narrow bus variants make the bus always enter from the side where the name sits.
 
 ### Motion vocabulary
 - **Deposition reveal:** content rises 24px and appears (700ms opacity, 900ms transform, ease-out), staggered 75ms per index.
 - **Toolpath wipe:** headings uncover left to right by clip-path (1100ms, ease-in-out), staggered 90ms.
 - **Pulse:** a short hot-copper dash travels a trace (reply LED traces, board selection).
 - **Swap-in:** in-place state text sharpens in from a 4px blur (260ms).
-- Scroll-linked drift on the macro photograph and a settle on the footer wordmark, where supported.
+- A settle on the footer wordmark, where supported.
 - Content is visible without JS; reduced motion drops transforms and keeps 300ms opacity, or removes the animation.
 
 
@@ -248,7 +248,7 @@ A Base UI dialog that opens from the nav, the hero (a silk View resume button be
 
 ### Contact circuit
 
-The red contact board carries a small real circuit. Three input nets labelled LINKEDIN, GITHUB and EMAIL run from the button side into U1 (ESP32); U1 drives D1, the status LED, through R1 to a ground via, and talks I2C (SDA, SCL) to U2, a 128x64 OLED module whose header prints its pinout (GND, VCC, SCL, SDA) in silkscreen. D1 is red (led) while it waits. Any contact action sends a one-shot hot-copper pulse down its input net and on through U1; D1 turns led-green and the OLED, in its own monospace device face (a data-ui fragment), types the reply at 22ms a character: what was opened, then thanks and I'll get back to you ASAP, with a blinking block cursor. Reduced motion shows the final state at once.
+The red contact board carries a small, unlabelled circuit: three input nets labelled LINKEDIN, GITHUB and EMAIL (the only text on it) run from the button side into a blank chip, which drives a status LED through a resistor and wires to a small screen on its own board. The LED is red (led) while it waits. Any contact action sends a one-shot hot-copper pulse down its input net and on through the chip; the LED turns led-green and the screen, in its own monospace device face (a data-ui fragment), types the reply at 22ms a character: what was opened, then thanks and I'll get back to you ASAP, with a blinking block cursor. Reduced motion shows the final state at once.
 ## Do's and Don'ts
 
 ### Do:
@@ -256,7 +256,7 @@ The red contact board carries a small real circuit. Three input nets labelled LI
 - **Do** draw every non-type line in copper or dim copper, with 45-degree routing and round caps.
 - **Do** separate surfaces with mask tone steps (mask, mask-raised, mask-deep) rather than shadows.
 - **Do** set headings heavy and condensed (weight 800-820, wdth 74-76) and running text at full width.
-- **Do** show photographs greyscale (grayscale 1, contrast 1.08, brightness 0.86) and credit them.
+- **Do** keep the footer clip greyscale and credited. **Don't** add stock photographs.
 - **Do** animate by deposition: wipes, drawn traces, pulses, on the ease-out curve, with a reduced-motion path.
 - **Do** update config/print-config.ts flat colours whenever a colour token changes.
 

@@ -27,7 +27,6 @@ import {
   MOUNTS,
   PARTS,
   PASSIVES,
-  TEST_POINTS,
   TRACES,
   VIAS,
   WIDE_MIN,
@@ -580,14 +579,6 @@ export function BoardPrint({
           const [x, z] = W(m)
           return <Hole key={`m${i}`} x={x} z={z} r={10 * s} hole={5.5 * s} mats={mats} />
         })}
-        {TEST_POINTS.map((p, i) => {
-          const [x, z] = W(p)
-          return (
-            <mesh key={`t${i}`} position={[x, 1.2, z]} material={mats.copper.mat}>
-              <cylinderGeometry args={[7 * s, 7 * s, 2.4, 24]} />
-            </mesh>
-          )
-        })}
         {PASSIVES.map((p, i) => {
           const r = passiveRects(p)
           const box = (q: typeof r.body, h: number, mat: THREE.Material, key: string) => {
@@ -810,7 +801,6 @@ function PartBody({
   switch (p.pkg) {
     case 'mcu':
     case 'soic':
-    case 'sot223':
       body = <Box x={x} z={z} w={w} d={d} h={h} mat={mats.chip.mat} />
       break
     case 'qfn':
@@ -844,16 +834,6 @@ function PartBody({
     }
     case 'crystal':
       body = <Box x={x} z={z} w={w} d={d} h={h} mat={mats.shield.mat} />
-      break
-    case 'button':
-      body = (
-        <>
-          <Box x={x} z={z} w={w} d={d} h={h} mat={mats.bga.mat} />
-          <mesh position={[x + w / 2, h + 3, z + d / 2]} material={mats.header.mat} castShadow>
-            <cylinderGeometry args={[w * 0.3, w * 0.3, 6, 24]} />
-          </mesh>
-        </>
-      )
       break
     case 'rj45':
       // shield, its top panel, and the plastic front on the board edge (as in the SVG board)

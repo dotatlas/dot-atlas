@@ -131,19 +131,19 @@ function MountingHoles() {
 type P = [number, number]
 const pts = (p: P[]) => p.map((q) => q.join(',')).join(' ')
 
-/** U1, the microcontroller: four pins a side, 40 apart. */
+/** The chip: four pins a side, 40 apart. */
 const MCU = { x: 170, y: 96, w: 120, h: 160 }
 const PIN = { w: 6, len: 14 }
 const ROWS = [116, 156, 196, 236]
 
-/** Inputs from the buttons, one net each, into U1's left pins. */
+/** Inputs from the buttons, one net each, into the chip's left pins. */
 const INPUTS: { label: string; y: number }[] = [
   { label: 'LINKEDIN', y: ROWS[0] },
   { label: 'GITHUB', y: ROWS[1] },
   { label: 'EMAIL', y: ROWS[2] },
 ]
 
-/** U1 -> R1 -> D1 -> ground: the status LED and its current-limiting resistor. */
+/** Chip -> resistor -> status LED -> via. */
 const LED_NET: P[][] = [
   [
     [304, 116],
@@ -159,7 +159,7 @@ const LED_NET: P[][] = [
   ],
 ]
 
-/** U1 -> the OLED's header over I2C, plus the module's power drops to vias. */
+/** Chip -> the screen's header, plus its power drops to vias. */
 const SDA: P[] = [
   [304, 156],
   [396, 156],
@@ -183,13 +183,8 @@ const POWER: P[][] = [
   ],
 ]
 
-/** The module's four-pin header, 36 apart, with its pinout printed under it. */
-const HEADER = [
-  { x: 384, label: 'GND' },
-  { x: 420, label: 'VCC' },
-  { x: 456, label: 'SCL' },
-  { x: 492, label: 'SDA' },
-]
+/** The screen's four-pin header, 36 apart. */
+const HEADER = [384, 420, 456, 492]
 
 /** The screen's lines while it waits, and once a signal arrives. */
 const IDLE = ['STATUS: READY', 'TAP A BUTTON', 'TO SAY HELLO']
@@ -290,7 +285,7 @@ function ReplyBoard({ signal }: { signal: Signal | null }) {
         </text>
       ))}
 
-      {/* U1 */}
+      {/* the chip */}
       {ROWS.map((y) => (
         <g key={y}>
           <rect x={MCU.x - PIN.len} y={y - PIN.w / 2} width={PIN.len} height={PIN.w} fill="var(--copper)" />
@@ -299,31 +294,13 @@ function ReplyBoard({ signal }: { signal: Signal | null }) {
       ))}
       <rect x={MCU.x} y={MCU.y} width={MCU.w} height={MCU.h} fill="var(--chip)" />
       <circle cx={MCU.x + 14} cy={MCU.y + 14} r={5} fill="#2a2d2b" />
-      <text
-        x={MCU.x + MCU.w / 2}
-        y={MCU.y + MCU.h / 2}
-        textAnchor="middle"
-        dominantBaseline="central"
-        fill="var(--chip-mark)"
-        fontSize={20}
-        fontWeight={800}
-        style={{ fontVariationSettings: "'wdth' 80" }}
-      >
-        ESP32
-      </text>
-      <text x={MCU.x} y={MCU.y - 12} fill="var(--silk)" fontSize={14} fontWeight={600}>
-        U1
-      </text>
 
-      {/* R1, the LED's current-limiting resistor */}
+      {/* a resistor */}
       <rect x={330} y={107} width={12} height={18} fill="var(--copper)" />
       <rect x={366} y={107} width={12} height={18} fill="var(--copper)" />
       <rect x={340} y={108} width={28} height={16} fill="#1b1c1b" />
-      <text x={330} y={95} fill="var(--silk)" fontSize={14} fontWeight={600}>
-        R1
-      </text>
 
-      {/* D1, the status LED: red while it waits, green once it hears from you */}
+      {/* the status LED: red while it waits, green once it hears from you */}
       <rect x={420} y={84} width={26} height={64} fill="var(--copper)" />
       <rect x={526} y={84} width={26} height={64} fill="var(--copper)" />
       <rect
@@ -342,10 +319,6 @@ function ReplyBoard({ signal }: { signal: Signal | null }) {
         fill={lit ? 'var(--led-green-core)' : 'var(--led-hover)'}
         style={{ transition: 'fill 220ms var(--ease-out)' }}
       />
-      <path d="M408 76 V68 H564 V76 M408 156 V164 H564 V156" fill="none" stroke="var(--silk)" strokeWidth={3} />
-      <text x={408} y={56} fill="var(--silk)" fontSize={14} fontWeight={600}>
-        D1
-      </text>
 
       {/* vias: the LED's return and the OLED's power */}
       {[
@@ -359,7 +332,7 @@ function ReplyBoard({ signal }: { signal: Signal | null }) {
         </g>
       ))}
 
-      {/* U2: a 128x64 OLED module on its own little board */}
+      {/* a small screen on its own little board */}
       <rect x={300} y={276} width={310} height={262} fill="var(--module)" />
       {[
         [316, 292],
@@ -372,22 +345,16 @@ function ReplyBoard({ signal }: { signal: Signal | null }) {
           <circle cx={x} cy={y} r={3.5} fill="var(--mask-red)" />
         </g>
       ))}
-      {HEADER.map((h, i) => (
-        <g key={h.label}>
+      {HEADER.map((x, i) => (
+        <g key={x}>
           {i === 0 ? (
-            <rect x={h.x - 9} y={263} width={18} height={18} fill="var(--copper)" />
+            <rect x={x - 9} y={263} width={18} height={18} fill="var(--copper)" />
           ) : (
-            <circle cx={h.x} cy={272} r={9} fill="var(--copper)" />
+            <circle cx={x} cy={272} r={9} fill="var(--copper)" />
           )}
-          <circle cx={h.x} cy={272} r={3.5} fill="var(--module)" />
-          <text x={h.x} y={302} textAnchor="middle" fill="var(--silk)" fontSize={13} fontWeight={700}>
-            {h.label}
-          </text>
+          <circle cx={x} cy={272} r={3.5} fill="var(--module)" />
         </g>
       ))}
-      <text x={300} y={270} fill="var(--silk)" fontSize={14} fontWeight={600}>
-        U2
-      </text>
 
       {/* the glass, and the reply on it */}
       <rect x={322} y={316} width={266} height={198} fill="var(--oled-glass)" />
@@ -405,9 +372,6 @@ function ReplyBoard({ signal }: { signal: Signal | null }) {
           </text>
         )}
       </g>
-      <text x={455} y={531} textAnchor="middle" fill="var(--silk-2)" fontSize={13} fontWeight={600}>
-        128×64 OLED
-      </text>
 
       {/* fiducials */}
       {[

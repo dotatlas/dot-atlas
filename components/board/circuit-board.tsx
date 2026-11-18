@@ -6,8 +6,6 @@ import {
   MOUNTS,
   PARTS,
   PASSIVES,
-  SILK_NOTES,
-  TEST_POINTS,
   TRACES,
   VIAS,
   passiveRects,
@@ -25,7 +23,7 @@ type Props = {
   activeId: string | null
   /** Called with the portfolio node id when a component is pressed. */
   onSelect?: (nodeId: string) => void
-  /** Silkscreen layer (designators, markings, LEDs) printed in. */
+  /** Silkscreen layer (labels, brackets, LEDs) printed in. */
   silk: boolean
   /** Node titles, for accessible names on the pressable parts. */
   titles?: Record<string, string>
@@ -160,10 +158,6 @@ export function CircuitBoard({ activeId, onSelect, silk, titles = {}, className 
         </g>
       ))}
 
-      {TEST_POINTS.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={7} fill="var(--copper)" />
-      ))}
-
       {/* passives */}
       {PASSIVES.map((p, i) => {
         const r = passiveRects(p)
@@ -191,28 +185,10 @@ export function CircuitBoard({ activeId, onSelect, silk, titles = {}, className 
       {/* silkscreen + LEDs, printed after the board itself */}
       {/* print only: presses on a marking fall through to its part */}
       <g mask="url(#silk-scan)" aria-hidden="true" pointerEvents="none">
-        {TEST_POINTS.map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r={11} fill="none" stroke="var(--silk-2)" strokeWidth={1.6} />
-        ))}
-        {SILK_NOTES.map(({ at: [x, y], text }) => (
-          <text key={text} x={x} y={y} fill="var(--silk-2)" fontSize={11} fontWeight={600} style={{ fontVariationSettings: "'wdth' 90" }}>
-            {text}
-          </text>
-        ))}
         {PARTS.map((p) => (
           <g key={p.id}>
-            {/* reference designator: small and quiet, as on a real board */}
-            <text
-              x={p.silkAt[0]}
-              y={p.silkAt[1]}
-              fill="var(--silk-2)"
-              fontSize={13}
-              fontWeight={600}
-              style={{ fontVariationSettings: "'wdth' 90" }}
-            >
-              {p.silk}
-            </text>
-            <Corners part={p} live={live(p.id)} />
+            {/* brackets frame only what can be pressed */}
+            {p.node && <Corners part={p} live={live(p.id)} />}
             {p.marking.length > 0 && <Marking part={p} />}
             {p.led && <Led at={p.led} on={live(p.id)} />}
             {p.pkg === 'rj45' && <JackLeds part={p} live={live(p.id)} />}
@@ -327,15 +303,6 @@ function Body({ part: p }: { part: BoardPart }) {
       )
     case 'crystal':
       return <rect x={p.x} y={p.y} width={p.w} height={p.h} rx={p.h / 2} fill="var(--shield)" />
-    case 'sot223':
-      return <rect x={p.x} y={p.y} width={p.w} height={p.h} fill="var(--chip)" />
-    case 'button':
-      return (
-        <>
-          <rect x={p.x} y={p.y} width={p.w} height={p.h} fill="#2b2e2c" />
-          <circle cx={p.x + p.w / 2} cy={p.y + p.h / 2} r={p.w * 0.3} fill="#141615" />
-        </>
-      )
     case 'rj45':
       // metal shield, its top panel, and the plastic front where the cable plugs in
       return (
@@ -409,7 +376,7 @@ function Corners({ part: p, live }: { part: BoardPart; live: boolean }) {
   )
 }
 
-const MARK_SIZE: Partial<Record<Package, number>> = { mcu: 22, crystal: 15, sot223: 12, qfn: 13, terminal: 13 }
+const MARK_SIZE: Partial<Record<Package, number>> = { crystal: 15, qfn: 13, terminal: 13 }
 
 function Marking({ part: p }: { part: BoardPart }) {
   const light = p.pkg === 'shield' || p.pkg === 'crystal' || p.pkg === 'module' || p.pkg === 'rj45'
