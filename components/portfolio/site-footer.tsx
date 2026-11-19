@@ -6,7 +6,7 @@ import { PRINT_CLIP } from '@/config/photos'
 import { RESUME, ResumeTrigger } from './resume'
 
 /** The name across the last moving picture: a desktop mill, still cutting a board. */
-export function SiteFooter({ onReplay }: { onReplay: () => void }) {
+export function SiteFooter({ onReplay }: { onReplay?: () => void }) {
   const video = useRef<HTMLVideoElement>(null)
 
   // a silent loop is decoration: it holds on its poster under reduced motion
@@ -56,11 +56,13 @@ export function SiteFooter({ onReplay }: { onReplay: () => void }) {
             <span className="text-silk-2"> · </span>
             <a className="link" href={RESUME.src} download={RESUME.downloadAs}>PDF</a>
           </li>
-          <li>
-            <button type="button" onClick={onReplay} className="link cursor-pointer border-0 bg-transparent p-0 text-silk">
-              Run the mill again
-            </button>
-          </li>
+          {onReplay && (
+            <li>
+              <button type="button" onClick={onReplay} className="link cursor-pointer border-0 bg-transparent p-0 text-silk">
+                Run the mill again
+              </button>
+            </li>
+          )}
         </ul>
       </div>
 

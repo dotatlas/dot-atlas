@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { INTRO_SESSION_KEY } from '@/config/print-config'
+import { INTRO_ENABLED, INTRO_SESSION_KEY } from '@/config/print-config'
 import { SiteNav } from './site-nav'
 import { Passage } from './passage'
 import { Project } from './project'
@@ -21,6 +21,7 @@ const PrintIntro = dynamic(() => import('@/components/three/print-intro').then((
 type Phase = 'checking' | 'printing' | 'ready'
 
 function canPrint() {
+  if (!INTRO_ENABLED) return false
   try {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false
     if (new URLSearchParams(window.location.search).get('intro') === 'off') return false
@@ -58,12 +59,12 @@ export function PortfolioApp() {
   return (
     <>
       {phase === 'printing' && <PrintIntro key={run} onDone={finish} />}
-      <Page ready={phase === 'ready'} onReplay={replay} />
+      <Page ready={phase === 'ready'} onReplay={INTRO_ENABLED ? replay : undefined} />
     </>
   )
 }
 
-function Page({ ready, onReplay }: { ready: boolean; onReplay: () => void }) {
+function Page({ ready, onReplay }: { ready: boolean; onReplay?: () => void }) {
   return (
     <>
       {ready && <RevealArm />}

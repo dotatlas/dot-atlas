@@ -114,3 +114,9 @@ export const MILL = {
 }
 
 export const INTRO_SESSION_KEY = 'jew-board-printed'
+
+/**
+ * The milling intro and its "Run the mill again" link. Off: the page opens
+ * straight on the board and the 3D scene is never downloaded. Set true to bring both back.
+ */
+export const INTRO_ENABLED = false

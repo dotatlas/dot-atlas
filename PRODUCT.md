@@ -26,7 +26,7 @@ Visited on desktop and phone, usually once, often from a resume. The board-milli
 
 - Next.js 16 (App Router), React 19, Tailwind v4, framer-motion, three / @react-three/fiber / drei. Keep this stack.
 - All content lives in `config/portfolio-content.ts` and must remain the single source. Source of truth is his November 2026 PDF resume: entries it covers say what it says, with its stacks only. FINFROCK, Volunteer Hub and Printing Profiles are not on it and are kept as they were, at his request (2026-11-18).
-- Intro: the site is fabricated by a machine on arrival. Originally a 3D printer; at the user's request (2026-10-20) it is a desktop CNC PCB mill whose V-bit touches the board while engraving the copper. The camera must stay calm: one slow eased move, never tracking the tool.
+- Intro: currently switched off (`INTRO_ENABLED = false` in config/print-config.ts, 2026-11-18); set it to true to bring back the intro and its replay link. When on, the site is fabricated by a machine on arrival. Originally a 3D printer; at the user's request (2026-10-20) it is a desktop CNC PCB mill whose V-bit touches the board while engraving the copper. The camera must stay calm: one slow eased move, never tracking the tool.
 - Structure: one long-scroll page, every role's details readable inline (no carousels, no modal).
 
 ## Brand Commitments
