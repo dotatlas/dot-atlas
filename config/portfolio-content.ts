@@ -65,7 +65,7 @@ export const SECTIONS: PortfolioSection[] = [
       {
         id: 'lockheed',
         title: 'Lockheed Martin',
-        subtitle: 'Embedded Software Engineering Intern',
+        subtitle: 'Embedded and Electrical Engineering Intern',
         meta: 'Orlando, FL · Apr 2025 - May 2026, Sep 2026 - Present',
         glance:
           'C software for a missile flight computer: video data transmission, and custom I2C protocols that carry hundreds of telemetry points out of FPGA hardware.',
