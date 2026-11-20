@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa6'
-import { PROFILE } from '@/config/portfolio-content'
+import { ContactGate, useContact } from './contact-gate'
 
 type Kind = 'linkedin' | 'github' | 'email' | 'copy'
 type Signal = { kind: Kind; at: number }
@@ -30,18 +30,20 @@ const NET: Record<Kind, number> = { linkedin: 0, github: 1, email: 2, copy: 2 }
 export function Contact() {
   const [copied, setCopied] = useState(false)
   const [signal, setSignal] = useState<Signal | null>(null)
+  const contact = useContact()
 
   const send = (kind: Kind) => setSignal({ kind, at: Date.now() })
 
   const copy = async () => {
+    if (!contact) return
     try {
-      await navigator.clipboard.writeText(PROFILE.email)
+      await navigator.clipboard.writeText(contact.email)
       setCopied(true)
       send('copy')
       setTimeout(() => setCopied(false), 1800)
     } catch {
       send('email')
-      window.location.href = `mailto:${PROFILE.email}`
+      window.location.href = `mailto:${contact.email}`
     }
   }
 
@@ -57,53 +59,59 @@ export function Contact() {
           Let’s talk.
         </h2>
         <p className="t-lead mt-8 max-w-[34ch]" data-reveal>
-          Email is the fastest way to reach me. Tap the address to copy it.
+          {contact ? 'Email is the fastest way to reach me. Tap the address to copy it.' : 'Email is the fastest way to reach me.'}
         </p>
 
-        <button
-          type="button"
-          onClick={copy}
-          className="t-title mt-12 block max-w-full cursor-copy truncate border-0 bg-transparent p-0 text-left font-extrabold text-silk transition-transform duration-150 ease-out [font-variation-settings:'wdth'_80] active:scale-[0.98]"
-          aria-label={copied ? 'Email address copied' : `Copy email address ${PROFILE.email}`}
-          data-reveal
-        >
-          {/* keyed so each state blurs in fresh: the swap reads as one change */}
-          <span key={copied ? 'copied' : 'email'} className="swap-in inline-block">
-            {copied ? 'Copied to clipboard' : PROFILE.email}
-          </span>
-        </button>
-        <span role="status" className="sr-only">
-          {copied ? 'Email address copied to clipboard. ' : ''}
-          {signal ? "Thanks. I'll get back to you as soon as possible." : ''}
-        </span>
+        {contact ? (
+          <>
+            <button
+              type="button"
+              onClick={copy}
+              className="t-title mt-12 block max-w-full cursor-copy truncate border-0 bg-transparent p-0 text-left font-extrabold text-silk transition-transform duration-150 ease-out [font-variation-settings:'wdth'_80] active:scale-[0.98]"
+              aria-label={copied ? 'Email address copied' : `Copy email address ${contact.email}`}
+              data-reveal
+            >
+              {/* keyed so each state blurs in fresh: the swap reads as one change */}
+              <span key={copied ? 'copied' : 'email'} className="swap-in inline-block">
+                {copied ? 'Copied to clipboard' : contact.email}
+              </span>
+            </button>
+            <span role="status" className="sr-only">
+              {copied ? 'Email address copied to clipboard. ' : ''}
+              {signal ? "Thanks. I'll get back to you as soon as possible." : ''}
+            </span>
 
-        <div className="mt-12 grid gap-2 sm:grid-cols-3" data-reveal>
-          <a
-            href={PROFILE.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => send('linkedin')}
-            className="cell flex min-h-20 items-center justify-center gap-3 bg-(--mask-red-raised) font-bold no-underline"
-          >
-            <FaLinkedin aria-hidden className="size-5" /> LinkedIn
-          </a>
-          <a
-            href={PROFILE.github}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => send('github')}
-            className="cell flex min-h-20 items-center justify-center gap-3 bg-(--mask-red-raised) font-bold no-underline"
-          >
-            <FaGithub aria-hidden className="size-5" /> GitHub
-          </a>
-          <a
-            href={`mailto:${PROFILE.email}?subject=Hello%20Joshua`}
-            onClick={() => send('email')}
-            className="cell flex min-h-20 items-center justify-center bg-silk font-bold text-mask-deep no-underline"
-          >
-            Send an email
-          </a>
-        </div>
+            <div className="mt-12 grid gap-2 sm:grid-cols-3" data-reveal>
+              <a
+                href={contact.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => send('linkedin')}
+                className="cell flex min-h-20 items-center justify-center gap-3 bg-(--mask-red-raised) font-bold no-underline"
+              >
+                <FaLinkedin aria-hidden className="size-5" /> LinkedIn
+              </a>
+              <a
+                href={contact.github}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => send('github')}
+                className="cell flex min-h-20 items-center justify-center gap-3 bg-(--mask-red-raised) font-bold no-underline"
+              >
+                <FaGithub aria-hidden className="size-5" /> GitHub
+              </a>
+              <a
+                href={`mailto:${contact.email}?subject=Hello%20Joshua`}
+                onClick={() => send('email')}
+                className="cell flex min-h-20 items-center justify-center bg-silk font-bold text-mask-deep no-underline"
+              >
+                Send an email
+              </a>
+            </div>
+          </>
+        ) : (
+          <ContactGate />
+        )}
       </div>
       <ReplyBoard signal={signal} />
     </section>

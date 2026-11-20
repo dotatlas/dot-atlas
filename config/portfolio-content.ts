@@ -41,11 +41,6 @@ export const PROFILE = {
   name: 'Joshua Evenden-Wallick',
   role: 'Embedded software engineer',
   location: 'Orlando, FL',
-  email: 'jewallick@pm.me',
-  phone: '(407) 452-8929',
-  github: 'https://github.com/dotatlas',
-  linkedin: 'https://linkedin.com/in/jevendenwallick',
-  portfolio: 'https://dotatlas.dev',
   /** The one sentence under the name on the first screen. */
   lede: 'Embedded software engineer: C firmware for flight computers and safety ECUs, and the services that carry real-time telemetry. Computer Engineering at UCF, class of 2028.',
 }

@@ -39,7 +39,8 @@ Visited on desktop and phone, usually once, often from a resume. The board-milli
 - Resume content: 3 roles (Lockheed Martin, The Home Depot, Limbitless Solutions) plus FINFROCK from an older resume, 4 projects (Volunteer Hub, solo; PEP 25, Robotics Club of Central Florida; Printing Profiles; Self-Driving Car Simulator), education (UCF Computer Engineering, 3.7 GPA, Burnett Honors and Provost Scholar), skills, contact links (email, GitHub, LinkedIn, phone). The site does not show the phone number.
 - Two projects are in development: Printing Profiles (a test build at printingprofiles.com, not yet functional; never call it live; copy from its repo) and the Self-Driving Car Simulator (copy from the resume). Each shows a one-line status notice; the site never shows their build plans or roadmaps.
 - `public/models/nozzle.stl`: the hotend model from the old printer intro, no longer used.
-- Resume PDF: `public/resume/joshua-evenden-wallick-resume.pdf`, shown in the on-site viewer and offered as a download; replacing the file updates both.
+- Resume PDF: `private/resume.pdf`, served only by `/api/resume`; replacing the file updates the viewer and the download.
+- Personal details (email, GitHub, LinkedIn, the resume) sit behind Cloudflare Turnstile (2026-11-20). They live in `lib/contact.ts` (server only) and reach a browser only via `POST /api/reveal` after a verified token; the contact section shows the widget, and other surfaces point to it until it passes. Needs `TURNSTILE_SECRET` and `TURNSTILE_HOSTNAMES` in the host's environment, or the details stay locked.
 - No photographs of his own work, no testimonials. Never fabricate quotes, logos, metrics or press beyond the resumes' own numbers (12% battery, under 12 ms braking, 1,000+ employees, 20+ licenses, 3.7 GPA). The only picture on the site is the credited open-licence milling clip behind the footer; no stock photographs.
 
 ## Product Principles

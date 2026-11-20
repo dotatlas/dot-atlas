@@ -7,6 +7,7 @@ import { ResumeTrigger } from './resume'
 import { CircuitBoard } from '@/components/board/circuit-board'
 import { FIGURES, PROFILE, SECTIONS, type Entry } from '@/config/portfolio-content'
 import { useActivePart } from './use-reveal'
+import { useContact } from './contact-gate'
 
 const EXPERIENCE = SECTIONS.find((s) => s.id === 'experience')!
 
@@ -58,6 +59,7 @@ export function Passage({ silk }: { silk: boolean }) {
 }
 
 function Hero() {
+  const contact = useContact()
   return (
     <header className="relative flex flex-col justify-end px-(--gutter) pb-16 lg:min-h-svh lg:pb-[9svh]">
       {/* the name runs past its column and onto the board's clear corner */}
@@ -77,18 +79,22 @@ function Hero() {
         data-reveal
         style={{ '--i': 4 } as React.CSSProperties}
       >
-        <a href={`mailto:${PROFILE.email}?subject=Hello%20Joshua`} className="btn btn-led">
-          Email {PROFILE.email}
+        <a href={contact ? `mailto:${contact.email}?subject=Hello%20Joshua` : '#contact'} className="btn btn-led">
+          {contact ? `Email ${contact.email}` : 'Get in touch'}
         </a>
         <ResumeTrigger className="btn btn-silk">
           <FileText aria-hidden className="size-4" /> View resume
         </ResumeTrigger>
-        <a href={PROFILE.github} target="_blank" rel="noreferrer" className="link inline-flex items-center gap-2">
-          <FaGithub aria-hidden className="size-4" /> GitHub
-        </a>
-        <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="link inline-flex items-center gap-2">
-          <FaLinkedin aria-hidden className="size-4" /> LinkedIn
-        </a>
+        {contact && (
+          <>
+            <a href={contact.github} target="_blank" rel="noreferrer" className="link inline-flex items-center gap-2">
+              <FaGithub aria-hidden className="size-4" /> GitHub
+            </a>
+            <a href={contact.linkedin} target="_blank" rel="noreferrer" className="link inline-flex items-center gap-2">
+              <FaLinkedin aria-hidden className="size-4" /> LinkedIn
+            </a>
+          </>
+        )}
       </div>
     </header>
   )

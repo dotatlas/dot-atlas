@@ -1,5 +1,7 @@
-import { PROFILE } from '@/config/portfolio-content'
+'use client'
+
 import { ResumeTrigger } from './resume'
+import { useContact } from './contact-gate'
 
 const LINKS = [
   { href: '#experience', label: 'Experience' },
@@ -9,6 +11,7 @@ const LINKS = [
 ]
 
 export function SiteNav() {
+  const contact = useContact()
   return (
     <nav
       aria-label="Primary"
@@ -30,8 +33,11 @@ export function SiteNav() {
             <ResumeTrigger className="link cursor-pointer border-0 bg-transparent p-0 text-silk">Resume</ResumeTrigger>
           </li>
         </ul>
-        <a href={`mailto:${PROFILE.email}?subject=Hello%20Joshua`} className="btn btn-led btn-compact">
-          Email me
+        <a
+          href={contact ? `mailto:${contact.email}?subject=Hello%20Joshua` : '#contact'}
+          className="btn btn-led btn-compact"
+        >
+          {contact ? 'Email me' : 'Contact'}
         </a>
       </div>
     </nav>

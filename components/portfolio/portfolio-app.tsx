@@ -12,6 +12,7 @@ import { Contact } from './contact'
 import { SiteFooter } from './site-footer'
 import { useReveal } from './use-reveal'
 import { ResumeDialog } from './resume'
+import { ContactProvider } from './contact-gate'
 
 // WebGL only: never rendered on the server.
 const PrintIntro = dynamic(() => import('@/components/three/print-intro').then((m) => m.PrintIntro), {
@@ -57,10 +58,10 @@ export function PortfolioApp() {
   }, [])
 
   return (
-    <>
+    <ContactProvider>
       {phase === 'printing' && <PrintIntro key={run} onDone={finish} />}
       <Page ready={phase === 'ready'} onReplay={INTRO_ENABLED ? replay : undefined} />
-    </>
+    </ContactProvider>
   )
 }
 

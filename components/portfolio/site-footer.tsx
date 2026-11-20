@@ -4,10 +4,12 @@ import { useEffect, useRef } from 'react'
 import { PROFILE } from '@/config/portfolio-content'
 import { PRINT_CLIP } from '@/config/photos'
 import { RESUME, ResumeTrigger } from './resume'
+import { useContact } from './contact-gate'
 
 /** The name across the last moving picture: a desktop mill, still cutting a board. */
 export function SiteFooter({ onReplay }: { onReplay?: () => void }) {
   const video = useRef<HTMLVideoElement>(null)
+  const contact = useContact()
 
   // a silent loop is decoration: it holds on its poster under reduced motion
   useEffect(() => {
@@ -48,14 +50,20 @@ export function SiteFooter({ onReplay }: { onReplay?: () => void }) {
           <li><a className="link" href="#skills">Skills</a></li>
         </ul>
         <ul className="m-0 flex list-none flex-col gap-2 p-0 sm:items-end">
-          <li><a className="link" href={`mailto:${PROFILE.email}`}>{PROFILE.email}</a></li>
-          <li><a className="link" href={PROFILE.github} target="_blank" rel="noreferrer">GitHub</a></li>
-          <li><a className="link" href={PROFILE.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
-          <li>
-            <ResumeTrigger className="link cursor-pointer border-0 bg-transparent p-0 text-silk">Resume</ResumeTrigger>
-            <span className="text-silk-2"> · </span>
-            <a className="link" href={RESUME.src} download={RESUME.downloadAs}>PDF</a>
-          </li>
+          {contact ? (
+            <>
+              <li><a className="link" href={`mailto:${contact.email}`}>{contact.email}</a></li>
+              <li><a className="link" href={contact.github} target="_blank" rel="noreferrer">GitHub</a></li>
+              <li><a className="link" href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li>
+                <ResumeTrigger className="link cursor-pointer border-0 bg-transparent p-0 text-silk">Resume</ResumeTrigger>
+                <span className="text-silk-2"> · </span>
+                <a className="link" href={RESUME.src} download={RESUME.downloadAs}>PDF</a>
+              </li>
+            </>
+          ) : (
+            <li><a className="link" href="#contact">Contact details and resume</a></li>
+          )}
           {onReplay && (
             <li>
               <button type="button" onClick={onReplay} className="link cursor-pointer border-0 bg-transparent p-0 text-silk">

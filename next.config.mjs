@@ -7,6 +7,10 @@ const nextConfig = {
   turbopack: {
     root: fileURLToPath(new URL('.', import.meta.url)),
   },
+  // the resume is read from disk by app/api/resume, so ship it with that function
+  outputFileTracingIncludes: {
+    '/api/resume': ['./private/resume.pdf'],
+  },
   typescript: {
     ignoreBuildErrors: true,
   },

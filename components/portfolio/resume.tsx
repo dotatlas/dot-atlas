@@ -4,18 +4,26 @@ import { useEffect, useRef, useState } from 'react'
 import { Dialog } from '@base-ui/react/dialog'
 import { Download, FileText, Minus, Plus, X } from 'lucide-react'
 import type { PDFDocumentProxy } from 'pdfjs-dist'
+import { useContact } from './contact-gate'
 
-/** The resume PDF. Replace the file to update the viewer and the download. */
+/** The resume PDF, private/resume.pdf, served only after the Turnstile check. Replace the file to update it. */
 export const RESUME = {
-  src: '/resume/joshua-evenden-wallick-resume.pdf',
+  src: '/api/resume',
   downloadAs: 'Joshua-Evenden-Wallick-Resume.pdf',
 }
 
 /** One dialog, opened from any trigger on the page. */
 const resumeDialog = Dialog.createHandle()
 
-/** A button anywhere on the page that opens the resume viewer. */
+/** A button anywhere on the page that opens the resume viewer; before the check, it leads to it. */
 export function ResumeTrigger({ className, children }: { className?: string; children: React.ReactNode }) {
+  if (!useContact()) {
+    return (
+      <a href="#contact" className={className}>
+        {children}
+      </a>
+    )
+  }
   return (
     <Dialog.Trigger handle={resumeDialog} className={className}>
       {children}
