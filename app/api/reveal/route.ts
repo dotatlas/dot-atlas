@@ -6,7 +6,8 @@ import { PASS_COOKIE, PASS_SECONDS, signPass } from '@/lib/resume-pass'
 const ACTION = 'reveal'
 const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify'
 
-const deny = () => NextResponse.json({ error: 'verification failed' }, { status: 403 })
+/** A 403 with a short, secret-free reason, so a failure can be read from the browser's network tab. */
+const deny = (reason: string) => NextResponse.json({ error: 'verification failed', reason }, { status: 403 })
 
 /**
  * Turnstile-gated contact details. The browser sends its single-use token; this
@@ -23,9 +24,9 @@ export async function POST(req: Request) {
   const token = body && typeof body === 'object' ? (body as { token?: unknown }).token : undefined
   if (!secret || hosts.length === 0) {
     console.warn('turnstile: TURNSTILE_SECRET or TURNSTILE_HOSTNAMES is not set')
-    return deny()
+    return deny(!secret ? 'secret-not-set' : 'hostnames-not-set')
   }
-  if (typeof token !== 'string' || !token || token.length > 2048) return deny()
+  if (typeof token !== 'string' || !token || token.length > 2048) return deny('bad-token')
 
   const form = new URLSearchParams({ secret, response: token })
   const ip = req.headers.get('cf-connecting-ip') ?? req.headers.get('x-forwarded-for')?.split(',')[0]?.trim()
@@ -38,14 +39,22 @@ export async function POST(req: Request) {
       body: form,
       signal: AbortSignal.timeout(10_000),
     })
-    if (!res.ok) return deny()
+    if (!res.ok) return deny(`siteverify-${res.status}`)
     const out = (await res.json()) as { success?: boolean; action?: string; hostname?: string; 'error-codes'?: string[] }
-    if (out.success !== true || out.action !== ACTION || !out.hostname || !hosts.includes(out.hostname)) {
-      console.warn('turnstile: refused', { codes: out['error-codes'], action: out.action, hostname: out.hostname })
-      return deny()
+    const reason =
+      out.success !== true
+        ? (out['error-codes'] ?? ['refused']).join(',')
+        : out.action !== ACTION
+          ? `action:${out.action}`
+          : !out.hostname || !hosts.includes(out.hostname)
+            ? `hostname:${out.hostname}`
+            : null
+    if (reason) {
+      console.warn('turnstile: refused', reason)
+      return deny(reason)
     }
   } catch {
-    return deny()
+    return deny('siteverify-unreachable')
   }
 
   const ok = NextResponse.json(CONTACT, { headers: { 'Cache-Control': 'no-store' } })
