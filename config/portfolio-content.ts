@@ -28,8 +28,11 @@ export type Entry = {
   status?: { label: string; live: boolean }
   /** Where to see it. */
   links?: { label: string; href: string }[]
-  /** Projects: how it fits together, four stages left to right, drawn as one small flow. */
-  flow?: { name: string; detail: string }[]
+  /**
+   * Projects: how data moves through it, top to bottom, in plain words. Each
+   * step says what happens there; `then` names what travels to the next step.
+   */
+  flow?: { name: string; detail: string; then?: string }[]
 }
 
 export type PortfolioSection = {
@@ -127,10 +130,10 @@ export const SECTIONS: PortfolioSection[] = [
         glance:
           'A self-driving car built end to end in simulation: PyTorch models steer, hold speed, keep lane and brake; a Python driving simulator feeds them radar, IMU and wheel-speed data over a CAN bus; and a safety computer on an STM32 running FreeRTOS checks every command before it reaches the car.',
         flow: [
-          { name: 'Driving models', detail: 'PyTorch' },
-          { name: 'Simulator', detail: 'Python' },
-          { name: 'CAN bus', detail: 'Radar, IMU, wheel speed' },
-          { name: 'Safety ECU', detail: 'C on STM32, FreeRTOS' },
+          { name: 'Driving models', detail: 'PyTorch models decide how the car should steer, hold its speed and brake.', then: 'driving commands' },
+          { name: 'Driving simulator', detail: 'A Python simulation of the car and the road, with sensor faults added on purpose.', then: 'radar, IMU and wheel-speed data over a CAN bus' },
+          { name: 'Safety ECU', detail: 'C firmware on an STM32 running FreeRTOS checks every command against safety limits.', then: 'only the commands that pass' },
+          { name: 'The simulated car', detail: 'Steers and brakes as allowed; on danger or bad data the ECU triggers emergency braking in under 12 ms.' },
         ],
         tags: ['C', 'FreeRTOS', 'STM32', 'CAN Bus', 'Python', 'PyTorch'],
         details: [
@@ -153,10 +156,10 @@ export const SECTIONS: PortfolioSection[] = [
         glance:
           'A community site for 3D printing slicer presets: the exact settings that make one filament print well on one printer, backed by photos of real prints. Open source, and built solo from the Go API to the Next.js front end.',
         flow: [
-          { name: 'Preset files', detail: 'Slicer exports' },
-          { name: 'Go API', detail: 'Standard library' },
-          { name: 'PostgreSQL', detail: 'pgx and sqlc' },
-          { name: 'Website', detail: 'Next.js' },
+          { name: 'A preset is uploaded', detail: 'A settings file exported from PrusaSlicer, SuperSlicer, OrcaSlicer or Bambu Studio.', then: 'the file and its photos' },
+          { name: 'Go API', detail: 'Reads the settings, strips any passwords or API keys, and cleans the photos of location data.', then: 'clean settings and photos' },
+          { name: 'PostgreSQL', detail: 'Stores presets, photos, reviews and ratings.', then: 'search results' },
+          { name: 'The website', detail: 'Shows each preset as a clear table that anyone can search, rate and download.' },
         ],
         tags: ['Golang', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'GitHub Actions'],
         details: [
@@ -176,10 +179,10 @@ export const SECTIONS: PortfolioSection[] = [
         glance:
           'A full-stack platform for running volunteer programs, architected and deployed solo: it streamlines the administrative workflows and data intake behind them.',
         flow: [
-          { name: 'Client', detail: 'React, TypeScript' },
-          { name: 'API', detail: 'GraphQL' },
-          { name: 'Accounts', detail: 'Firebase Auth' },
-          { name: 'Data', detail: 'Validated intake' },
+          { name: 'A volunteer signs up', detail: 'The React app checks every field of the form before anything is sent.', then: 'validated form data' },
+          { name: 'Firebase', detail: 'Confirms who they are and keeps their account secure.', then: 'a verified request' },
+          { name: 'GraphQL API', detail: 'Saves the sign-up and the program data behind it.', then: 'up-to-date records' },
+          { name: 'Organizers', detail: 'See every sign-up in one place and run the program with less paperwork.' },
         ],
         tags: ['React', 'TypeScript', 'GraphQL', 'Firebase'],
         details: [
@@ -197,10 +200,10 @@ export const SECTIONS: PortfolioSection[] = [
         glance:
           'A real-time diagnostics platform for an autonomous vehicle: Python on a Raspberry Pi streams GPS and IMU data to a remote dashboard, and a navigation algorithm fuses the sensors to find its own way between waypoints.',
         flow: [
-          { name: 'Sensors', detail: 'GPS and IMU' },
-          { name: 'Fusion', detail: 'Python on a Raspberry Pi' },
-          { name: 'Navigation', detail: 'Waypoint pathfinding' },
-          { name: 'Dashboard', detail: 'Live telemetry' },
+          { name: 'GPS and IMU', detail: 'Report where the vehicle is and how it is moving, many times a second.', then: 'raw readings' },
+          { name: 'Raspberry Pi', detail: 'Python fuses both sensors into one steady estimate of position and heading.', then: 'position and heading' },
+          { name: 'Navigation', detail: 'Plans a path to the next waypoint and steers the vehicle toward it.', then: 'live telemetry, sent wirelessly' },
+          { name: 'Team dashboard', detail: 'Shows each run as it happens, so problems are caught on the spot.' },
         ],
         tags: ['Python', 'Embedded Linux', 'Raspberry Pi', 'GPS', 'IMU', 'Sensor Fusion'],
         details: [

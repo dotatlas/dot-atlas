@@ -382,12 +382,11 @@
   }
 }
 
-/* project flow: two copper traces between chips, vertical on phones, horizontal from sm.
-   They sit dim, then fill once in order as the figure appears (deposition, not a loop). */
+/* project flow: two copper traces run down between steps. They sit dim,
+   then fill once in order as the figure appears (deposition, not a loop). */
 .flow-trace {
   position: relative;
   width: 3px;
-  height: 100%;
   background: var(--copper-dim);
 }
 
@@ -402,19 +401,6 @@
 
 .js [data-reveal]:not(.is-in) .flow-trace::after {
   transform: scaleY(0);
-}
-
-@media (min-width: 640px) {
-  .flow-trace {
-    width: 100%;
-    height: 3px;
-  }
-  .flow-trace::after {
-    transform-origin: left;
-  }
-  .js [data-reveal]:not(.is-in) .flow-trace::after {
-    transform: scaleX(0);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
