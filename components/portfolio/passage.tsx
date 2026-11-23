@@ -5,7 +5,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6'
 import { ArrowUpRight, FileText } from 'lucide-react'
 import { ResumeTrigger } from './resume'
 import { CircuitBoard } from '@/components/board/circuit-board'
-import { FIGURES, PROFILE, SECTIONS, type Entry } from '@/config/portfolio-content'
+import { PROFILE, SECTIONS, type Entry } from '@/config/portfolio-content'
 import { useActivePart } from './use-reveal'
 import { useContact } from './contact-gate'
 import { ProjectFlow } from './project'
@@ -144,14 +144,12 @@ function Section({
 
 /**
  * One entry, role or project, always in the same order: title, status if it
- * is still being built, who and when, the one-line summary, its figure (a
- * measured result or how the project fits together), the details, then its
- * stack and links.
+ * is still being built, who and when, the one-line summary, for a project its
+ * flow figure, then the details, its stack and links.
  */
 function Leg({ node, live, placeFirst }: { node: Entry; live: boolean; placeFirst: boolean }) {
   const [first, ...rest] = node.meta.split(' · ')
   const meta = placeFirst ? `${rest.join(' · ')} · ${first}` : node.meta
-  const figure = FIGURES[node.id]
   return (
     <article id={`role-${node.id}`} data-part={node.id} className="max-w-[36rem] scroll-mt-24 xl:max-w-[42rem]">
       <div className="flex items-start gap-4">
@@ -174,12 +172,6 @@ function Leg({ node, live, placeFirst }: { node: Entry; live: boolean; placeFirs
         {node.glance}
       </p>
 
-      {figure && (
-        <p className="mt-10 flex flex-wrap items-end gap-x-6 gap-y-2" data-reveal style={{ '--i': 3 } as React.CSSProperties}>
-          <span className="t-display tabular text-copper">{figure.value}</span>
-          <span className="max-w-[22ch] pb-2 font-semibold">{figure.label}</span>
-        </p>
-      )}
       <ProjectFlow entry={node} />
 
       <ul className="mt-10 flex list-none flex-col gap-4 p-0">

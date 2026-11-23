@@ -47,11 +47,6 @@ export const PROFILE = {
   lede: 'Embedded software engineer: C firmware for flight computers and safety ECUs, and the services that carry real-time telemetry. Computer Engineering at UCF, class of 2028.',
 }
 
-/** Measured results, set as figures inside their roles. */
-export const FIGURES: Record<string, { value: string; label: string }> = {
-  limbitless: { value: '12%', label: 'lower battery power use from fault-tolerant ESP32 firmware' },
-}
-
 export const SECTIONS: PortfolioSection[] = [
   {
     id: 'experience',
