@@ -5,7 +5,6 @@ import dynamic from 'next/dynamic'
 import { INTRO_ENABLED, INTRO_SESSION_KEY } from '@/config/print-config'
 import { SiteNav } from './site-nav'
 import { Passage } from './passage'
-import { Project } from './project'
 import { Education } from './education'
 import { Bom } from './bom'
 import { Contact } from './contact'
@@ -72,7 +71,6 @@ function Page({ ready, onReplay }: { ready: boolean; onReplay?: () => void }) {
       <SiteNav />
       <main>
         <Passage silk={ready} />
-        <Project />
         <Bom />
         <Education />
         <Contact />

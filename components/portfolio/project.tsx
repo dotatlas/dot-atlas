@@ -9,114 +9,48 @@ import {
   useTransform,
   type MotionValue,
 } from 'framer-motion'
-import { FaGithub } from 'react-icons/fa6'
-import { ArrowUpRight } from 'lucide-react'
-import { SECTIONS, type Entry } from '@/config/portfolio-content'
-
-const PROJECTS = SECTIONS.find((s) => s.id === 'projects')!.nodes
-const HUB = PROJECTS.find((p) => p.id === 'volunteer-hub')!
-const PEP = PROJECTS.find((p) => p.id === 'pep-25')!
-const PRINTING = PROJECTS.find((p) => p.id === 'printing-profiles')!
-const HIL = PROJECTS.find((p) => p.id === 'hil-ecu')!
-
 const easeOutCubic = (x: number) => 1 - Math.pow(1 - x, 3)
 
-/** Newest first: the two in development, then the finished ones. */
-export function Project() {
-  return (
-    <section id="project" aria-label="Projects" className="mt-(--section-gap) flex flex-col gap-(--section-gap)">
-      <HilEcu />
-      <PrintingProfiles />
-      <VolunteerHub />
-      <Pep25 />
-    </section>
-  )
-}
-
-/** A project's opening: a rule and its number, the name, and who, when and what beside it. */
-function Head({ entry, n }: { entry: Entry; n: number }) {
-  return (
-    <>
-      {/* a rule closes the previous project's details and opens this one */}
-      <p className="t-small m-0 mb-10 border-t border-copper-dim pt-5 font-semibold text-copper lg:mb-14">{/* taste-skill-ignore: the copper rule between projects (DESIGN.md, The Copper Line Rule) */}
-        Project {n}
-      </p>
-      {entry.status && <Status {...entry.status} />}
-      <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-8">
-        <h2 id={`${entry.id}-h`} className="t-display m-0 [word-spacing:0.14em] lg:col-span-5" data-wipe>
-          {entry.title}
-        </h2>
-        <div className="lg:col-span-6 lg:col-start-7">
-          <p className="m-0 font-semibold" data-reveal>
-            {entry.subtitle}
-          </p>
-          <p className="mt-1 text-silk-2" data-reveal>
-            {entry.meta}
-          </p>
-          <p className="t-lead mt-6" data-reveal style={{ '--i': 1 } as React.CSSProperties}>
-            {entry.glance}
-          </p>
-          {entry.links && (
-            <p className="mt-6 flex flex-wrap gap-x-8 gap-y-3" data-reveal style={{ '--i': 2 } as React.CSSProperties}>
-              {entry.links.map((l) => (
-                <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="link inline-flex items-center gap-2">
-                  {l.href.includes('github.com') ? (
-                    <FaGithub aria-hidden className="size-4" />
-                  ) : (
-                    <ArrowUpRight aria-hidden className="size-4" />
-                  )}
-                  {l.label}
-                </a>
-              ))}
-            </p>
-          )}
-        </div>
-      </div>
-    </>
-  )
+/**
+ * Each project's drawing, by entry id. The entry itself (title, status, text,
+ * details) is laid out with the roles in passage.tsx, so experience and
+ * projects share one format; these are the figures that sit inside it.
+ */
+export const PROJECT_FIGURES: Record<string, () => React.JSX.Element> = {
+  'hil-ecu': HilFigure,
+  'printing-profiles': PrintFigure,
+  'volunteer-hub': HubFigure,
+  'pep-25': PepFigure,
 }
 
 /**
- * An unfinished build's notice, the first thing read in its project: a full
- * width strip edged in its LED colour, green breathing when people can use it,
- * amber blinking while it is built.
+ * The one frame every project drawing shares: a raised panel at the entry's
+ * width, an optional readout line under it, and a caption. The panel is what
+ * scroll playback measures; it plays while wholly in view.
  */
-function Status({ label, live }: { label: string; live: boolean }) {
-  const color = live ? 'var(--led-green)' : 'var(--copper-hot)'
+function Figure({
+  panel,
+  readout,
+  caption,
+  children,
+}: {
+  panel: React.Ref<HTMLDivElement>
+  readout?: React.ReactNode
+  caption: string
+  children: React.ReactNode
+}) {
   return (
-    <p
-      className="m-0 mb-10 flex items-center gap-5 border-l-[6px] bg-mask-raised px-5 py-5 sm:px-7 lg:mb-14"
-      style={{ borderColor: color }}
-      data-reveal
-    >
-      <span
-        aria-hidden
-        className={`relative size-4 shrink-0 rounded-full sm:size-5 ${live ? 'status-live' : 'status-build'}`}
-        style={{ background: color }}
-      />
-      <span className="t-title font-extrabold" style={{ color }}>
-        {label}
-      </span>
-    </p>
-  )
-}
-
-/** Copper mount holes in the four corners of a w x h drawing. */
-function Holes({ w, h }: { w: number; h: number }) {
-  return (
-    <>
-      {[
-        [28, 28],
-        [w - 28, 28],
-        [28, h - 28],
-        [w - 28, h - 28],
-      ].map(([x, y]) => (
-        <g key={`${x}-${y}`}>
-          <circle cx={x} cy={y} r={11} fill="var(--copper)" />
-          <circle cx={x} cy={y} r={5.5} fill="var(--mask-deep)" />
-        </g>
-      ))}
-    </>
+    <figure className="m-0 mt-10" data-reveal style={{ '--i': 3 } as React.CSSProperties}>
+      <div ref={panel} aria-hidden className="bg-mask-raised">
+        {children}
+      </div>
+      {readout && (
+        <p aria-hidden className="t-small m-0 mt-3 flex flex-wrap gap-x-5 gap-y-1 text-silk tabular">
+          {readout}
+        </p>
+      )}
+      <figcaption className="t-small mt-2 text-silk-2">{caption}</figcaption>
+    </figure>
   )
 }
 
@@ -129,7 +63,7 @@ function Holes({ w, h }: { w: number; h: number }) {
  * closes the halves, every net draws itself out of its chip, and the bus
  * halves meet at the seam. Once closed, it stays closed and signals flow.
  */
-function VolunteerHub() {
+function HubFigure() {
   const panel = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: panel, offset: ['end end', 'start start'] })
@@ -142,54 +76,17 @@ function VolunteerHub() {
   useMotionValueEvent(form, 'change', (f) => setFormed(f > 0.995))
 
   return (
-    <article
-      id="role-volunteer-hub"
-      data-part="volunteer-hub"
-      aria-labelledby="volunteer-hub-h"
-      className="scroll-mt-16 px-(--gutter)"
-    >
-      <Head entry={HUB} n={3} />
-
-      <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:items-center lg:gap-8">
-        <figure className="m-0 lg:order-last lg:col-span-7">
-          <div ref={panel} aria-hidden className="relative grid aspect-15/8 grid-cols-2 overflow-hidden">
-            {(['client', 'server'] as const).map((half) => (
-              <div key={half} className="relative overflow-hidden bg-mask-raised">
-                <MountHoles side={half === 'client' ? 'left' : 'right'} />
-                {/* inset top and bottom: the drawing scales down toward the seam, clearing the outer corners for the holes */}
-                <motion.div className="absolute inset-x-0 inset-y-[11%]" style={{ transform: half === 'client' ? tPaneL : tPaneR }}>
-                  <Schematic half={half} form={form} formed={formed} />
-                </motion.div>
-              </div>
-            ))}
+    <Figure panel={panel} caption="The stack as a schematic: the client and its API meet at the seam.">
+      <div className="grid aspect-15/8 grid-cols-2 overflow-hidden">
+        {(['client', 'server'] as const).map((half) => (
+          <div key={half} className="relative overflow-hidden">
+            <motion.div className="absolute inset-x-0 inset-y-[8%]" style={{ transform: half === 'client' ? tPaneL : tPaneR }}>
+              <Schematic half={half} form={form} formed={formed} />
+            </motion.div>
           </div>
-          <figcaption className="t-small mt-4 text-silk-2">
-            The Volunteer Hub stack as a schematic: the client and its API connect at the seam.
-          </figcaption>
-        </figure>
-        <div className="lg:col-span-5">
-          <Details entry={HUB} />
-        </div>
-      </div>
-    </article>
-  )
-}
-
-function Details({ entry, columns = false }: { entry: Entry; columns?: boolean }) {
-  return (
-    <>
-      <ul className={`mt-10 list-none p-0 ${columns ? 'grid gap-x-12 gap-y-5 lg:grid-cols-2' : 'flex flex-col gap-4'}`}>
-        {entry.details.map((d, i) => (
-          <li key={i} className="relative pl-7" data-reveal style={{ '--i': i } as React.CSSProperties}>
-            <span aria-hidden className="absolute top-[0.62em] left-0 size-2 bg-copper" />
-            {d}
-          </li>
         ))}
-      </ul>
-      <p className="mt-8 text-copper" data-reveal>
-        {entry.tags.join(' · ')}
-      </p>
-    </>
+      </div>
+    </Figure>
   )
 }
 
@@ -286,21 +183,6 @@ const VIEW_Y = 190
 const VIEW_H = 640
 
 /** Copper mount holes in the panel's outer corners; they belong to the board, not the drawing. */
-function MountHoles({ side }: { side: 'left' | 'right' }) {
-  const x = side === 'left' ? 'left-3 sm:left-5' : 'right-3 sm:right-5'
-  return (
-    <>
-      {['top-3 sm:top-5', 'bottom-3 sm:bottom-5'].map((y) => (
-        <span
-          key={y}
-          aria-hidden
-          className={`absolute ${y} ${x} size-4 rounded-full border-4 border-copper bg-mask-deep sm:size-6 sm:border-[6px]`}
-        />
-      ))}
-    </>
-  )
-}
-
 const pointsOf = (net: P[]) => net.map((p) => p.join(',')).join(' ')
 
 function chipPins(c: Chip) {
@@ -366,6 +248,9 @@ function Schematic({
 }
 
 /** A chip as the schematics draw it: copper pins, a dark body with its pin-1 dot, marking and designator. */
+/** Marking size from the chip's width, so the longest line still fits at column width. */
+const markSize = (c: Chip) => Math.min(36, c.w / 4.6)
+
 function ChipShape({ c }: { c: Chip }) {
   return (
     <g>
@@ -378,7 +263,7 @@ function ChipShape({ c }: { c: Chip }) {
         x={c.x + c.w / 2}
         textAnchor="middle"
         fill="var(--chip-mark)"
-        fontSize={c.w > 150 ? 26 : 19}
+        fontSize={markSize(c)}
         fontWeight={800}
         style={{ fontVariationSettings: "'wdth' 80" }}
       >
@@ -386,7 +271,7 @@ function ChipShape({ c }: { c: Chip }) {
           <tspan
             key={line}
             x={c.x + c.w / 2}
-            y={c.y + c.h / 2 + (i - (c.marking.length - 1) / 2) * (c.w > 150 ? 28 : 21)}
+            y={c.y + c.h / 2 + (i - (c.marking.length - 1) / 2) * markSize(c) * 1.1}
             dominantBaseline="central"
           >
             {line}
@@ -460,12 +345,6 @@ const GPS_FIXES = PEP_RUN.filter((_, k) => k % 3 === 0).map((f, j) => ({
   x: f.x + jitter(j * 2 + 1) * 18,
   y: f.y + jitter(j * 2 + 2) * 18,
 }))
-/** A telemetry packet every fourth frame; the log shows the latest few. */
-const PACKET_EVERY = 4
-const LOG_ROWS = 5
-const [START_X, START_Y] = PEP_ROUTE[0]
-/** Compass heading from a drawing angle: 0 is north, clockwise. */
-const compass = (angle: number) => Math.round((angle + 450) % 360)
 
 /**
  * PEP 25 as the team saw a run: noisy GPS fixes scatter round the vehicle
@@ -474,7 +353,7 @@ const compass = (angle: number) => Math.round((angle + 450) % 360)
  * Like the projects after it, it never pins: the run plays while the panel
  * is wholly in view.
  */
-function Pep25() {
+function PepFigure() {
   const panel = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: panel, offset: ['end end', 'start start'] })
@@ -487,35 +366,34 @@ function Pep25() {
   const driven = [...PEP_ROUTE.filter((_, i) => PEP_CUM[i] < f.s), [f.x, f.y] as P]
   const reached = PEP_WP_AT.filter((w) => w <= f.s + 0.5).length
   const next = PEP_WP_AT[reached]
-  const packet = Math.floor(k / PACKET_EVERY)
-  const log = Array.from({ length: Math.min(LOG_ROWS, packet + 1) }, (_, i) => PEP_RUN[(packet - i) * PACKET_EVERY])
 
   return (
-    <article
-      id="role-pep-25"
-      data-part="pep-25"
-      aria-labelledby="pep-25-h"
-      className="scroll-mt-16 px-(--gutter)"
+    <Figure
+      panel={panel}
+      caption="A run as the team watched it: raw GPS fixes scatter, the fused estimate holds steady, and the route bends round a blocked leg. Illustrative course."
+      readout={
+        <>
+          <span>{next === undefined ? 'Finish reached' : `Waypoint ${reached + 1} of ${PEP_WAYPOINTS.length}`}</span>
+          <span className="text-silk-2">
+            {next === undefined ? `Course run in ${f.t.toFixed(1)} s` : `${((next - f.s) / UNITS_PER_M).toFixed(1)} m to go`}
+          </span>
+        </>
+      }
     >
-      <Head entry={PEP} n={4} />
-
-      <div ref={panel} aria-hidden className="mt-14 grid gap-2 lg:grid-cols-12">
-        <div className="flex flex-col justify-center bg-mask-raised lg:order-last lg:col-span-8">
           <svg viewBox="0 0 1200 560" className="block h-auto w-full">
             <defs>
               <pattern id="pep-hatch" width={14} height={14} patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
                 <rect width={3} height={14} fill="var(--silk-2)" fillOpacity={0.45} />
               </pattern>
             </defs>
-            <Holes w={1200} h={560} />
 
             {/* north and scale, so it reads as a map */}
             <path d="M80 112 V64 M68 78 L80 64 L92 78" fill="none" stroke="var(--silk-2)" strokeWidth={3} />
-            <text x={80} y={52} textAnchor="middle" fill="var(--silk-2)" fontSize={18} fontWeight={700}>
+            <text x={80} y={50} textAnchor="middle" fill="var(--silk-2)" fontSize={26} fontWeight={700}>
               N
             </text>
             <path d="M980 512 v-10 M980 507 h100 M1080 512 v-10" fill="none" stroke="var(--silk-2)" strokeWidth={3} />
-            <text x={968} y={514} textAnchor="end" fill="var(--silk-2)" fontSize={18} fontWeight={600}>
+            <text x={968} y={516} textAnchor="end" fill="var(--silk-2)" fontSize={26} fontWeight={600}>
               10 m
             </text>
 
@@ -524,7 +402,7 @@ function Pep25() {
               x={KEEP_OUT.x + KEEP_OUT.w / 2}
               y={KEEP_OUT.y + KEEP_OUT.h / 2 + 7}
               textAnchor="middle"
-              fontSize={20}
+              fontSize={28}
               fontWeight={700}
               fill="var(--silk)"
               stroke="var(--mask-raised)"
@@ -561,7 +439,7 @@ function Pep25() {
                     fill={hit ? 'var(--copper-hot)' : 'var(--mask-deep)'}
                     style={{ transition: 'fill 200ms ease' }}
                   />
-                  <text x={x} y={y + (y > 330 ? 50 : -30)} textAnchor="middle" fill="var(--silk-2)" fontSize={20} fontWeight={700}>
+                  <text x={x} y={y + (y > 330 ? 54 : -32)} textAnchor="middle" fill="var(--silk-2)" fontSize={28} fontWeight={700}>
                     {i === 0 ? 'Start' : i === PEP_WAYPOINTS.length ? `${i} · Finish` : i}
                   </text>
                 </g>
@@ -570,18 +448,6 @@ function Pep25() {
 
             {/* the vehicle at its estimate, pinging each packet home */}
             <g style={{ transform: `translate(${f.x}px, ${f.y}px) rotate(${f.angle}deg)`, transition: 'transform 120ms linear' }}>
-              {!reduce &&
-                [0, 1].map((p) => (
-                  <circle
-                    key={p}
-                    r={18}
-                    fill="none"
-                    stroke="var(--led)"
-                    strokeWidth={2}
-                    className="pep-ping"
-                    style={{ animationDelay: `${p * 0.9}s` }}
-                  />
-                ))}
               {[-14, 9].map((wy) =>
                 [-15, 5].map((wx) => <rect key={`${wx}${wy}`} x={wx} y={wy} width={10} height={5} fill="var(--silk-2)" />),
               )}
@@ -589,74 +455,7 @@ function Pep25() {
               <rect x={5} y={-7} width={5} height={14} rx={1.5} fill="var(--mask-deep)" />
             </g>
           </svg>
-          <ul className="t-small m-0 flex list-none flex-wrap gap-x-6 gap-y-2 px-5 pb-5 text-silk-2 lg:px-8 lg:pb-6">
-            <li className="inline-flex items-center gap-2">
-              <span className="size-2 rounded-full bg-silk-2" />
-              GPS fix
-            </li>
-            <li className="inline-flex items-center gap-2">
-              <span className="h-1 w-6 bg-copper" />
-              Fused estimate, GPS and IMU
-            </li>
-            <li className="inline-flex items-center gap-2">
-              <span className="w-6 border-t-2 border-dashed border-copper-dim" />
-              Planned route
-            </li>
-          </ul>
-        </div>
-
-        {/* what the team watched come in over the air */}
-        <div className="flex flex-col gap-5 bg-mask-raised p-5 lg:col-span-4 lg:p-7">
-          <p className="t-small m-0 flex items-center justify-between font-semibold text-copper">
-            Telemetry
-            <span className="inline-flex items-center gap-2 text-silk-2 tabular">
-              <span key={packet} className="pep-rx size-2.5 rounded-full bg-(--led-green)" />
-              Packet {packet + 1}
-            </span>
-          </p>
-          <div>
-            <p className="t-title m-0 font-bold">
-              {next === undefined ? 'Finish' : `Waypoint ${reached + 1}`}
-              <span className="t-small ml-2 font-semibold text-silk-2">
-                {next === undefined ? 'reached' : `of ${PEP_WAYPOINTS.length}`}
-              </span>
-            </p>
-            <p className="m-0 mt-1 text-silk-2 tabular">
-              {next === undefined
-                ? `Course run in ${f.t.toFixed(1)} s`
-                : `${((next - f.s) / UNITS_PER_M).toFixed(1)} m to go`}
-            </p>
-          </div>
-          <table className="t-small mt-auto w-full border-collapse text-right tabular">
-            <thead>
-              <tr className="text-silk-2">
-                {['Time', 'East', 'North', 'Heading'].map((h) => (
-                  <th key={h} className="pb-2 font-semibold first:text-left">
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {log.map((r, i) => (
-                <tr key={r.t} className={i === 0 ? 'font-semibold text-silk' : 'text-silk-2'} style={{ opacity: 1 - i * 0.16 }}>
-                  <td className="py-0.5 text-left">{r.t.toFixed(1)} s</td>
-                  <td>{((r.x - START_X) / UNITS_PER_M).toFixed(1)} m</td>
-                  <td>{((START_Y - r.y) / UNITS_PER_M).toFixed(1)} m</td>
-                  <td>{compass(r.angle)}°</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <p className="t-small mt-4 text-silk-2">
-        A run as the team watched it: raw GPS fixes scatter, the fused estimate holds steady, the route finds its way
-        round a blocked leg, and every packet streams in live. The course and its numbers are illustrative.
-      </p>
-
-      <Details entry={PEP} columns />
-    </article>
+    </Figure>
   )
 }
 
@@ -688,7 +487,7 @@ const PRINT_TYPE = {
  * layers under a sweeping hotend; when the last layer lands, the print earns
  * the site's Photo verified badge.
  */
-function PrintingProfiles() {
+function PrintFigure() {
   const panel = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
   // from the panel's bottom edge entering to its top edge leaving: it plays wholly in view
@@ -704,20 +503,21 @@ function PrintingProfiles() {
   const nozzleY = done ? 128 : shown === 0 ? BED_Y - 40 : top
 
   return (
-    <article
-      id="role-printing-profiles"
-      data-part="printing-profiles"
-      aria-labelledby="printing-profiles-h"
-      className="scroll-mt-16 px-(--gutter)"
+    <Figure
+      panel={panel}
+      caption="A preset is the settings for one filament on one printer, printed here layer by layer."
+      readout={
+        <>
+          <span>
+            Layer <span className="inline-block min-w-[2ch] text-right">{shown}</span> of {LAYERS}
+          </span>
+          <span className={`pp-verified inline-flex items-center gap-2 ${done ? 'is-on' : ''}`}>
+            <span className="size-2 rounded-full bg-(--led-green)" />
+            Photo verified
+          </span>
+        </>
+      }
     >
-      <Head entry={PRINTING} n={2} />
-
-      <div
-        ref={panel}
-        aria-hidden
-        className="mx-auto mt-14 bg-mask-raised"
-        style={{ maxWidth: `calc((100svh - 12rem) * ${1200 / 340})` }}
-      >
         <svg viewBox="0 0 1200 340" className="block h-auto w-full">
           <defs>
             {/* one bead of filament per layer: lit on top, shaded underneath */}
@@ -733,7 +533,6 @@ function PrintingProfiles() {
               <rect x={0} y={top} width={1200} height={BED_Y - top} />
             </clipPath>
           </defs>
-          <Holes w={1200} h={340} />
 
           <rect x={70} y={BED_Y} width={1060} height={14} fill="var(--chip)" />
           <rect x={70} y={BED_Y} width={1060} height={2} fill="var(--copper-dim)" />
@@ -756,23 +555,7 @@ function PrintingProfiles() {
             </g>
           </g>
         </svg>
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 px-5 pb-5 lg:px-8 lg:pb-6">
-          <p className="t-small m-0 text-silk-2 tabular">
-            Layer <span className="inline-block min-w-[2ch] text-right font-semibold text-silk">{shown}</span> of {LAYERS}
-          </p>
-          <p className={`pp-verified t-small m-0 inline-flex items-center gap-2.5 font-semibold ${done ? 'is-on' : ''}`}>
-            <span className="size-2.5 rounded-full bg-(--led-green)" />
-            Photo verified
-          </p>
-        </div>
-      </div>
-      <p className="t-small mt-4 text-silk-2">
-        A preset is the settings for one filament on one printer, printed here layer by layer. One backed by a photo
-        of a real print is marked Photo verified.
-      </p>
-
-      <Details entry={PRINTING} columns />
-    </article>
+    </Figure>
   )
 }
 
@@ -834,7 +617,7 @@ const BUS = { from: 346, to: 854 }
  * panel is wholly in view, scrolling runs the scenario; the ECU's status reads
  * out beside it the way its ECUStatus frame would.
  */
-function HilEcu() {
+function HilFigure() {
   const panel = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: panel, offset: ['end end', 'start start'] })
@@ -844,24 +627,22 @@ function HilEcu() {
   const f = RUN[reduce ? RUN.length - 1 : frame]
   const carX = ROAD_X0 + f.x * PX_PER_M
   const braking = f.brake > 0
-  const readout = [
-    ['Gap', `${(PED_M - f.x).toFixed(1)} m`],
-    ['Time to collision', Number.isFinite(f.ttc) ? `${f.ttc.toFixed(1)} s` : 'Stopped'],
-    ['Brake', `${Math.round(f.brake * 100)}%`],
-  ]
 
   return (
-    <article
-      id="role-hil-ecu"
-      data-part="hil-ecu"
-      aria-labelledby="hil-ecu-h"
-      className="scroll-mt-16 px-(--gutter)"
+    <Figure
+      panel={panel}
+      caption="One scenario: a car closing on a pedestrian at 40 mph, braked in stages by the safety ECU over CAN. Illustrative run."
+      readout={
+        <>
+          <span className="inline-flex items-center gap-2">
+            <span className="size-2 rounded-full" style={{ background: STATE_LED[f.state] }} />
+            {ECU_STATES[f.state]}
+          </span>
+          <span className="text-silk-2">{Math.round(f.v * 3.6)} km/h</span>
+          <span className="text-silk-2">Brake {Math.round(f.brake * 100)}%</span>
+        </>
+      }
     >
-      <Head entry={HIL} n={1} />
-
-      <div ref={panel} aria-hidden className="mt-14 grid gap-2 lg:grid-cols-12">
-        {/* the drawing's cell stretches with the status beside it, so both panels share one height */}
-        <div className="flex items-center bg-mask-raised lg:col-span-8">
         <svg viewBox="0 0 1200 520" className="block h-auto w-full">
           <defs>
             <linearGradient id="hil-radar" x1="0" y1="0" x2="1" y2="0">
@@ -869,7 +650,6 @@ function HilEcu() {
               <stop offset="1" stopColor="var(--copper)" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <Holes w={1200} h={520} />
 
           {/* the road, and a crossing with someone on it */}
           <rect x={0} y={ROAD.top} width={1200} height={ROAD.bottom - ROAD.top} fill="var(--mask-deep)" />
@@ -897,7 +677,7 @@ function HilEcu() {
             <line x1={carX} x2={carX} y1={70} y2={86} />
             <line x1={PED_X} x2={PED_X} y1={70} y2={86} />
           </g>
-          <text x={(carX + PED_X) / 2} y={62} textAnchor="middle" fill="var(--silk-2)" fontSize={20} fontWeight={600} className="tabular">
+          <text x={(carX + PED_X) / 2} y={60} textAnchor="middle" fill="var(--silk-2)" fontSize={30} fontWeight={600} className="tabular">
             {(PED_M - f.x).toFixed(1)} m
           </text>
 
@@ -918,34 +698,9 @@ function HilEcu() {
               <rect key={y} x={BUS.from} y={y - 3} width={BUS.to - BUS.from} height={6} />
             ))}
           </g>
-          <text x={600} y={PIN_Y[1] - 22} textAnchor="middle" fill="var(--silk-2)" fontSize={17} fontWeight={600}>
+          <text x={600} y={PIN_Y[1] - 20} textAnchor="middle" fill="var(--silk-2)" fontSize={26} fontWeight={600}>
             CAN bus
           </text>
-          {!reduce &&
-            [0, 1, 2].map((k) => (
-              <g key={k}>
-                {/* sensor frames out to the ECU, its commands back; red once they carry a brake */}
-                <rect
-                  x={BUS.from}
-                  y={PIN_Y[1] - 7}
-                  width={30}
-                  height={14}
-                  fill="var(--copper-hot)"
-                  className="can-frame"
-                  style={{ '--run': `${BUS.to - BUS.from - 30}px`, animationDelay: `${k * -0.55}s` } as React.CSSProperties}
-                />
-                <rect
-                  x={BUS.to - 30}
-                  y={PIN_Y[2] - 7}
-                  width={30}
-                  height={14}
-                  fill={braking ? 'var(--led)' : 'var(--copper-hot)'}
-                  className="can-frame"
-                  style={{ '--run': `${BUS.from - BUS.to + 30}px`, animationDelay: `${k * -0.55 - 0.27}s` } as React.CSSProperties}
-                />
-              </g>
-            ))}
-
           {/* the ECU's LEDs on its own pins: green, yellow, red */}
           {[0, 1, 3].map((s, i) => {
             const on = f.state === s
@@ -958,44 +713,6 @@ function HilEcu() {
             )
           })}
         </svg>
-        </div>
-
-        {/* the status the ECU reports, as its ECUStatus frame would carry it */}
-        <div className="flex flex-col gap-5 bg-mask-raised p-5 lg:col-span-4 lg:p-7">
-          <div>
-            <p className="t-small m-0 font-semibold text-copper">ECUStatus</p>
-            <p className="t-title m-0 mt-2 font-bold tabular">
-              {Math.round(f.v * 3.6)}
-              <span className="t-small ml-2 font-semibold text-silk-2">km/h</span>
-            </p>
-          </div>
-          <ol className="m-0 grid list-none grid-cols-2 gap-x-4 gap-y-1.5 p-0 lg:grid-cols-1">
-            {ECU_STATES.map((s, i) => (
-              <li key={s} className={`flex items-center gap-3 font-semibold ${f.state === i ? 'text-silk' : 'text-silk-2'}`}>
-                <span
-                  className="size-2.5 shrink-0 rounded-full"
-                  style={{ background: STATE_LED[i], opacity: f.state === i ? 1 : 0.2 }}
-                />
-                {s}
-              </li>
-            ))}
-          </ol>
-          <dl className="m-0 mt-auto grid grid-cols-3 gap-x-4">
-            {readout.map(([k, v]) => (
-              <div key={k} className="flex flex-col">
-                <dt className="t-small text-silk-2">{k}</dt>
-                <dd className="m-0 font-semibold tabular">{v}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </div>
-      <p className="t-small mt-4 text-silk-2">
-        A car closing on a pedestrian at 40 mph, braked in stages by the ECU over CAN and stopped short. The run
-        drawn here is illustrative.
-      </p>
-
-      <Details entry={HIL} columns />
-    </article>
+    </Figure>
   )
 }

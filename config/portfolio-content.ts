@@ -118,8 +118,47 @@ export const SECTIONS: PortfolioSection[] = [
   {
     id: 'projects',
     label: 'Projects',
-    blurb: 'Built outside of work: two finished, two in development.',
+    blurb: 'Built outside of work, newest first: two in development, two finished.',
     nodes: [
+      {
+        id: 'hil-ecu',
+        title: 'Self-Driving Car Simulator',
+        subtitle: 'ADAS Safety ECU & HIL Simulator · Independent project',
+        meta: 'Oct 2026 - Present · C · FreeRTOS · STM32 · Python',
+        status: { label: 'In development', live: false },
+        links: [{ label: 'Source on GitHub', href: 'https://github.com/dotatlas/auto-safety-hil-ecu' }],
+        glance:
+          'A self-driving car built end to end in simulation: PyTorch models steer, hold speed, keep lane and brake; a Python driving simulator feeds them radar, IMU and wheel-speed data over a CAN bus; and a safety computer on an STM32 running FreeRTOS checks every command before it reaches the car.',
+        tags: ['C', 'FreeRTOS', 'STM32', 'CAN Bus', 'Python', 'PyTorch'],
+        details: [
+          'Developed safety ECU firmware in C with FreeRTOS on an STM32 Nucleo-G474RE board that monitors incoming sensor data and triggers emergency braking in under 12 ms.',
+          'Built a Python driving simulator that transmits radar, IMU, and wheel-speed data to the ECU over a CAN bus, injecting sensor faults to verify the ECU detects bad data and fails safe.',
+          'Trained machine learning driving models in PyTorch for braking, cruise control, and lane keeping, with the ECU checking every command against safety limits before it reaches the vehicle.',
+          'Validated the ECU with software-in-the-loop (SIL) tests in GitHub Actions CI and hardware-in-the-loop (HIL) tests on the physical board, replaying the same driving scenarios.',
+        ],
+      },
+      {
+        id: 'printing-profiles',
+        title: 'Printing Profiles',
+        subtitle: 'Independent project · Solo full-stack build',
+        meta: 'Oct 2026 - Present · Golang · Next.js · PostgreSQL',
+        status: { label: 'In development', live: false },
+        links: [
+          { label: 'Test build', href: 'https://printingprofiles.com' },
+          { label: 'Source on GitHub', href: 'https://github.com/dotatlas/printing-profiles' },
+        ],
+        glance:
+          'A community site for 3D printing slicer presets: the exact settings that make one filament print well on one printer, backed by photos of real prints. Open source, and built solo from the Go API to the Next.js front end.',
+        tags: ['Golang', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'GitHub Actions'],
+        details: [
+          'Built the Go API on the standard library: PostgreSQL through pgx and sqlc-generated type-safe queries, goose migrations, RFC 9457 problem-detail errors, structured request logs and graceful shutdown.',
+          'Reads uploaded PrusaSlicer, SuperSlicer, OrcaSlicer and Bambu Studio preset files, shows their key settings as a clean table with no typing, and strips the network passwords and API keys that printer presets can carry.',
+          'Passwordless accounts: GitHub and Discord sign-in over OAuth with PKCE, or a single-use email link, with hashed sessions and rate limits kept in Postgres. The site never stores a password.',
+          'Made trust visible: a preset with a photo of a real print is marked Photo verified, and every photo is checked by its bytes and re-encoded without metadata, so a phone picture never leaks where it was taken.',
+          'Search that forgives typos: full-text search with a fuzzy fallback, real printers and filaments ranked above words in a title, and sorting by Bayesian rating, downloads and trend.',
+          'Reviews, comments, bookmarks and public profiles on server-rendered Next.js pages, with API types generated from the OpenAPI contract and a GitHub Actions pipeline of Go race tests, govulncheck, lint and type checks.',
+        ],
+      },
       {
         id: 'volunteer-hub',
         title: 'Volunteer Hub',
@@ -146,45 +185,6 @@ export const SECTIONS: PortfolioSection[] = [
         details: [
           'Engineered a real-time diagnostics platform on an embedded Linux (Raspberry Pi) system in Python, streaming GPS and IMU data to a remote dashboard.',
           'Developed a navigation algorithm fusing multiple sensor inputs to achieve autonomous waypoint pathfinding.',
-        ],
-      },
-      {
-        id: 'printing-profiles',
-        title: 'Printing Profiles',
-        subtitle: 'Independent project · Solo full-stack build',
-        meta: 'Oct 2026 - Present · Golang · Next.js · PostgreSQL',
-        status: { label: 'In development', live: false },
-        links: [
-          { label: 'Test build', href: 'https://printingprofiles.com' },
-          { label: 'Source on GitHub', href: 'https://github.com/dotatlas/printing-profiles' },
-        ],
-        glance:
-          'A community site for 3D printing slicer presets: the exact settings that make one filament print well on one printer, backed by photos of real prints. Open source, and built solo from the Go API to the Next.js front end.',
-        tags: ['Golang', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'GitHub Actions'],
-        details: [
-          'Built the Go API on the standard library: PostgreSQL through pgx and sqlc-generated type-safe queries, goose migrations, RFC 9457 problem-detail errors, structured request logs and graceful shutdown.',
-          'Reads uploaded PrusaSlicer, SuperSlicer, OrcaSlicer and Bambu Studio preset files, shows their key settings as a clean table with no typing, and strips the network passwords and API keys that printer presets can carry.',
-          'Passwordless accounts: GitHub and Discord sign-in over OAuth with PKCE, or a single-use email link, with hashed sessions and rate limits kept in Postgres. The site never stores a password.',
-          'Made trust visible: a preset with a photo of a real print is marked Photo verified, and every photo is checked by its bytes and re-encoded without metadata, so a phone picture never leaks where it was taken.',
-          'Search that forgives typos: full-text search with a fuzzy fallback, real printers and filaments ranked above words in a title, and sorting by Bayesian rating, downloads and trend.',
-          'Reviews, comments, bookmarks and public profiles on server-rendered Next.js pages, with API types generated from the OpenAPI contract and a GitHub Actions pipeline of Go race tests, govulncheck, lint and type checks.',
-        ],
-      },
-      {
-        id: 'hil-ecu',
-        title: 'Self-Driving Car Simulator',
-        subtitle: 'ADAS Safety ECU & HIL Simulator · Independent project',
-        meta: 'Oct 2026 - Present · C · FreeRTOS · STM32 · Python',
-        status: { label: 'In development', live: false },
-        links: [{ label: 'Source on GitHub', href: 'https://github.com/dotatlas/auto-safety-hil-ecu' }],
-        glance:
-          'A self-driving car built end to end in simulation: PyTorch models steer, hold speed, keep lane and brake; a Python driving simulator feeds them radar, IMU and wheel-speed data over a CAN bus; and a safety computer on an STM32 running FreeRTOS checks every command before it reaches the car.',
-        tags: ['C', 'FreeRTOS', 'STM32', 'CAN Bus', 'Python', 'PyTorch'],
-        details: [
-          'Developed safety ECU firmware in C with FreeRTOS on an STM32 Nucleo-G474RE board that monitors incoming sensor data and triggers emergency braking in under 12 ms.',
-          'Built a Python driving simulator that transmits radar, IMU, and wheel-speed data to the ECU over a CAN bus, injecting sensor faults to verify the ECU detects bad data and fails safe.',
-          'Trained machine learning driving models in PyTorch for braking, cruise control, and lane keeping, with the ECU checking every command against safety limits before it reaches the vehicle.',
-          'Validated the ECU with software-in-the-loop (SIL) tests in GitHub Actions CI and hardware-in-the-loop (HIL) tests on the physical board, replaying the same driving scenarios.',
         ],
       },
     ],

@@ -41,7 +41,7 @@ Visited on desktop and phone, usually once, often from a resume. The board-milli
 - `public/models/nozzle.stl`: the hotend model from the old printer intro, no longer used.
 - Resume PDF: `private/resume.pdf`, served only by `/api/resume`; replacing the file updates the viewer and the download.
 - Personal details (email, GitHub, LinkedIn, the resume) sit behind Cloudflare Turnstile (2026-11-20). They live in `lib/contact.ts` (server only) and reach a browser only via `POST /api/reveal` after a verified token; the contact section shows the widget, and other surfaces point to it until it passes. Needs `TURNSTILE_SECRET` and `TURNSTILE_HOSTNAMES` in the host's environment, or the details stay locked.
-- No photographs of his own work, no testimonials. Never fabricate quotes, logos, metrics or press beyond the resumes' own numbers (12% battery, under 12 ms braking, 1,000+ employees, 20+ licenses, 3.7 GPA). The only picture on the site is the credited open-licence milling clip behind the footer; no stock photographs.
+- No photographs of his own work, no testimonials. Never fabricate quotes, logos, metrics or press beyond the resumes' own numbers (12% battery, under 12 ms braking, 1,000+ employees, 20+ licenses, 3.7 GPA). The site has no photographs or video (the footer clip was removed 2026-11-22 as off-tone); the board, its drawings and the type carry it.
 
 ## Product Principles
 

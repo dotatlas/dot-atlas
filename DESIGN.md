@@ -124,7 +124,7 @@ components:
 
 The page is a fabricated printed circuit board. A desktop PCB mill makes it on arrival: the blank rises onto the bed, the spindle engraves every copper route with its V-bit on the surface, the components settle in, the camera eases once to straight down, and the materials flatten to the exact page colours so the machined board becomes the page with no seam. From then on every surface is board material: matte black solder mask for ground, ENIG gold copper for every line, pad and via, silkscreen off-white for every word, and one red SMD LED for the one thing to do.
 
-Density is low and deliberate. Type is very large and very condensed, rows are separated by wide section gaps, and the board itself is the only dense area: a central MCU wired by 45-degree copper to one component per role. The only picture is the footer's milling clip, greyscale, so colour stays reserved for copper and the LED. Motion is fabrication: toolpath wipes left to right, traces drawn along their length, signal pulses travelling to a part. Nothing bounces and nothing fades in for decoration alone.
+Density is low and deliberate. Type is very large and very condensed, rows are separated by wide section gaps, and the board itself is the only dense area: a central MCU wired by 45-degree copper to one component per role. There are no photographs or video, so colour stays reserved for copper and the LED. Motion is fabrication: toolpath wipes left to right, traces drawn along their length, signal pulses travelling to a part. Nothing bounces and nothing fades in for decoration alone.
 
 Dark ground and the red accent are product commitments, not choices this world can revisit.
 
@@ -176,7 +176,7 @@ A PCB palette: three tones of black mask, one red mask field, gold copper in thr
 **Character:** One family pulled across its width axis. Headings are heavy and narrow like silkscreen part designators; running text opens back to full width for reading.
 
 ### Hierarchy
-- **Display** (820, clamp(3rem, 9vw, 9rem), 0.86, wdth 74): the name, the project title, the contact headline, the footer wordmark, and measured-result figures in copper. The hero name may break the column and run onto the board.
+- **Display** (820, clamp(3rem, 9vw, 9rem), 0.86, wdth 74): the name, the contact headline, and measured-result figures in copper. Role and project titles share the Title step. The hero name may break the column and run onto the board.
 - **Title** (800, clamp(2.25rem, 3.9vw, 3.75rem), 0.92, wdth 76): section headings and role titles. All h1-h3 share weight 800, wdth 76, -0.03em and balanced wrapping by default.
 - **Lead** (450, clamp(1.25rem, 1.55vw, 1.5rem), 1.32): ledes, role summaries, section blurbs; held to 31-36ch.
 - **Body** (400, 1.125rem, 1.55): detail bullets, table cells, paragraphs; `text-wrap: pretty`, about 36rem columns.
@@ -191,13 +191,13 @@ Intermediate widths are used for emphasis inside text: wdth 92 on buttons, 84 on
 
 ## Layout
 
-A full-bleed long scroll with fluid side padding (gutter) and very large vertical spacing between sections (section-gap). The first screen and the experience legs share a split stage at lg (1024px): text on the left, the board sticky full-height on the right, its active part tracking the role being read. Below lg the board sits at the top of the first screen (about 52svh) and scrolls away; each role then carries its own small status LED beside its title.
+A full-bleed long scroll with fluid side padding (gutter) and very large vertical spacing between sections (section-gap). The first screen, Experience and Projects share one split stage at lg (1024px): text on the left (11fr at xl), the board sticky full-height on the right (9fr), its active part tracking the entry being read, so the board stays beside every part it carries and leaves only after the last project. The hero name is sized to its column (7.4vw at lg, min(8.4vw, 9rem) at xl) so it stops short of the board. Below lg the board sits at the top of the first screen (about 52svh) and scrolls away; each entry then carries its own small status LED beside its title.
 
-Later sections use a 12-column grid at lg with 2rem gaps and asymmetric spans (5/6, 4/8, 7/4). No project pins the page. Each opens on the same head (title left, who/when/what right), and its drawing sits in a panel beside or under its details; Volunteer Hub's split schematic closes at the seam in a 15:8 panel to the right of its details. Every drawing plays only while the panel is wholly in view (offset `end end` to `start start`), so a run costs one short scroll. PEP 25 is a ground station: raw GPS fixes scatter round a smooth fused estimate, the route bends round a keep-out between numbered waypoints, and a telemetry log streams beside the map. The two in-progress projects (Printing Profiles, Self-Driving Car Simulator) open with a one-line status notice beside an LED (green breathing when live, amber blinking in development); no roadmaps or build plans. Text columns stay narrow (31-36ch ledes, 36rem legs, 56ch notes). Stacked rhythm inside a section steps through roughly 1.5rem, 2.5rem, 5-7rem; tap targets are at least 3rem tall.
+**One entry format for roles and projects.** Every entry, in either section, reads in the same order at the same width (36rem, 42rem at xl): title, then (only for a build in progress) a status line, then who and when, the one-line summary at lead size, its figure, the copper-pad details, the copper stack line, and links. A role's figure is a measured result in copper display type; a project's figure is its drawing. **Project drawings** share one frame (the Figure component): a raised-mask panel at the entry's width, one readout line under it, then a small caption. No mount holes, no side panels, no looping effects: Volunteer Hub's split schematic closes at the seam, Printing Profiles prints its layers, PEP 25 drives its route among scattered GPS fixes, and the Self-Driving Car Simulator brakes for a pedestrian with its ECU state LEDs. Each plays only while its panel is wholly in view (offset `end end` to `start start`). Labels inside drawings are set at 26-30 drawing units so they stay readable at column width. **Status** for a build in progress is one line under the title, at lead size and weight 700 in its LED colour beside a status LED (green ring when people can use it, amber breathing while it is built); no banner, no roadmap. Sections after the stage (education, bill of materials, contact) use a 12-column grid at lg with 2rem gaps and asymmetric spans. Text columns stay narrow (31-36ch ledes, 36-42rem entries). Stacked rhythm inside a section steps through roughly 1.5rem, 2.5rem, 5-7rem; tap targets are at least 3rem tall.
 
 ## Elevation & Depth
 
-Flat. There are no box-shadows anywhere. Depth is the board's own physical layering, expressed as tone steps: mask, then raised mask, then component bodies, with deep mask for holes punched through. The footer video is pushed back with greyscale and lowered brightness rather than overlays. The only literal depth is the milling intro, which flattens to unlit tokens before it hands off.
+Flat. There are no box-shadows anywhere. Depth is the board's own physical layering, expressed as tone steps: mask, then raised mask, then component bodies, with deep mask for holes punched through. The only literal depth is the milling intro, which flattens to unlit tokens before it hands off.
 
 ### Named Rules
 **The Layer Not Lift Rule.** Separate surfaces with a mask tone step or copper, never with a shadow or blur.
@@ -221,7 +221,7 @@ Filled, square, decisive: an SMD part you press.
 - **Inline prose links** use a native underline in dim copper, 2px thick, 0.22em offset.
 
 ### Contact cells
-- **Style:** square filled cells, 5rem tall, on the red contact board: raised red mask with silk text and brand icon, or a silk cell with deep-mask text for the email.
+- **Style:** square filled cells, 4rem tall, in a two-by-two grid under the address on the red contact board, each with an icon and a plain label: Copy email (the silk cell with deep-mask text, the first and most obvious action; it swaps to a check and "Copied"), Send an email, LinkedIn and GitHub (raised red mask with silk text). The address above them is plain, selectable text at title size.
 - **State:** hover darkens red to mask-red-hover (#ba3127) (silk cell to silk-bright); press scales to 0.98.
 
 ### Navigation
@@ -238,7 +238,6 @@ The SVG board shared with the milling intro: raised-mask substrate with corner m
 - **Toolpath wipe:** headings uncover left to right by clip-path (1100ms, ease-in-out), staggered 90ms.
 - **Pulse:** a short hot-copper dash travels a trace (reply LED traces, board selection).
 - **Swap-in:** in-place state text sharpens in from a 4px blur (260ms).
-- A settle on the footer wordmark, where supported.
 - Content is visible without JS; reduced motion drops transforms and keeps 300ms opacity, or removes the animation.
 
 
@@ -246,9 +245,14 @@ The SVG board shared with the milling intro: raised-mask substrate with corner m
 
 A Base UI dialog that opens from the nav, the hero (a silk View resume button beside the red email action) and the footer. The real PDF is rendered page by page with pdf.js onto canvas at device pixel ratio, with a transparent, selectable text layer on top, on a raised-mask panel with corner mounting holes. Header: title and file line on mask, zoom (Fit, 125, 150, 200 percent) and a silk Download PDF button, then a square close. Motion: backdrop fades over 200ms; the popup rises 14px from 0.98 scale over 260ms on the ease-out curve and leaves faster (160ms); pages fade up as they render; a copper trace runs across the top while the PDF loads. Esc, focus trap and scroll lock come from the dialog. On phones the popup is full screen and zoom sits in the lower corner.
 
-### Contact circuit
+### Contact board
 
-The red contact board carries a small, unlabelled circuit: three input nets labelled LINKEDIN, GITHUB and EMAIL (the only text on it) run from the button side into a blank chip, which drives a status LED through a resistor and wires to a small screen on its own board. The LED is red (led) while it waits. Any contact action sends a one-shot hot-copper pulse down its input net and on through the chip; the LED turns led-green and the screen, in its own monospace device face (a data-ui fragment), types the reply at 22ms a character: what was opened, then thanks and I'll get back to you ASAP, with a blinking block cursor. Reduced motion shows the final state at once.
+The close is a field of red solder mask with four corner mounting holes and nothing else drawn on it: the heading and one line on the left; on the right the Turnstile check until it passes, then the address and the contact cells. No circuit, no screen, no animation beyond the deposition reveal.
+
+### Footer
+
+The board's bottom edge: a raised-mask strip. The name at weight 800 wdth 84 with role and school under it, the page links, the contact links (or one link to the contact board until the check passes), and one small credit line. No picture, no video, no oversized wordmark.
+
 ## Do's and Don'ts
 
 ### Do:
@@ -256,7 +260,7 @@ The red contact board carries a small, unlabelled circuit: three input nets labe
 - **Do** draw every non-type line in copper or dim copper, with 45-degree routing and round caps.
 - **Do** separate surfaces with mask tone steps (mask, mask-raised, mask-deep) rather than shadows.
 - **Do** set headings heavy and condensed (weight 800-820, wdth 74-76) and running text at full width.
-- **Do** keep the footer clip greyscale and credited. **Don't** add stock photographs.
+- **Don't** add photographs or video; the board, its drawings and the type are the whole visual language.
 - **Do** animate by deposition: wipes, drawn traces, pulses, on the ease-out curve, with a reduced-motion path.
 - **Do** update config/print-config.ts flat colours whenever a colour token changes.
 

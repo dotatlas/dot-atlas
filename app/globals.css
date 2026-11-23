@@ -28,9 +28,6 @@
   --rule: #262a27;
   --led-green: #3ddc84;
   --led-green-core: #b8f5cf;
-  --module: #121614;
-  --oled-glass: #060807;
-  --oled: #c6f1ff;
 
   --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
 
@@ -335,27 +332,6 @@
   }
 }
 
-/* the name returns heavy: it settles to full size as the footer arrives */
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .wordmark-settle {
-      transform-origin: 0 100%;
-      animation: wordmark-settle linear both;
-      animation-timeline: view();
-      animation-range: entry 0% cover 45%;
-    }
-  }
-}
-
-@keyframes wordmark-settle {
-  from {
-    transform: scale(0.94);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
 /* the bill of materials is a real table, so it keeps a table's rules */
 .bom th,
 .bom td {
@@ -440,52 +416,14 @@
   }
 }
 
-/* PEP 25: telemetry pings leaving the vehicle */
-.pep-ping {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: pep-ping 1.8s var(--ease-out) infinite;
-}
-
-@keyframes pep-ping {
-  from {
-    transform: scale(0.6);
-    opacity: 0.8;
-  }
-  to {
-    transform: scale(3);
-    opacity: 0;
-  }
-}
-
-/* PEP 25: the receive LED flashes as each telemetry packet lands (it remounts per packet) */
-.pep-rx {
-  animation: pep-rx 420ms var(--ease-out) both;
-}
-
-@keyframes pep-rx {
-  from {
-    opacity: 1;
-    transform: scale(1.35);
-  }
-  to {
-    opacity: 0.35;
-    transform: none;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .schem-connect,
-  .pep-ping {
+  .schem-connect {
     animation: none;
     opacity: 0;
   }
-  .pep-rx {
-    animation: none;
-  }
 }
 
-/* project status LEDs: a live site breathes, a board in bring-up blinks */
+/* project status LEDs: a live site sends out a ring, a build in progress breathes */
 .status-live::after {
   content: '';
   position: absolute;
@@ -507,7 +445,13 @@
 }
 
 .status-build {
-  animation: status-blink 1.2s steps(1, end) infinite;
+  animation: status-breathe 2.4s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes status-breathe {
+  to {
+    opacity: 0.35;
+  }
 }
 
 /* the hero board's Ethernet jack: its activity LED flickers while the part is read */
@@ -549,31 +493,8 @@
 }
 
 /* HIL ECU: frames crossing the CAN bus, each fading in off one chip and out into the other */
-.can-frame {
-  animation: can-frame 1.65s linear infinite;
-}
-
-@keyframes can-frame {
-  from {
-    transform: translateX(0);
-    opacity: 0;
-  }
-  12%,
-  88% {
-    opacity: 1;
-  }
-  to {
-    transform: translateX(var(--run));
-    opacity: 0;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .status-live::after,
-  .can-frame {
-    animation: none;
-    opacity: 0;
-  }
   .status-build,
   .jack-act {
     animation: none;
@@ -841,36 +762,3 @@
   color: transparent;
 }
 
-/* contact board: one pulse per press, down the input and on through U1 */
-.contact-pulse {
-  stroke-dasharray: 30 1000;
-  stroke-dashoffset: 30;
-  animation: contact-pulse 460ms cubic-bezier(0.45, 0, 0.2, 1) both;
-}
-
-@keyframes contact-pulse {
-  to {
-    stroke-dashoffset: -260;
-  }
-}
-
-/* the OLED's cursor blinks the way a screen does: on, off, no fade */
-.oled-cursor {
-  animation: oled-cursor 1s steps(1, end) infinite;
-}
-
-@keyframes oled-cursor {
-  50% {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .contact-pulse {
-    animation: none;
-    opacity: 0;
-  }
-  .oled-cursor {
-    animation: none;
-  }
-}

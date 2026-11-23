@@ -2,23 +2,27 @@
 
 import { useCallback, useState } from 'react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa6'
-import { FileText } from 'lucide-react'
+import { ArrowUpRight, FileText } from 'lucide-react'
 import { ResumeTrigger } from './resume'
 import { CircuitBoard } from '@/components/board/circuit-board'
 import { FIGURES, PROFILE, SECTIONS, type Entry } from '@/config/portfolio-content'
 import { useActivePart } from './use-reveal'
 import { useContact } from './contact-gate'
+import { PROJECT_FIGURES } from './project'
 
 const EXPERIENCE = SECTIONS.find((s) => s.id === 'experience')!
+const PROJECTS = SECTIONS.find((s) => s.id === 'projects')!
 
 const TITLES: Record<string, string> = Object.fromEntries(
   SECTIONS.flatMap((s) => s.nodes.map((n) => [n.id, n.title])),
 )
 
 /**
- * The first screen and the experience legs share one split stage: the board
- * stays put on the right while the roles scroll past on the left, and the
- * component for the role being read lights up.
+ * The first screen, the roles and the projects share one split stage: the
+ * board stays put on the right while every entry it carries scrolls past on
+ * the left, and the component for the entry being read lights up. Experience
+ * and projects are two sections in one format, so the board never drops out
+ * halfway through its own parts.
  */
 export function Passage({ silk }: { silk: boolean }) {
   const [active, setActive] = useState<string | null>(null)
@@ -35,7 +39,7 @@ export function Passage({ silk }: { silk: boolean }) {
   return (
     <div
       id="top"
-      className="relative flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-[minmax(0,9fr)_minmax(0,11fr)]"
+      className="relative flex flex-col lg:grid lg:grid-cols-2 xl:grid-cols-[minmax(0,11fr)_minmax(0,9fr)]"
     >
       {/* the board: sticky stage on desktop, the top of the first screen on phones */}
       <div className="order-first lg:order-last lg:col-start-2 lg:row-start-1">
@@ -52,7 +56,8 @@ export function Passage({ silk }: { silk: boolean }) {
 
       <div className="relative z-10 lg:col-start-1 lg:row-start-1">
         <Hero />
-        <Experience active={active} />
+        <Section id="experience" title="Experience" blurb={EXPERIENCE.blurb} nodes={EXPERIENCE.nodes} active={active} placeFirst />
+        <Section id="project" title="Projects" blurb={PROJECTS.blurb} nodes={PROJECTS.nodes} active={active} />
       </div>
     </div>
   )
@@ -63,7 +68,7 @@ function Hero() {
   return (
     <header className="relative flex flex-col justify-end px-(--gutter) pb-16 lg:min-h-svh lg:pb-[9svh]">
       {/* the name runs past its column and onto the board's clear corner */}
-      <h1 className="t-display -mt-[11vw] text-[12.2vw] whitespace-nowrap lg:mt-0 lg:text-[length:var(--step-display)]">
+      <h1 className="t-display -mt-[11vw] text-[12.2vw] whitespace-nowrap lg:mt-0 lg:text-[7.4vw] xl:text-[min(8.4vw,9rem)]">
         <span className="block w-max" data-wipe style={{ '--i': 0 } as React.CSSProperties}>
           Joshua
         </span>
@@ -100,38 +105,57 @@ function Hero() {
   )
 }
 
-function Experience({ active }: { active: string | null }) {
+/** A section of entries on the board's stage: its heading, one line on what it holds, then each entry. */
+function Section({
+  id,
+  title,
+  blurb,
+  nodes,
+  active,
+  placeFirst = false,
+}: {
+  id: string
+  title: string
+  blurb: string
+  nodes: Entry[]
+  active: string | null
+  /** Roles write "place · dates"; they read dates first. */
+  placeFirst?: boolean
+}) {
   return (
-    <section
-      id="experience"
-      aria-labelledby="experience-h"
-      className="px-(--gutter) pt-(--section-gap)"
-    >
-      <div className="max-w-[36rem] xl:max-w-[40rem]">
-        <h2 id="experience-h" className="t-title" data-reveal>
-          Experience
+    <section id={id} aria-labelledby={`${id}-h`} className="scroll-mt-16 px-(--gutter) pt-(--section-gap)">
+      <div className="max-w-[36rem] xl:max-w-[42rem]">
+        <h2 id={`${id}-h`} className="t-title" data-reveal>
+          {title}
         </h2>
         <p className="t-lead mt-6 text-silk-2" data-reveal style={{ '--i': 1 } as React.CSSProperties}>
-          {EXPERIENCE.blurb}
+          {blurb}
         </p>
       </div>
 
       <div className="mt-16 flex flex-col gap-24 lg:mt-20 lg:gap-28">
-        {EXPERIENCE.nodes.map((node) => (
-          <Leg key={node.id} node={node} live={active === node.id} />
+        {nodes.map((node) => (
+          <Leg key={node.id} node={node} live={active === node.id} placeFirst={placeFirst} />
         ))}
       </div>
     </section>
   )
 }
 
-function Leg({ node, live }: { node: Entry; live: boolean }) {
-  const [place, ...when] = node.meta.split(' · ')
+/**
+ * One entry, role or project, always in the same order: title, status if it
+ * is still being built, who and when, the one-line summary, its figure (a
+ * measured result or a drawing), the details, then its stack and links.
+ */
+function Leg({ node, live, placeFirst }: { node: Entry; live: boolean; placeFirst: boolean }) {
+  const [first, ...rest] = node.meta.split(' · ')
+  const meta = placeFirst ? `${rest.join(' · ')} · ${first}` : node.meta
   const figure = FIGURES[node.id]
+  const Drawing = PROJECT_FIGURES[node.id]
   return (
-    <article id={`role-${node.id}`} data-part={node.id} className="max-w-[36rem] scroll-mt-24 xl:max-w-[40rem]">
+    <article id={`role-${node.id}`} data-part={node.id} className="max-w-[36rem] scroll-mt-24 xl:max-w-[42rem]">
       <div className="flex items-start gap-4">
-        {/* below lg the board scrolls away, so each role carries its own status LED */}
+        {/* below lg the board scrolls away, so each entry carries its own status LED */}
         <span
           aria-hidden
           className="mt-[0.35em] h-3 w-5 shrink-0 transition-colors duration-150 lg:hidden"
@@ -141,11 +165,10 @@ function Leg({ node, live }: { node: Entry; live: boolean }) {
           {node.title}
         </h3>
       </div>
+      {node.status && <Status {...node.status} />}
       <p className="mt-5 font-semibold" data-reveal style={{ '--i': 1 } as React.CSSProperties}>
         {node.subtitle}
-        <span className="block font-normal text-silk-2">
-          {when.join(' · ')} · {place}
-        </span>
+        <span className="block font-normal text-silk-2">{meta}</span>
       </p>
       <p className="t-lead mt-7" data-reveal style={{ '--i': 2 } as React.CSSProperties}>
         {node.glance}
@@ -157,15 +180,11 @@ function Leg({ node, live }: { node: Entry; live: boolean }) {
           <span className="max-w-[22ch] pb-2 font-semibold">{figure.label}</span>
         </p>
       )}
+      {Drawing && <Drawing />}
 
       <ul className="mt-10 flex list-none flex-col gap-4 p-0">
         {node.details.map((d, i) => (
-          <li
-            key={i}
-            className="relative pl-7"
-            data-reveal
-            style={{ '--i': 3 + i } as React.CSSProperties}
-          >
+          <li key={i} className="relative pl-7" data-reveal style={{ '--i': 3 + i } as React.CSSProperties}>
             <span aria-hidden className="absolute top-[0.62em] left-0 size-2 bg-copper" />
             {d}
           </li>
@@ -174,6 +193,35 @@ function Leg({ node, live }: { node: Entry; live: boolean }) {
       <p className="mt-8 text-copper" data-reveal>
         {node.tags.join(' · ')}
       </p>
+      {node.links && (
+        <p className="mt-6 flex flex-wrap gap-x-8 gap-y-3" data-reveal>
+          {node.links.map((l) => (
+            <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="link inline-flex items-center gap-2">
+              {l.href.includes('github.com') ? <FaGithub aria-hidden className="size-4" /> : <ArrowUpRight aria-hidden className="size-4" />}
+              {l.label}
+            </a>
+          ))}
+        </p>
+      )}
     </article>
+  )
+}
+
+/**
+ * A build still in progress, said plainly right under its name: a status LED
+ * (green ring when people can use it, amber breathing while it is built) and
+ * the notice at lead size, in the LED's colour.
+ */
+function Status({ label, live }: { label: string; live: boolean }) {
+  const color = live ? 'var(--led-green)' : 'var(--copper-hot)'
+  return (
+    <p className="t-lead m-0 mt-4 inline-flex items-center gap-3 font-bold" style={{ color }} data-reveal>
+      <span
+        aria-hidden
+        className={`relative size-3 shrink-0 rounded-full ${live ? 'status-live' : 'status-build'}`}
+        style={{ background: color }}
+      />
+      {label}
+    </p>
   )
 }

@@ -1,68 +1,68 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
 import { PROFILE } from '@/config/portfolio-content'
-import { PRINT_CLIP } from '@/config/photos'
 import { RESUME, ResumeTrigger } from './resume'
 import { useContact } from './contact-gate'
 
-/** The name across the last moving picture: a desktop mill, still cutting a board. */
+const PAGE = [
+  { href: '#experience', label: 'Experience' },
+  { href: '#project', label: 'Projects' },
+  { href: '#education', label: 'Education' },
+  { href: '#skills', label: 'Skills' },
+]
+
+/** The board's bottom edge: who, where to go on the page, and how to reach him. */
 export function SiteFooter({ onReplay }: { onReplay?: () => void }) {
-  const video = useRef<HTMLVideoElement>(null)
   const contact = useContact()
 
-  // a silent loop is decoration: it holds on its poster under reduced motion
-  useEffect(() => {
-    const v = video.current
-    if (!v) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    // only fetch and run the clip while the footer is on screen
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) v.play().catch(() => {})
-      else v.pause()
-    })
-    io.observe(v)
-    return () => io.disconnect()
-  }, [])
-
   return (
-    <footer className="relative isolate flex min-h-[88svh] flex-col justify-between overflow-hidden px-(--gutter) pt-8 pb-8">
-      <video
-        ref={video}
-        className="absolute inset-0 -z-10 h-full w-full object-cover"
-        style={{ filter: 'grayscale(1) brightness(0.42) contrast(1.15)' }}
-        src={PRINT_CLIP.src}
-        poster={PRINT_CLIP.poster}
-        width={PRINT_CLIP.width}
-        height={PRINT_CLIP.height}
-        muted
-        loop
-        playsInline
-        preload="none"
-        aria-hidden
-      />
-
-      <div className="flex flex-wrap justify-between gap-8">
-        <ul className="m-0 flex list-none flex-col gap-2 p-0">
-          <li><a className="link" href="#experience">Experience</a></li>
-          <li><a className="link" href="#project">Projects</a></li>
-          <li><a className="link" href="#education">Education</a></li>
-          <li><a className="link" href="#skills">Skills</a></li>
+    <footer className="bg-mask-raised px-(--gutter) pt-14 pb-10">
+      <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-5">
+          <p className="m-0 font-extrabold [font-variation-settings:'wdth'_84]">{PROFILE.name}</p>
+          <p className="m-0 mt-2 text-silk-2">{PROFILE.role}, Computer Engineering at UCF</p>
+        </div>
+        <ul className="m-0 flex list-none flex-col gap-2 p-0 lg:col-span-3">
+          {PAGE.map((l) => (
+            <li key={l.href}>
+              <a className="link" href={l.href}>
+                {l.label}
+              </a>
+            </li>
+          ))}
         </ul>
-        <ul className="m-0 flex list-none flex-col gap-2 p-0 sm:items-end">
+        <ul className="m-0 flex list-none flex-col gap-2 p-0 lg:col-span-4">
           {contact ? (
             <>
-              <li><a className="link" href={`mailto:${contact.email}`}>{contact.email}</a></li>
-              <li><a className="link" href={contact.github} target="_blank" rel="noreferrer">GitHub</a></li>
-              <li><a className="link" href={contact.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
+              <li>
+                <a className="link" href={`mailto:${contact.email}`}>
+                  {contact.email}
+                </a>
+              </li>
+              <li>
+                <a className="link" href={contact.github} target="_blank" rel="noreferrer">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a className="link" href={contact.linkedin} target="_blank" rel="noreferrer">
+                  LinkedIn
+                </a>
+              </li>
               <li>
                 <ResumeTrigger className="link cursor-pointer border-0 bg-transparent p-0 text-silk">Resume</ResumeTrigger>
                 <span className="text-silk-2"> · </span>
-                <a className="link" href={RESUME.src} download={RESUME.downloadAs}>PDF</a>
+                <a className="link" href={RESUME.src} download={RESUME.downloadAs}>
+                  PDF
+                </a>
               </li>
             </>
           ) : (
-            <li><a className="link" href="#contact">Contact details and resume</a></li>
+            <li>
+              <a className="link" href="#contact">
+                Contact details and resume
+              </a>
+            </li>
           )}
           {onReplay && (
             <li>
@@ -73,24 +73,7 @@ export function SiteFooter({ onReplay }: { onReplay?: () => void }) {
           )}
         </ul>
       </div>
-
-      <div>
-        <p
-          aria-hidden
-          className="t-display wordmark-settle m-0 text-[15.2vw] leading-[0.8] whitespace-nowrap text-silk"
-          data-wipe
-        >
-          Evenden-Wallick
-        </p>
-        <p className="t-small mt-6 max-w-[90ch] text-silk-2">
-          Footage from Wikimedia Commons, shown in greyscale:{' '}
-          <a href={PRINT_CLIP.href} target="_blank" rel="noreferrer" className="underline">
-            {PRINT_CLIP.credit}
-          </a>
-          .{' '}
-          © 2026 {PROFILE.name}.
-        </p>
-      </div>
+      <p className="t-small m-0 mt-12 text-silk-2">© 2026 {PROFILE.name}. Built with Next.js; the board is drawn in SVG.</p>
     </footer>
   )
 }
