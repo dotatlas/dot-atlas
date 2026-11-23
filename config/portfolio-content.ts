@@ -28,6 +28,8 @@ export type Entry = {
   status?: { label: string; live: boolean }
   /** Where to see it. */
   links?: { label: string; href: string }[]
+  /** Projects: how it fits together, four stages left to right, drawn as one small flow. */
+  flow?: { name: string; detail: string }[]
 }
 
 export type PortfolioSection = {
@@ -129,6 +131,12 @@ export const SECTIONS: PortfolioSection[] = [
         links: [{ label: 'Source on GitHub', href: 'https://github.com/dotatlas/auto-safety-hil-ecu' }],
         glance:
           'A self-driving car built end to end in simulation: PyTorch models steer, hold speed, keep lane and brake; a Python driving simulator feeds them radar, IMU and wheel-speed data over a CAN bus; and a safety computer on an STM32 running FreeRTOS checks every command before it reaches the car.',
+        flow: [
+          { name: 'Driving models', detail: 'PyTorch' },
+          { name: 'Simulator', detail: 'Python' },
+          { name: 'CAN bus', detail: 'Radar, IMU, wheel speed' },
+          { name: 'Safety ECU', detail: 'C on STM32, FreeRTOS' },
+        ],
         tags: ['C', 'FreeRTOS', 'STM32', 'CAN Bus', 'Python', 'PyTorch'],
         details: [
           'Developed safety ECU firmware in C with FreeRTOS on an STM32 Nucleo-G474RE board that monitors incoming sensor data and triggers emergency braking in under 12 ms.',
@@ -149,6 +157,12 @@ export const SECTIONS: PortfolioSection[] = [
         ],
         glance:
           'A community site for 3D printing slicer presets: the exact settings that make one filament print well on one printer, backed by photos of real prints. Open source, and built solo from the Go API to the Next.js front end.',
+        flow: [
+          { name: 'Preset files', detail: 'Slicer exports' },
+          { name: 'Go API', detail: 'Standard library' },
+          { name: 'PostgreSQL', detail: 'pgx and sqlc' },
+          { name: 'Website', detail: 'Next.js' },
+        ],
         tags: ['Golang', 'Next.js', 'TypeScript', 'PostgreSQL', 'Docker', 'GitHub Actions'],
         details: [
           'Built the Go API on the standard library: PostgreSQL through pgx and sqlc-generated type-safe queries, goose migrations, RFC 9457 problem-detail errors, structured request logs and graceful shutdown.',
@@ -166,6 +180,12 @@ export const SECTIONS: PortfolioSection[] = [
         meta: 'React · TypeScript · GraphQL · Firebase',
         glance:
           'A full-stack platform for running volunteer programs, architected and deployed solo: it streamlines the administrative workflows and data intake behind them.',
+        flow: [
+          { name: 'Client', detail: 'React, TypeScript' },
+          { name: 'API', detail: 'GraphQL' },
+          { name: 'Accounts', detail: 'Firebase Auth' },
+          { name: 'Data', detail: 'Validated intake' },
+        ],
         tags: ['React', 'TypeScript', 'GraphQL', 'Firebase'],
         details: [
           'Architected and deployed the full stack: a React and TypeScript client over a GraphQL API.',
@@ -181,6 +201,12 @@ export const SECTIONS: PortfolioSection[] = [
         meta: 'Aug 2024 - Apr 2025 · Python · Embedded Linux · Raspberry Pi',
         glance:
           'A real-time diagnostics platform for an autonomous vehicle: Python on a Raspberry Pi streams GPS and IMU data to a remote dashboard, and a navigation algorithm fuses the sensors to find its own way between waypoints.',
+        flow: [
+          { name: 'Sensors', detail: 'GPS and IMU' },
+          { name: 'Fusion', detail: 'Python on a Raspberry Pi' },
+          { name: 'Navigation', detail: 'Waypoint pathfinding' },
+          { name: 'Dashboard', detail: 'Live telemetry' },
+        ],
         tags: ['Python', 'Embedded Linux', 'Raspberry Pi', 'GPS', 'IMU', 'Sensor Fusion'],
         details: [
           'Engineered a real-time diagnostics platform on an embedded Linux (Raspberry Pi) system in Python, streaming GPS and IMU data to a remote dashboard.',
@@ -208,50 +234,50 @@ export const SECTIONS: PortfolioSection[] = [
 ]
 
 /**
- * Skills as a bill of materials: each part and the role where it was used.
- * `usedIn` stays empty when the resume lists a skill without tying it to a
- * role; never fill it in by guessing.
+ * Skills, grouped as on the resume, each with the roles and projects where it
+ * was used. `usedIn` stays empty when the resume lists a skill without tying
+ * it to a role; never fill it in by guessing.
  */
-export type BomGroup = { name: string; items: { part: string; usedIn: string }[] }
+export type SkillGroup = { name: string; items: { name: string; usedIn: string }[] }
 
-export const BOM: BomGroup[] = [
+export const SKILLS: SkillGroup[] = [
   {
     name: 'Languages',
     items: [
-      { part: 'C', usedIn: 'Lockheed Martin, Self-Driving Car Simulator' },
-      { part: 'C++', usedIn: 'Limbitless Solutions' },
-      { part: 'Python', usedIn: 'Self-Driving Car Simulator, PEP 25' },
-      { part: 'Java', usedIn: 'The Home Depot' },
-      { part: 'TypeScript', usedIn: 'The Home Depot, Volunteer Hub, Printing Profiles' },
-      { part: 'SQL', usedIn: 'Printing Profiles' },
-      { part: 'JavaScript', usedIn: '' },
-      { part: 'Bash', usedIn: '' },
-      { part: 'C#', usedIn: '' },
+      { name: 'C', usedIn: 'Lockheed Martin, Self-Driving Car Simulator' },
+      { name: 'C++', usedIn: 'Limbitless Solutions' },
+      { name: 'Python', usedIn: 'Self-Driving Car Simulator, PEP 25' },
+      { name: 'Java', usedIn: 'The Home Depot' },
+      { name: 'TypeScript', usedIn: 'The Home Depot, Volunteer Hub, Printing Profiles' },
+      { name: 'SQL', usedIn: 'Printing Profiles' },
+      { name: 'JavaScript', usedIn: '' },
+      { name: 'Bash', usedIn: '' },
+      { name: 'C#', usedIn: '' },
     ],
   },
   {
     name: 'Embedded',
     items: [
-      { part: 'FreeRTOS (RTOS)', usedIn: 'Self-Driving Car Simulator' },
-      { part: 'STM32 (ARM Cortex-M)', usedIn: 'Self-Driving Car Simulator' },
-      { part: 'ESP32', usedIn: 'Limbitless Solutions' },
-      { part: 'CAN Bus', usedIn: 'Self-Driving Car Simulator' },
-      { part: 'SPI', usedIn: 'Limbitless Solutions' },
-      { part: 'I2C', usedIn: 'Lockheed Martin' },
-      { part: 'KiCad', usedIn: 'Limbitless Solutions' },
-      { part: 'HIL/SIL', usedIn: 'Self-Driving Car Simulator' },
+      { name: 'FreeRTOS (RTOS)', usedIn: 'Self-Driving Car Simulator' },
+      { name: 'STM32 (ARM Cortex-M)', usedIn: 'Self-Driving Car Simulator' },
+      { name: 'ESP32', usedIn: 'Limbitless Solutions' },
+      { name: 'CAN Bus', usedIn: 'Self-Driving Car Simulator' },
+      { name: 'SPI', usedIn: 'Limbitless Solutions' },
+      { name: 'I2C', usedIn: 'Lockheed Martin' },
+      { name: 'KiCad', usedIn: 'Limbitless Solutions' },
+      { name: 'HIL/SIL', usedIn: 'Self-Driving Car Simulator' },
     ],
   },
   {
     name: 'Tools and platforms',
     items: [
-      { part: 'Linux', usedIn: 'PEP 25' },
-      { part: 'Git', usedIn: 'Lockheed Martin' },
-      { part: 'GitHub Actions (CI/CD)', usedIn: 'Self-Driving Car Simulator, Printing Profiles' },
-      { part: 'Docker', usedIn: 'Printing Profiles' },
-      { part: 'AWS', usedIn: 'The Home Depot' },
-      { part: 'PyTorch', usedIn: 'Self-Driving Car Simulator' },
-      { part: 'pytest', usedIn: '' },
+      { name: 'Linux', usedIn: 'PEP 25' },
+      { name: 'Git', usedIn: 'Lockheed Martin' },
+      { name: 'GitHub Actions (CI/CD)', usedIn: 'Self-Driving Car Simulator, Printing Profiles' },
+      { name: 'Docker', usedIn: 'Printing Profiles' },
+      { name: 'AWS', usedIn: 'The Home Depot' },
+      { name: 'PyTorch', usedIn: 'Self-Driving Car Simulator' },
+      { name: 'pytest', usedIn: '' },
     ],
   },
 ]

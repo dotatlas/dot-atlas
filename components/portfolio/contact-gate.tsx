@@ -44,6 +44,7 @@ export function ContactGate() {
   const box = useRef<HTMLDivElement>(null)
   const widget = useRef<string | null>(null)
   const [failed, setFailed] = useState(false)
+  const [blocked, setBlocked] = useState(false)
 
   const render = useCallback(() => {
     const ts = window.turnstile
@@ -85,8 +86,18 @@ export function ContactGate() {
 
   return (
     <div className="mt-12" data-reveal>
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" onReady={render} />
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+        onReady={render}
+        onError={() => setBlocked(true)}
+      />
       <div ref={box} className="min-h-[65px]" />
+      {blocked && (
+        <p role="alert" className="t-small m-0 mt-3">
+          The verification check could not load. A content blocker may be stopping it; allow challenges.cloudflare.com
+          and refresh.
+        </p>
+      )}
       {failed && (
         <p role="alert" className="t-small m-0 mt-3">
           That check didn’t go through.{' '}

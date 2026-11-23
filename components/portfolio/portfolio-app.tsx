@@ -6,7 +6,7 @@ import { INTRO_ENABLED, INTRO_SESSION_KEY } from '@/config/print-config'
 import { SiteNav } from './site-nav'
 import { Passage } from './passage'
 import { Education } from './education'
-import { Bom } from './bom'
+import { Skills } from './skills'
 import { Contact } from './contact'
 import { SiteFooter } from './site-footer'
 import { useReveal } from './use-reveal'
@@ -71,7 +71,7 @@ function Page({ ready, onReplay }: { ready: boolean; onReplay?: () => void }) {
       <SiteNav />
       <main>
         <Passage silk={ready} />
-        <Bom />
+        <Skills />
         <Education />
         <Contact />
       </main>

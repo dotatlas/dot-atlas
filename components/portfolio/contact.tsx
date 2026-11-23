@@ -46,8 +46,9 @@ function Actions({ email, linkedin, github }: { email: string; linkedin: string;
     }
   }
 
+  // no data-reveal here: this mounts after the page's reveal pass, so it brings its own entrance
   return (
-    <div data-reveal>
+    <div className="swap-in">
       {/* the address itself stays plain, selectable text; the buttons below act on it */}
       <p className="t-title m-0 break-all font-extrabold select-all [font-variation-settings:'wdth'_80]">{email}</p>
 

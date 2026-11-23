@@ -8,7 +8,7 @@ import { CircuitBoard } from '@/components/board/circuit-board'
 import { FIGURES, PROFILE, SECTIONS, type Entry } from '@/config/portfolio-content'
 import { useActivePart } from './use-reveal'
 import { useContact } from './contact-gate'
-import { PROJECT_FIGURES } from './project'
+import { ProjectFlow } from './project'
 
 const EXPERIENCE = SECTIONS.find((s) => s.id === 'experience')!
 const PROJECTS = SECTIONS.find((s) => s.id === 'projects')!
@@ -145,13 +145,13 @@ function Section({
 /**
  * One entry, role or project, always in the same order: title, status if it
  * is still being built, who and when, the one-line summary, its figure (a
- * measured result or a drawing), the details, then its stack and links.
+ * measured result or how the project fits together), the details, then its
+ * stack and links.
  */
 function Leg({ node, live, placeFirst }: { node: Entry; live: boolean; placeFirst: boolean }) {
   const [first, ...rest] = node.meta.split(' · ')
   const meta = placeFirst ? `${rest.join(' · ')} · ${first}` : node.meta
   const figure = FIGURES[node.id]
-  const Drawing = PROJECT_FIGURES[node.id]
   return (
     <article id={`role-${node.id}`} data-part={node.id} className="max-w-[36rem] scroll-mt-24 xl:max-w-[42rem]">
       <div className="flex items-start gap-4">
@@ -180,7 +180,7 @@ function Leg({ node, live, placeFirst }: { node: Entry; live: boolean; placeFirs
           <span className="max-w-[22ch] pb-2 font-semibold">{figure.label}</span>
         </p>
       )}
-      {Drawing && <Drawing />}
+      <ProjectFlow entry={node} />
 
       <ul className="mt-10 flex list-none flex-col gap-4 p-0">
         {node.details.map((d, i) => (

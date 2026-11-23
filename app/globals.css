@@ -332,97 +332,6 @@
   }
 }
 
-/* the bill of materials is a real table, so it keeps a table's rules */
-.bom th,
-.bom td {
-  padding: 0.85rem 1rem 0.85rem 0;
-  vertical-align: top;
-  border-bottom: 1px solid var(--rule);
-}
-
-.bom thead th {
-  padding-top: 0;
-  font-size: var(--step-small);
-  font-weight: 600;
-  color: var(--silk-2);
-}
-
-.bom .bom-group th {
-  padding-top: 2.5rem;
-  font-size: var(--step-lead);
-  font-weight: 800;
-  font-variation-settings: 'wdth' 90;
-  color: var(--silk);
-  border-bottom-color: var(--copper-dim);
-}
-
-.bom td:last-child,
-.bom th:last-child {
-  padding-right: 0;
-}
-
-/* contact board: current keeps arriving at the reply LED */
-.reply-pulse {
-  /* the traces are about 430 units long */
-  stroke-dasharray: 38 620;
-  stroke-dashoffset: 38;
-  animation: reply-pulse 2.6s cubic-bezier(0.45, 0, 0.2, 1) infinite;
-}
-
-@keyframes reply-pulse {
-  to {
-    stroke-dashoffset: -440;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .reply-pulse {
-    animation: none;
-    opacity: 0;
-  }
-}
-
-/* project schematic: signals keep moving across the seam */
-.schem-pulse {
-  stroke-dasharray: 30 1000;
-  stroke-dashoffset: 30;
-  animation: schem-pulse 2.4s cubic-bezier(0.45, 0, 0.2, 1) infinite;
-}
-
-@keyframes schem-pulse {
-  to {
-    stroke-dashoffset: -320;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .schem-pulse {
-    animation: none;
-    opacity: 0;
-  }
-}
-
-/* the schematic closes: one bright pass across the seam */
-.schem-connect {
-  animation: schem-connect 900ms var(--ease-out) both;
-}
-
-@keyframes schem-connect {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .schem-connect {
-    animation: none;
-    opacity: 0;
-  }
-}
-
 /* project status LEDs: a live site sends out a ring, a build in progress breathes */
 .status-live::after {
   content: '';
@@ -465,47 +374,52 @@
   }
 }
 
-/* Printing Profiles: the hotend sweeps a layer while it prints, like a real one slowing at each end */
-.pp-sweep {
-  animation: pp-sweep 0.9s var(--ease-in-out) infinite alternate;
-}
-
-@keyframes pp-sweep {
-  from {
-    transform: translateX(150px);
-  }
-  to {
-    transform: translateX(1050px);
-  }
-}
-
-.pp-verified {
-  opacity: 0.3;
-  transform: scale(0.96);
-  transition:
-    opacity 220ms var(--ease-out),
-    transform 220ms var(--ease-out);
-}
-
-.pp-verified.is-on {
-  opacity: 1;
-  transform: none;
-}
-
-/* HIL ECU: frames crossing the CAN bus, each fading in off one chip and out into the other */
 @media (prefers-reduced-motion: reduce) {
   .status-live::after,
   .status-build,
   .jack-act {
     animation: none;
   }
-  .pp-sweep {
-    animation: none;
-    transform: translateX(1030px);
+}
+
+/* project flow: two copper traces between chips, vertical on phones, horizontal from sm.
+   They sit dim, then fill once in order as the figure appears (deposition, not a loop). */
+.flow-trace {
+  position: relative;
+  width: 3px;
+  height: 100%;
+  background: var(--copper-dim);
+}
+
+.flow-trace::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--copper);
+  transform-origin: top;
+  transition: transform 520ms var(--ease-out) var(--d, 0ms);
+}
+
+.js [data-reveal]:not(.is-in) .flow-trace::after {
+  transform: scaleY(0);
+}
+
+@media (min-width: 640px) {
+  .flow-trace {
+    width: 100%;
+    height: 3px;
   }
-  .pp-verified {
-    transform: none;
-    transition: opacity 200ms ease;
+  .flow-trace::after {
+    transform-origin: left;
+  }
+  .js [data-reveal]:not(.is-in) .flow-trace::after {
+    transform: scaleX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-trace::after {
+    transition: none;
   }
 }
 
